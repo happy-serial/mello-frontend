@@ -1,0 +1,23 @@
+.button {
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+}
+
+.button--desktop {
+    font-size: 16px;
+    padding: 12px 24px;
+
+}
+
+.button--tablet {
+    font-size: 14px;
+    padding: 11px 20px;
+}
+
+.button--mobile {
+    font-size: 12px;
+    padding: 10px 16px;
+}
