@@ -36,12 +36,16 @@ export const Header = ({ isLogin, username }: HeaderProps) => {
             label="JOIN"
             backgroundColor={Colors.transparent}
             color={Colors.black}
+            purpose="link"
+            href="/join"
           />
           <Button
             label="LOG IN"
             backgroundColor={Colors.transparent}
             color={Colors.black}
             borderColor={Colors.black}
+            purpose="link"
+            href="/login"
           />
         </div>
       </div>
