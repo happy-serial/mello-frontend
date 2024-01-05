@@ -1,6 +1,6 @@
 import styles from "./css/profile.module.css";
 import Image from "next/image";
-import fonts from "../../../public/styles/fonts/fonts.module.css";
+import { nanumSquare } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 
 interface ProfileProps {
@@ -34,7 +34,7 @@ export const Profile = ({
         style={{ objectFit: "cover" }}
       />
       <div
-        className={[styles.profileName, fonts.nsrBold].join(" ")}
+        className={[styles.profileName, nanumSquare.className].join(" ")}
         style={{ color: Colors.black }}
       >
         {username}

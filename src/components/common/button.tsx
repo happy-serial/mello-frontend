@@ -1,5 +1,5 @@
 import styles from "./css/button.module.css";
-import fonts from "../../../public/styles/fonts/fonts.module.css";
+import { aldrich } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 
 interface ButtonProps {
@@ -25,7 +25,7 @@ export const Button = ({
       className={[
         styles.button,
         styles["button--" + size],
-        fonts.nsrBold,
+        aldrich.className,
       ].join(" ")}
       style={{ backgroundColor, color, border: `1.5px solid ${borderColor}` }}
       {...props}
