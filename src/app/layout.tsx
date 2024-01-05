@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   title: 'mello',
   description: 'mello company',
   icons: {
-    icon: "/resources/logo_mk14.png",
+    icon: "/resources/logo.png",
   },
 }
 

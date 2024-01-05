@@ -2,14 +2,13 @@
     border: 0;
     border-radius: 10px;
     cursor: pointer;
-    display: inline-block;
+    display: inline-block;    
     line-height: 1;
 }
 
 .button--large {
     font-size: 16px;
     padding: 12px 24px;
-
 }
 
 .button--middle {
