@@ -26,6 +26,7 @@ export const Login: Story = {
     backgroundColor: Colors.transparent,
     color: Colors.pink,
     borderColor: Colors.pink,
+    purpose: 'event',
   },
 };
 
@@ -34,5 +35,6 @@ export const Join: Story = {
     label: '회원가입',
     backgroundColor: Colors.transparent,
     color: Colors.black,
+    purpose: 'event',
   },
 };
