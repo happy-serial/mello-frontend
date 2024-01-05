@@ -1,15 +1,33 @@
 .header {
     width: 100%;
-    padding: 12px;
-    display: flex; /* flex container로 만들기 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .headerContents {
-    width: 100%;
-    margin: 0px 16px 0px 16px;
+    height: 100;
+    width: 98%;
+    padding: 0px 16px 0px 16px;
     display: flex;
     justify-content: space-between;
     max-width: 2000px;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logoText {
+    margin-top: 12px;
+    margin-left: 6px;
+    font-size: 40px;
+    font-weight: 400;
+    background: var(--temp, linear-gradient(180deg, #000 0%, #5C57A1 48.58%, #938DD2 99.99%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
