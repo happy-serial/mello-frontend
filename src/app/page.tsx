@@ -1,9 +1,7 @@
-import { Button } from "@/components/common/button"
+import { Header } from "@/components/layout/header";
 
 export default function Home() {
   return (
-    <div>
-      <Button label="안녕하시오" backgroundColor="pink" color="blue" />
-    </div>
-  )
+    <Header />
+  );
 }

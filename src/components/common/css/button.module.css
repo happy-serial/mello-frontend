@@ -2,22 +2,21 @@
     border: 0;
     border-radius: 10px;
     cursor: pointer;
-    display: inline-block;
+    display: inline-block;    
     line-height: 1;
 }
 
-.button--desktop {
+.button--large {
     font-size: 16px;
     padding: 12px 24px;
-
 }
 
-.button--tablet {
+.button--middle {
     font-size: 14px;
     padding: 11px 20px;
 }
 
-.button--mobile {
+.button--small {
     font-size: 12px;
     padding: 10px 16px;
 }
