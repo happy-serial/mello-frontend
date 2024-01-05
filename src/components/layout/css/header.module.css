@@ -1,0 +1,15 @@
+.header {
+    width: 100%;
+    padding: 12px;
+    display: flex; /* flex container로 만들기 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.headerContents {
+    width: 100%;
+    margin: 0px 16px 0px 16px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 2000px;
+}
