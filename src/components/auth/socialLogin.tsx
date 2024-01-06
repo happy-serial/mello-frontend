@@ -46,6 +46,7 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
         <button
           className={styles.socialLoginButton}
           onClick={() => signIn("google")}
+          style={{ backgroundColor: Colors.white }}
         >
           <Image src={"/resources/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
         </button>

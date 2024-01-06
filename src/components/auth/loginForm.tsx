@@ -6,11 +6,11 @@ import { Colors } from "../../../public/styles/colors/colors";
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
 import { SocialLogin } from "./socialLogin";
+import { Spacer } from "../common/spacer";
 
 interface LoginFormProps {}
 
 export const LoginForm = ({ ...props }: LoginFormProps) => {
-
   const joinText = "Don't have an account?";
 
   return (
@@ -21,6 +21,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       <div className={[blackOpsOne.className, styles.logoText].join(" ")}>
         mello
       </div>
+      <Spacer shape="height" size="10px" />
       <TextField
         type="text"
         borderColor={Colors.gray}
@@ -30,6 +31,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           console.log(e.target.value);
         }}
       />
+      <Spacer shape="height" size="8px" />
       <TextField
         type="password"
         borderColor={Colors.gray}
@@ -48,6 +50,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           color={Colors.purple}
         />
       </div>
+      <Spacer shape="height" size="8px" />
       <div className={styles.loginButtonContainer}>
         <Button
           size="wide"
@@ -69,7 +72,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           color={Colors.purple}
         />
       </div>
-      <SocialLogin/>
+      <SocialLogin />
     </div>
   );
 };
