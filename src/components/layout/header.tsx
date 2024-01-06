@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import styles from "./css/header.module.css";
+import styles from './css/header.module.css';
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 

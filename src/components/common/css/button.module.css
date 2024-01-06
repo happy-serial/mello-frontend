@@ -1,6 +1,5 @@
 .button {
     border: 0;
-    border-radius: 10px;
     cursor: pointer;
     display: inline-block;    
     line-height: 1;
@@ -8,15 +7,30 @@
 
 .button--large {
     font-size: 16px;
+    border-radius: 10px;
     padding: 12px 24px;
 }
 
 .button--middle {
     font-size: 14px;
+    border-radius: 10px;
     padding: 11px 20px;
 }
 
 .button--small {
     font-size: 12px;
+    border-radius: 10px;
     padding: 10px 16px;
+}
+
+.button--wide {
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 14px 0px;
+    width: 90%;
+    text-align: center;
+}
+
+.button--text {
+    font-size: 16px;
 }

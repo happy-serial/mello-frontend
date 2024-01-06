@@ -7,7 +7,7 @@ interface ButtonProps {
   backgroundColor?: Colors;
   color?: Colors;
   borderColor?: Colors;
-  size?: "large" | "middle" | "small";
+  size?: "large" | "middle" | "small" | "wide" | "text";
   purpose: "event" | "link";
   label: string;
   onClick?: () => void;
