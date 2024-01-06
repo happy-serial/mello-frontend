@@ -1,0 +1,12 @@
+:root {
+    background-color: white;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+a:-webkit-any-link {
+    text-decoration: none !important;
+}

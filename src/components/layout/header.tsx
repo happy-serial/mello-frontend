@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import styles from "./css/header.module.css";
+import styles from './css/header.module.css';
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 
@@ -36,12 +36,16 @@ export const Header = ({ isLogin, username }: HeaderProps) => {
             label="JOIN"
             backgroundColor={Colors.transparent}
             color={Colors.black}
+            purpose="link"
+            href="/join"
           />
           <Button
             label="LOG IN"
             backgroundColor={Colors.transparent}
             color={Colors.black}
             borderColor={Colors.black}
+            purpose="link"
+            href="/login"
           />
         </div>
       </div>
