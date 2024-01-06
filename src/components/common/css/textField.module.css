@@ -1,4 +1,6 @@
 .textFieldContainer {
+    display: flex;
+    align-items: center;
 }
 
 .textField {
@@ -13,4 +15,8 @@
 
 .textField:focus {
     border: 2px solid #beadfa;
+}
+
+.toggleButton {
+    position: relative;
 }
