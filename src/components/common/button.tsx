@@ -42,7 +42,7 @@ export const Button = ({
   } else if (purpose === "link") {
     return (
       <Link
-        href={href!} 
+        href={href!}
         type="button"
         className={[
           styles.button,
@@ -50,11 +50,10 @@ export const Button = ({
           aldrich.className,
         ].join(" ")}
         style={{ backgroundColor, color, border: `1.5px solid ${borderColor}` }}
-        {...props}      >
+        {...props}
+      >
         {label}
       </Link>
     );
   }
-  
-    
 };
