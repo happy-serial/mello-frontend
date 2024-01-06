@@ -1,0 +1,38 @@
+.verificationContainer {
+    width: 440px;
+    height: 600px;
+    padding: 24px;
+    border-radius: 10px;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoText {
+    font-size: 60px;
+    font-weight: 400;
+    background: var(--temp, linear-gradient(180deg, #000 0%, #5C57A1 48.58%, #938DD2 99.99%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px black;
+}
+
+.sendVerificationContainer {
+    width: 108%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 45px;
+}
+
+.verificationButtonContainer {
+    width: 108%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

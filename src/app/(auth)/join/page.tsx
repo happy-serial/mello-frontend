@@ -1,9 +1,21 @@
-import { Header } from "@/components/layout/header";
+"use client";
+
+import { JoinFormEmailVerification } from "@/components/auth/joinFormEmailVerification";
+import {Background} from "@/components/auth/background"
 
 export default function Home() {
   return (
-    <div>
-      <>회원가입 페이지입니다.</>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      <Background/>
+      <JoinFormEmailVerification/>
     </div>
   );
 }
