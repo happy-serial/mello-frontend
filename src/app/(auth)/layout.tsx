@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import AuthSession from "./authSession";
 import "./globals.css";
-
 
 export const metadata: Metadata = {
   title: "mello",
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AuthSession>{children}</AuthSession>
       </body>
     </html>
   );
