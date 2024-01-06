@@ -4,6 +4,7 @@ import { TextField } from "@/components/common/textField";
 import { blackOpsOne } from "../../../../public/styles/fonts/fonts";
 import { Colors } from "../../../../public/styles/colors/colors";
 import { LoginForm } from "@/components/auth/loginForm";
+import {Background} from "@/components/background"
 
 export default function Home() {
   return (
@@ -13,10 +14,10 @@ export default function Home() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: Colors.black,
+        justifyContent: "center"
       }}
     >
+      <Background />
       <LoginForm/>
     </div>
   );
