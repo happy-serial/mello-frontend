@@ -4,6 +4,7 @@
     padding: 24px;
     border-radius: 10px;
     display: flex;
+    position: fixed;
     flex-direction: column;
     justify-content: center;
     align-items: center;

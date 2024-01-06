@@ -4,7 +4,7 @@ import { TextField } from "@/components/common/textField";
 import { blackOpsOne } from "../../../../public/styles/fonts/fonts";
 import { Colors } from "../../../../public/styles/colors/colors";
 import { LoginForm } from "@/components/auth/loginForm";
-import {Background} from "@/components/background"
+import {Background} from "@/components/auth/background"
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         justifyContent: "center"
       }}
     >
-      <Background />
+      <Background/>
       <LoginForm/>
     </div>
   );
