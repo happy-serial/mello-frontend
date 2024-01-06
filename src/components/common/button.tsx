@@ -5,6 +5,7 @@ import Link from "next/link";
 
 interface ButtonProps {
   backgroundColor?: Colors;
+  background?: Colors;
   color?: Colors;
   borderColor?: Colors;
   size?: "large" | "middle" | "small" | "wide" | "text";
@@ -16,6 +17,7 @@ interface ButtonProps {
 
 export const Button = ({
   backgroundColor,
+  background,
   color,
   borderColor,
   size = "large",
@@ -33,7 +35,7 @@ export const Button = ({
           styles["button--" + size],
           aldrich.className,
         ].join(" ")}
-        style={{ backgroundColor, color, border: `1.5px solid ${borderColor}` }}
+        style={{ backgroundColor, color, border: `1.5px solid ${borderColor}`, background }}
         {...props}
       >
         {label}

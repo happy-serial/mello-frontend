@@ -1,4 +1,4 @@
-.loginFormContainer {
+.verificationContainer {
     width: 440px;
     height: 600px;
     padding: 24px;
@@ -20,24 +20,19 @@
     -webkit-text-stroke: 1px black;
 }
 
-.findPasswordContainer {
+.sendVerificationContainer {
     width: 108%;
     display: flex;
     justify-content: end;
     align-items: center;
     margin-top: 10px;
+    margin-right: 45px;
 }
 
-.loginButtonContainer {
+.verificationButtonContainer {
     width: 108%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-}
-
-.joinContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

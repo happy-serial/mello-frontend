@@ -14,7 +14,7 @@ interface TextFieldProps {
   backgroundColor?: Colors;
   boxShadowColor?: Colors;
   placeholder?: string;
-  type: "text" | "password";
+  type: "text" | "password" | "email";
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
