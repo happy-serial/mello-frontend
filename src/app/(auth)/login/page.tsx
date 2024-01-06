@@ -1,8 +1,5 @@
 "use client";
 
-import { TextField } from "@/components/common/textField";
-import { blackOpsOne } from "../../../../public/styles/fonts/fonts";
-import { Colors } from "../../../../public/styles/colors/colors";
 import { LoginForm } from "@/components/auth/loginForm";
 import {Background} from "@/components/auth/background"
 
