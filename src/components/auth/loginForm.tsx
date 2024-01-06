@@ -2,10 +2,10 @@
 
 import styles from "./css/loginForm.module.css";
 import { TextField } from "@/components/common/textField";
-import { aldrich } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
+import { SocialLogin } from "./socialLogin";
 
 interface LoginFormProps {}
 
@@ -59,7 +59,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
         />
       </div>
       <div className={styles.joinContainer}>
-        <p>{joinText}&nbsp;</p>
+        <p style={{ color: Colors.black, fontWeight: 300 }}>{joinText}&nbsp;</p>
         <Button
           size="text"
           backgroundColor={Colors.transparent}
@@ -69,6 +69,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           color={Colors.purple}
         />
       </div>
+      <SocialLogin/>
     </div>
   );
 };

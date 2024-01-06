@@ -12,4 +12,8 @@ export enum Colors {
     pinkTransparent = '#FF8CAB66',
     yellowTransparent = '#FFEBAF66',
     transparent = 'transparent',
+
+    naverGreen = "#2DB400",
+    kakaoYellow = "#FEE500",
+    kakaoBlack = "#000000E6"
 }
