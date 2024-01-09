@@ -7,6 +7,7 @@ import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
 import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
+import Link from "next/link";
 
 interface LoginFormProps {}
 
@@ -18,9 +19,9 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       className={styles.loginFormContainer}
       style={{ backgroundColor: Colors.whiteTransparent }}
     >
-      <div className={[blackOpsOne.className, styles.logoText].join(" ")}>
+      <Link className={[blackOpsOne.className, styles.logoText].join(" ")} href={"/"}>
         mello
-      </div>
+      </Link>
       <Spacer shape="height" size="10px" />
       <TextField
         type="email"

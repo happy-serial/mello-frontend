@@ -23,7 +23,7 @@
 .sendVerificationContainer {
     width: 108%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 10px;
     margin-right: 45px;
