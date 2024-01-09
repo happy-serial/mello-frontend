@@ -1,10 +1,7 @@
 "use client";
 
-import { TextField } from "@/components/common/textField";
-import { blackOpsOne } from "../../../../public/styles/fonts/fonts";
-import { Colors } from "../../../../public/styles/colors/colors";
 import { LoginForm } from "@/components/auth/loginForm";
-import {Background} from "@/components/background"
+import {Background} from "@/components/auth/background"
 
 export default function Home() {
   return (
@@ -17,7 +14,15 @@ export default function Home() {
         justifyContent: "center"
       }}
     >
-      <Background />
+
+      <Background 
+        particleCount={2700} 
+        size={0.07} 
+        segment={4} 
+        backgroundColorPreset="preset2" 
+        animateDirection="twist" 
+        animateSpeed={0.0007}
+      />
       <LoginForm/>
     </div>
   );

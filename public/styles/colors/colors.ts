@@ -13,6 +13,8 @@ export enum Colors {
     yellowTransparent = '#FFEBAF66',
     transparent = 'transparent',
 
+    mainGradient = 'var(--background, linear-gradient(180deg, rgba(100, 113, 166, 0.90) 33.48%, rgba(93, 135, 169, 0.90) 61.6%, rgba(97, 139, 158, 0.90) 84%))',
+
     naverGreen = "#2DB400",
     kakaoYellow = "#FEE500",
     kakaoBlack = "#000000E6"

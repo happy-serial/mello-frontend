@@ -1,21 +1,21 @@
 "use client";
 
-import styles from "./css/loginForm.module.css";
+import styles from "./css/joinFormEmailVerification.module.css";
 import { TextField } from "@/components/common/textField";
 import { Colors } from "../../../public/styles/colors/colors";
-import { blackOpsOne } from "../../../public/styles/fonts/fonts";
+import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
 import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
 
-interface LoginFormProps {}
+interface JoinFormEmailVerificationProps {}
 
-export const LoginForm = ({ ...props }: LoginFormProps) => {
-  const joinText = "Don't have an account?";
-
+export const JoinFormEmailVerification = ({
+  ...props
+}: JoinFormEmailVerificationProps) => {
   return (
     <div
-      className={styles.loginFormContainer}
+      className={styles.verificationContainer}
       style={{ backgroundColor: Colors.whiteTransparent }}
     >
       <div className={[blackOpsOne.className, styles.logoText].join(" ")}>
@@ -31,47 +31,41 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           console.log(e.target.value);
         }}
       />
-      <Spacer shape="height" size="8px" />
+      <div className={styles.sendVerificationContainer}>
+        <div className={aldrich.className} style={{ color: Colors.gray }}>
+          Send Code&nbsp;&nbsp;
+        </div>
+        <Button
+          background={Colors.mainGradient}
+          label="send"
+          size="middle"
+          purpose="event"
+          href="/"
+          color={Colors.white}
+        />
+      </div>
+      <Spacer shape="height" size="16px" />
       <TextField
-        type="password"
+        type="text"
         borderColor={Colors.gray}
         boxShadowColor={Colors.grayTransparent}
-        placeholder="Password"
+        placeholder="Verification Code"
         onChange={(e) => {
           console.log(e.target.value);
         }}
       />
-      <div className={styles.findPasswordContainer}>
-        <Button
-          backgroundColor={Colors.transparent}
-          label="Forgot Password?"
-          purpose="link"
-          href="/"
-          color={Colors.purple}
-        />
-      </div>
-      <Spacer shape="height" size="8px" />
-      <div className={styles.loginButtonContainer}>
+      <Spacer shape="height" size="16px" />
+      <div className={styles.verificationButtonContainer}>
         <Button
           size="wide"
           backgroundColor={Colors.purple}
           color={Colors.white}
-          label="Log In"
+          label="Continue"
           purpose="link"
           href="/"
         />
       </div>
-      <div className={styles.joinContainer}>
-        <p style={{ color: Colors.black, fontWeight: 300 }}>{joinText}&nbsp;</p>
-        <Button
-          size="text"
-          backgroundColor={Colors.transparent}
-          label="Join"
-          purpose="link"
-          href="/join"
-          color={Colors.purple}
-        />
-      </div>
+      <Spacer shape="height" size="16px" />
       <SocialLogin />
     </div>
   );
