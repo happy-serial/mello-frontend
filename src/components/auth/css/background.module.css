@@ -1,4 +1,22 @@
-.background {
+.background--preset1 {
+    background: linear-gradient(to bottom,  #0033ff 7%, #ff0000 90%);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+}
+
+.background--preset2 {
+    background: linear-gradient(to bottom,  #6471a6 7%, #5d87a9 20% ,#618B9E 35%, #040d29 90%);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+}
+
+.background--preset3 {
     background: linear-gradient(to bottom,  #6471a6 7%, #5d87a9 20% ,#618B9E 35%, #040d29 90%);
     width: 100%;
     height: 100%;
