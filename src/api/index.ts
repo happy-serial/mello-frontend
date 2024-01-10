@@ -1,4 +1,4 @@
-export const serverUrl = process.env.DEV_SERVER;
+export const serverUrl = process.env.NEXT_PUBLIC_DEV_SERVER;
 export type DefaultResponse<T> = {
     data: T | null,
     statusCode: number,

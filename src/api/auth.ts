@@ -1,21 +1,92 @@
-import { JoinRequest, LoginRequest, LoginResponse, SocialLoginRequest } from "@/model";
+import {
+  JoinRequest,
+  LoginRequest,
+  LoginResponse,
+  SocialLoginRequest,
+  VerificationResponse,
+  verificationRequest,
+} from "@/model";
 import { DefaultResponse, serverUrl } from ".";
 
 export const sendVerificationEmail = async (email: string) => {
-    
-}
+  try {
+    const response = await fetch(
+      `${serverUrl}/membership/approval-email`,
+      {
+        method: "POST",
+        cache: "no-store",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
+    const responseData: DefaultResponse<Object> = await response.json();
+    console.log(JSON.stringify(responseData));
 
-export const verifyEmailCode = async (code: string) => {
+    if (responseData.statusCode === 200) {
+      return "success";
+    } else {
+      throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-}
+export const verifyEmailCode = async (data: verificationRequest) => {
+  const response = await fetch(`${serverUrl}/membership/approve-email`, {
+    method: "POST",
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  const responseData: DefaultResponse<VerificationResponse> =
+    await response.json();
+
+  if (responseData.statusCode === 200) {
+    return responseData.data;
+  } else if (responseData.statusCode === 400) {
+    return responseData.message[0];
+  } else {
+    throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`);
+  }
+};
 
 export const join = async (data: JoinRequest) => {
+  const response = await fetch(`${serverUrl}/membership/join`, {
+    method: "POST",
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
 
-}
+  const responseData: DefaultResponse<null | Object> = await response.json();
+
+  if (responseData.statusCode === 201) {
+    return "success";
+  } else if (responseData.statusCode === 400) {
+    return responseData.message;
+  } else {
+    throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`);
+  }
+};
 
 export const login = async (data: LoginRequest) => {
+  const response = await fetch(`${serverUrl}/membership/login`, {
+    method: "POST",
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
 
-}
+  const responseData: DefaultResponse<LoginResponse> = await response.json();
+
+  if (responseData.statusCode === 200) {
+    return responseData.data;
+  } else {
+    throw new Error(`Failed to login: ${JSON.stringify(responseData)}`);
+  }
+};
 
 export const socialLogin = async (data: SocialLoginRequest) => {
   const response = await fetch(`${serverUrl}/membership/social-login`, {
@@ -33,7 +104,7 @@ export const socialLogin = async (data: SocialLoginRequest) => {
       await socialLogin(data);
     }
   } else if (responseData.statusCode === 200) {
-    return responseData;
+    return responseData.data;
   } else {
     throw new Error(`Failed to login: ${JSON.stringify(responseData)}`);
   }
