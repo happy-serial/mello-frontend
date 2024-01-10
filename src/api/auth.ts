@@ -54,7 +54,7 @@ export const verifyEmailCode = async (
   }
 };
 
-export const join = async (data: JoinRequest) => {
+export const join = async (data: JoinRequest): Promise<string|string[]> => {
   const response = await fetch(`${serverUrl}/membership/join`, {
     method: "POST",
     cache: "no-store",

@@ -7,7 +7,7 @@ export type JoinRequest = {
     email: string,
     password: string,
     memberName: string,
-    emailAllow: true
+    emailAllow: boolean
 }
 
 export type LoginRequest = {

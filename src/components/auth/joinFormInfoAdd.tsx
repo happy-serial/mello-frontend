@@ -5,19 +5,23 @@ import { TextField } from "@/components/common/textField";
 import { Colors } from "../../../public/styles/colors/colors";
 import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
-import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
 import Link from "next/link";
 import { useState } from "react";
-import { sendVerificationEmail, verifyEmailCode } from "@/api";
-import { VerificationResponse } from "@/model";
+import { SpringValue, animated } from "@react-spring/web";
+import { join } from "@/api";
+import { redirect } from "next/navigation";
 
 interface JoinFormInfoAddProps {
   emailState: string;
+  width: SpringValue<string>;
+  padding: SpringValue<string>;
 }
 
 export const JoinFormInfoAdd = ({
   emailState,
+  width,
+  padding,
   ...props
 }: JoinFormInfoAddProps) => {
   const [usernameState, setUsernameState] = useState("");
@@ -25,10 +29,36 @@ export const JoinFormInfoAdd = ({
   const [confirmPasswordState, setConfirmPasswordState] = useState("");
   const [emailAllowState, setEmailAllowState] = useState(false);
 
+  const handleJoin = async () => {
+    const response = await join({
+      email: emailState,
+      password: passwordState,
+      memberName: usernameState,
+      emailAllow: emailAllowState,
+    });
+
+    if (typeof response === "string") {
+      redirect("/");
+    } else {
+      alert(response);
+    }
+  };
+
   return (
-    <div
-      className={styles.userInfoContainer}
-      style={{ backgroundColor: Colors.whiteTransparent }}
+    <animated.div
+      style={{
+        width: width,
+        height: "600px",
+        padding: padding,
+        borderRadius: "10px",
+        display: "flex",
+        position: "fixed",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.whiteTransparent,
+        overflow: "hidden",
+      }}
     >
       <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
@@ -77,7 +107,9 @@ export const JoinFormInfoAdd = ({
             setEmailAllowState(e.target.checked);
           }}
         />
-        <span style={{ color: Colors.gray, verticalAlign: "-2px" }}>이메일 수신 동의</span>
+        <span style={{ color: Colors.gray, verticalAlign: "-2px" }}>
+          이메일 수신 동의
+        </span>
       </div>
       <Spacer shape="height" size="16px" />
       <div className={styles.JoinButtonContainer}>
@@ -88,9 +120,14 @@ export const JoinFormInfoAdd = ({
           label="Join"
           purpose="event"
           onClick={() => console.log("asdf")}
-          disabled={!usernameState || !passwordState || !confirmPasswordState}
+          disabled={
+            !usernameState ||
+            !passwordState ||
+            !confirmPasswordState ||
+            !emailAllowState
+          }
         />
       </div>
-    </div>
+    </animated.div>
   );
 };

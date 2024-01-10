@@ -47,10 +47,10 @@ export const Button = ({
         disabled={disabled}
         className={classNames}
         style={{
-          backgroundColor,
-          color,
+          backgroundColor: backgroundColor,
+          color: color,
           border: `1.5px solid ${borderColor}`,
-          background,
+          background: background,
         }}
         onClick={onClick}
         {...props}

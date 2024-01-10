@@ -11,17 +11,22 @@ import Link from "next/link";
 import { useState } from "react";
 import { sendVerificationEmail, verifyEmailCode } from "@/api";
 import { VerificationResponse } from "@/model";
+import { SpringValue, animated } from "@react-spring/web";
 
 interface JoinFormEmailVerificationProps {
   emailState: string;
   setEmailState: (value: string) => void;
   setVerifiedState: (value: boolean) => void;
+  width: SpringValue<string>;
+  padding: SpringValue<string>;
 }
 
 export const JoinFormEmailVerification = ({
   emailState,
   setEmailState,
   setVerifiedState,
+  width,
+  padding,
   ...props
 }: JoinFormEmailVerificationProps) => {
   const [verificationCodeState, setVerificationCodeState] = useState("");
@@ -52,9 +57,20 @@ export const JoinFormEmailVerification = ({
   };
 
   return (
-    <div
-      className={styles.verificationContainer}
-      style={{ backgroundColor: Colors.whiteTransparent }}
+    <animated.div
+      style={{
+        width: width,
+        height: "600px",
+        padding: padding,
+        borderRadius: "10px",
+        display: "flex",
+        position: "fixed",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.whiteTransparent,
+        overflow: "hidden",
+      }}
     >
       <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
@@ -109,6 +125,6 @@ export const JoinFormEmailVerification = ({
       </div>
       <Spacer shape="height" size="16px" />
       <SocialLogin />
-    </div>
+    </animated.div>
   );
 };
