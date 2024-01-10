@@ -10,15 +10,12 @@ import { DefaultResponse, serverUrl } from ".";
 
 export const sendVerificationEmail = async (email: string) => {
   try {
-    const response = await fetch(
-      `${serverUrl}/membership/approval-email`,
-      {
-        method: "POST",
-        cache: "no-store",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      }
-    );
+    const response = await fetch(`${serverUrl}/membership/approval-email`, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
     const responseData: DefaultResponse<Object> = await response.json();
     console.log(JSON.stringify(responseData));
 
@@ -32,7 +29,9 @@ export const sendVerificationEmail = async (email: string) => {
   }
 };
 
-export const verifyEmailCode = async (data: verificationRequest) => {
+export const verifyEmailCode = async (
+  data: verificationRequest
+): Promise<VerificationResponse | string> => {
   const response = await fetch(`${serverUrl}/membership/approve-email`, {
     method: "POST",
     cache: "no-store",
@@ -43,10 +42,13 @@ export const verifyEmailCode = async (data: verificationRequest) => {
   const responseData: DefaultResponse<VerificationResponse> =
     await response.json();
 
-  if (responseData.statusCode === 200) {
+    console.log(JSON.stringify(responseData));
+
+  if (responseData.statusCode === 200 && responseData.data) {
     return responseData.data;
   } else if (responseData.statusCode === 400) {
-    return responseData.message[0];
+    console.log(responseData.messages[0]);
+    return responseData.messages[0];
   } else {
     throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`);
   }
@@ -65,7 +67,7 @@ export const join = async (data: JoinRequest) => {
   if (responseData.statusCode === 201) {
     return "success";
   } else if (responseData.statusCode === 400) {
-    return responseData.message;
+    return responseData.messages;
   } else {
     throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`);
   }

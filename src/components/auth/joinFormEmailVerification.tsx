@@ -10,13 +10,20 @@ import { Spacer } from "../common/spacer";
 import Link from "next/link";
 import { useState } from "react";
 import { sendVerificationEmail, verifyEmailCode } from "@/api";
+import { VerificationResponse } from "@/model";
 
-interface JoinFormEmailVerificationProps {}
+interface JoinFormEmailVerificationProps {
+  emailState: string;
+  setEmailState: (value: string) => void;
+  setVerifiedState: (value: boolean) => void;
+}
 
 export const JoinFormEmailVerification = ({
+  emailState,
+  setEmailState,
+  setVerifiedState,
   ...props
 }: JoinFormEmailVerificationProps) => {
-  const [emailState, setEmailState] = useState("");
   const [verificationCodeState, setVerificationCodeState] = useState("");
   const [emailSentState, setEmailSentState] = useState(true);
 
@@ -28,10 +35,20 @@ export const JoinFormEmailVerification = ({
   };
 
   const handleContinueButton = async () => {
-    const response = await verifyEmailCode({
+    const response: VerificationResponse | string = await verifyEmailCode({
       email: emailState,
       approvalCode: verificationCodeState,
     });
+
+    if (typeof response === "string") {
+      alert(`${response}`);
+    } else {
+      if (response.emailIsValid) {
+        setVerifiedState(true);
+      } else {
+        alert("외앉됌?.");
+      }
+    }
   };
 
   return (
@@ -75,7 +92,7 @@ export const JoinFormEmailVerification = ({
         boxShadowColor={Colors.grayTransparent}
         placeholder="Verification Code"
         onChange={(e) => {
-          console.log(e.target.value);
+          setVerificationCodeState(e.target.value);
         }}
       />
       <Spacer shape="height" size="16px" />
@@ -86,7 +103,7 @@ export const JoinFormEmailVerification = ({
           color={Colors.white}
           label="Continue"
           purpose="event"
-          onClick={() => console.log("asdf")}
+          onClick={handleContinueButton}
           disabled={emailSentState}
         />
       </div>

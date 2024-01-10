@@ -1,9 +1,14 @@
 "use client";
 
 import { JoinFormEmailVerification } from "@/components/auth/joinFormEmailVerification";
-import {Background} from "@/components/auth/background"
+import { Background } from "@/components/auth/background";
+import { useState } from "react";
+import { JoinFormInfoAdd } from "@/components/auth/joinFormInfoAdd";
 
 export default function Home() {
+  const [emailState, setEmailState] = useState("");
+  const [verifiedState, setVerifiedState] = useState(false);
+
   return (
     <div
       style={{
@@ -11,11 +16,19 @@ export default function Home() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
-      <Background/>
-      <JoinFormEmailVerification/>
+      <Background />
+      {verifiedState ? (
+        <JoinFormEmailVerification
+          emailState={emailState}
+          setEmailState={setEmailState}
+          setVerifiedState={setVerifiedState}
+        />
+      ) : (
+        <JoinFormInfoAdd emailState={emailState} />
+      )}
     </div>
   );
 }
