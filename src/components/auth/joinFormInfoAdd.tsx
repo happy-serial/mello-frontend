@@ -3,7 +3,7 @@
 import styles from "./css/joinFormInfoAdd.module.css";
 import { TextField } from "@/components/common/textField";
 import { Colors } from "../../../public/styles/colors/colors";
-import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
+import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
 import { Spacer } from "../common/spacer";
 import Link from "next/link";
@@ -119,7 +119,7 @@ export const JoinFormInfoAdd = ({
           color={Colors.white}
           label="Join"
           purpose="event"
-          onClick={() => console.log("asdf")}
+          onClick={handleJoin}
           disabled={
             !usernameState ||
             !passwordState ||

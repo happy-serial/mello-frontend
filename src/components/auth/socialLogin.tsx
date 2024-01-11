@@ -47,7 +47,7 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
           onClick={() => signIn("google", { callbackUrl: "/" })}
           style={{ backgroundColor: Colors.white }}
         >
-          <Image src={"/resources/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
+          <Image src={"/Image/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
         </button>
       </div>
     </div>

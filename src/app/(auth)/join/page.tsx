@@ -4,12 +4,21 @@ import { JoinFormEmailVerification } from "@/components/auth/joinFormEmailVerifi
 import { Background } from "@/components/auth/background";
 import { useState } from "react";
 import { JoinFormInfoAdd } from "@/components/auth/joinFormInfoAdd";
-import { useSpring, useChain, useSpringRef } from "@react-spring/web";
+import { easings, useSpring, useChain, useSpringRef } from "@react-spring/web";
 
 export default function Home() {
   const [emailState, setEmailState] = useState("");
   const [verifiedState, setVerifiedState] = useState(false);
 
+  const animationConfig = {
+    mass: 2,
+    friction: 20,
+    tension: 200,
+    bounce: 0.5,
+  };
+  // const animationConfig = {
+  //   easing: easings.
+  // }
   const closeApi = useSpringRef();
   const close = useSpring({
     ref: closeApi,
@@ -18,7 +27,7 @@ export default function Home() {
       width: !verifiedState ? "440px" : "0px",
       padding: !verifiedState ? "24px" : "0px",
     },
-    config: { duration: 250 },
+    config: animationConfig,
   });
 
   const openApi = useSpringRef();
@@ -29,10 +38,10 @@ export default function Home() {
       width: !verifiedState ? "0px" : "440px",
       padding: !verifiedState ? "0px" : "24px",
     },
-    config: { duration: 250 },
+    config: animationConfig,
   });
 
-  useChain([closeApi, openApi], [0, 0.5], 500);
+  useChain([closeApi, openApi], [0, 0.9], 1000);
 
   return (
     <div

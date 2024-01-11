@@ -21,3 +21,10 @@ export const Desktop: Story = {
     username: "김상수"
   },
 };
+
+export const Mobile: Story = {
+  args: {
+    size: "small",
+    username: "서범수"
+  },
+};

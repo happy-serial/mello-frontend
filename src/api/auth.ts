@@ -42,7 +42,7 @@ export const verifyEmailCode = async (
   const responseData: DefaultResponse<VerificationResponse> =
     await response.json();
 
-    console.log(JSON.stringify(responseData));
+  console.log(JSON.stringify(responseData));
 
   if (responseData.statusCode === 200 && responseData.data) {
     return responseData.data;
@@ -54,7 +54,7 @@ export const verifyEmailCode = async (
   }
 };
 
-export const join = async (data: JoinRequest): Promise<string|string[]> => {
+export const join = async (data: JoinRequest): Promise<string | string[]> => {
   const response = await fetch(`${serverUrl}/membership/join`, {
     method: "POST",
     cache: "no-store",
