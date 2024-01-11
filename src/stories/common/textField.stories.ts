@@ -22,6 +22,7 @@ export const Login: Story = {
   args: {
     placeholder: "Email Address",
     borderColor: Colors.gray,
+    type: "text",
     onChange: (e) => console.log(e.target.value),
   },
 };

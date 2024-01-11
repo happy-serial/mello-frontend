@@ -7,20 +7,77 @@ import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Button } from "../common/button";
 import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
+import Link from "next/link";
+import { useState } from "react";
+import { sendVerificationEmail, verifyEmailCode } from "@/api";
+import { VerificationResponse } from "@/model";
+import { SpringValue, animated } from "@react-spring/web";
 
-interface JoinFormEmailVerificationProps {}
+interface JoinFormEmailVerificationProps {
+  emailState: string;
+  setEmailState: (value: string) => void;
+  setVerifiedState: (value: boolean) => void;
+  width: SpringValue<string>;
+  padding: SpringValue<string>;
+}
 
 export const JoinFormEmailVerification = ({
+  emailState,
+  setEmailState,
+  setVerifiedState,
+  width,
+  padding,
   ...props
 }: JoinFormEmailVerificationProps) => {
+  const [verificationCodeState, setVerificationCodeState] = useState("");
+  const [emailSentState, setEmailSentState] = useState(true);
+
+  const handleSendButton = async () => {
+    const response = await sendVerificationEmail(emailState);
+    if (response === "success") {
+      setEmailSentState(false);
+    }
+  };
+
+  const handleContinueButton = async () => {
+    const response: VerificationResponse | string = await verifyEmailCode({
+      email: emailState,
+      approvalCode: verificationCodeState,
+    });
+
+    if (typeof response === "string") {
+      alert(`${response}`);
+    } else {
+      if (response.emailIsValid) {
+        setVerifiedState(true);
+      } else {
+        alert("외앉됌?.");
+      }
+    }
+  };
+
   return (
-    <div
-      className={styles.verificationContainer}
-      style={{ backgroundColor: Colors.whiteTransparent }}
+    <animated.div
+      style={{
+        width: width,
+        height: "600px",
+        padding: padding,
+        borderRadius: "10px",
+        display: "flex",
+        position: "fixed",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.whiteTransparent,
+        overflow: "hidden",
+      }}
     >
-      <div className={[blackOpsOne.className, styles.logoText].join(" ")}>
+      <Link
+        className={[blackOpsOne.className, styles.logoText].join(" ")}
+        href={"/"}
+      >
         mello
-      </div>
+      </Link>
       <Spacer shape="height" size="10px" />
       <TextField
         type="email"
@@ -28,7 +85,7 @@ export const JoinFormEmailVerification = ({
         boxShadowColor={Colors.grayTransparent}
         placeholder="Email Address"
         onChange={(e) => {
-          console.log(e.target.value);
+          setEmailState(e.target.value);
         }}
       />
       <div className={styles.sendVerificationContainer}>
@@ -40,8 +97,8 @@ export const JoinFormEmailVerification = ({
           label="send"
           size="middle"
           purpose="event"
-          href="/"
           color={Colors.white}
+          onClick={handleSendButton}
         />
       </div>
       <Spacer shape="height" size="16px" />
@@ -51,7 +108,7 @@ export const JoinFormEmailVerification = ({
         boxShadowColor={Colors.grayTransparent}
         placeholder="Verification Code"
         onChange={(e) => {
-          console.log(e.target.value);
+        setVerificationCodeState(e.target.value);
         }}
       />
       <Spacer shape="height" size="16px" />
@@ -61,12 +118,13 @@ export const JoinFormEmailVerification = ({
           backgroundColor={Colors.purple}
           color={Colors.white}
           label="Continue"
-          purpose="link"
-          href="/"
+          purpose="event"
+          onClick={handleContinueButton}
+          disabled={emailSentState}
         />
       </div>
       <Spacer shape="height" size="16px" />
       <SocialLogin />
-    </div>
+    </animated.div>
   );
 };

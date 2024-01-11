@@ -8,7 +8,6 @@ import { signIn } from "next-auth/react";
 
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
-import { FaGoogle } from "react-icons/fa";
 import Image from "next/image";
 
 interface SocialLoginProps {}
@@ -31,24 +30,24 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
       <div className={styles.socialLoginButtonList}>
         <button
           className={styles.socialLoginButton}
-          onClick={() => signIn("naver")}
+          onClick={() => signIn("naver", { callbackUrl: "/" })}
           style={{ backgroundColor: Colors.naverGreen }}
         >
           <SiNaver size={24} color={Colors.white} />
         </button>
         <button
           className={styles.socialLoginButton}
-          onClick={() => signIn("kakao")}
+          onClick={() => signIn("kakao", { callbackUrl: "/" })}
           style={{ backgroundColor: Colors.kakaoYellow }}
         >
           <RiKakaoTalkFill size={34} color={Colors.kakaoBlack} />
         </button>
         <button
           className={styles.socialLoginButton}
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           style={{ backgroundColor: Colors.white }}
         >
-          <Image src={"/resources/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
+          <Image src={"/Image/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
         </button>
       </div>
     </div>
