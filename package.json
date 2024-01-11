@@ -46,6 +46,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.1.1",
     "@vitest/ui": "^1.1.1",
+    "encoding": "^0.1.13",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-plugin-storybook": "^0.6.15",

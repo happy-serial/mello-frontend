@@ -14,6 +14,7 @@ export default function Home() {
         justifyContent: "center"
       }}
     >
+
       <Background/>
       <LoginForm/>
     </div>

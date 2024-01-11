@@ -1,6 +1,7 @@
 "use client";
 
 import { JoinFormEmailVerification } from "@/components/auth/joinFormEmailVerification";
+
 import { Background } from "@/components/auth/background";
 import { useState } from "react";
 import { JoinFormInfoAdd } from "@/components/auth/joinFormInfoAdd";
