@@ -8,18 +8,41 @@ import { Button } from "../common/button";
 import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { login } from "@/api";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 interface LoginFormProps {}
 
 export const LoginForm = ({ ...props }: LoginFormProps) => {
+  const [emailState, setEmailState] = useState("");
+  const [passwordState, setPasswordState] = useState("");
   const joinText = "Don't have an account?";
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    const response = await login({
+      email: emailState,
+      password: passwordState,
+    });
+    if (response.accessToken) {
+      Cookies.set("access-token", response.accessToken, {secure: true});
+      Cookies.set("refresh-token", response.refreshToken, {secure: true});
+
+      router.push("/");
+    }
+  };
 
   return (
     <div
       className={styles.loginFormContainer}
       style={{ backgroundColor: Colors.whiteTransparent }}
     >
-      <Link className={[blackOpsOne.className, styles.logoText].join(" ")} href={"/"}>
+      <Link
+        className={[blackOpsOne.className, styles.logoText].join(" ")}
+        href={"/"}
+      >
         mello
       </Link>
       <Spacer shape="height" size="10px" />
@@ -29,7 +52,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
         boxShadowColor={Colors.grayTransparent}
         placeholder="Email Address"
         onChange={(e) => {
-          console.log(e.target.value);
+          setEmailState(e.target.value);
         }}
       />
       <Spacer shape="height" size="8px" />
@@ -39,7 +62,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
         boxShadowColor={Colors.grayTransparent}
         placeholder="Password"
         onChange={(e) => {
-          console.log(e.target.value);
+          setPasswordState(e.target.value);
         }}
       />
       <div className={styles.findPasswordContainer}>
@@ -58,7 +81,8 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
           backgroundColor={Colors.purple}
           color={Colors.white}
           label="Log In"
-          purpose="link"
+          purpose="event"
+          onClick={handleLogin}
           href="/"
         />
       </div>

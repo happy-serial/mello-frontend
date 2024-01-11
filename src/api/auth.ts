@@ -73,7 +73,7 @@ export const join = async (data: JoinRequest): Promise<string | string[]> => {
   }
 };
 
-export const login = async (data: LoginRequest) => {
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   const response = await fetch(`${serverUrl}/membership/login`, {
     method: "POST",
     cache: "no-store",
@@ -84,7 +84,7 @@ export const login = async (data: LoginRequest) => {
   const responseData: DefaultResponse<LoginResponse> = await response.json();
 
   if (responseData.statusCode === 200) {
-    return responseData.data;
+    return responseData.data!;
   } else {
     throw new Error(`Failed to login: ${JSON.stringify(responseData)}`);
   }

@@ -9,8 +9,9 @@ import { Spacer } from "../common/spacer";
 import Link from "next/link";
 import { useState } from "react";
 import { SpringValue, animated } from "@react-spring/web";
-import { join } from "@/api";
-import { redirect } from "next/navigation";
+import { join, login } from "@/api";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 interface JoinFormInfoAddProps {
   emailState: string;
@@ -28,6 +29,7 @@ export const JoinFormInfoAdd = ({
   const [passwordState, setPasswordState] = useState("");
   const [confirmPasswordState, setConfirmPasswordState] = useState("");
   const [emailAllowState, setEmailAllowState] = useState(false);
+  const router = useRouter();
 
   const handleJoin = async () => {
     const response = await join({
@@ -38,9 +40,22 @@ export const JoinFormInfoAdd = ({
     });
 
     if (typeof response === "string") {
-      redirect("/");
+      await handleLogin();
     } else {
       alert(response);
+    }
+  };
+
+  const handleLogin = async () => {
+    const response = await login({
+      email: emailState,
+      password: passwordState,
+    });
+    if (response.accessToken) {
+      Cookies.set("access-token", response.accessToken, {secure: true});
+      Cookies.set("refresh-token", response.refreshToken, {secure: true});
+
+      router.push("/");
     }
   };
 
