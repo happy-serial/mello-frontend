@@ -21,7 +21,7 @@ export const Header = ({ isLogin, username }: HeaderProps) => {
         <div className={styles.logo}>
           <Image
             alt="company logo"
-            src="/resources/logo.png"
+            src="/Image/logo.png"
             width={60}
             height={60}
             style={{ objectFit: "contain" }}

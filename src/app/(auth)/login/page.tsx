@@ -12,10 +12,9 @@ export default function Home() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
-
       <Background 
         particleCount={1000} 
         size={0.1} 
@@ -25,7 +24,7 @@ export default function Home() {
         animateDirection="closer" 
         animateSpeed={0.1}
       />
-      <LoginForm/>
+      <LoginForm />
     </div>
   );
 }
