@@ -1,7 +1,8 @@
 "use client";
 
 import { LoginForm } from "@/components/auth/loginForm";
-import { Background } from "@/components/auth/background";
+import {Background} from "@/components/auth/background"
+import { Colors } from "../../../../public/styles/colors/colors";
 
 export default function Home() {
   return (
@@ -14,13 +15,14 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
-      <Background
-        particleCount={2700}
-        size={0.07}
-        segment={4}
-        backgroundColorPreset="preset2"
-        animateDirection="twist"
-        animateSpeed={0.0007}
+      <Background 
+        particleCount={1000} 
+        size={0.1} 
+        segment={3} 
+        backgroundColorPreset="preset1"
+        lightColor={Colors.white}
+        animateDirection="closer" 
+        animateSpeed={0.1}
       />
       <LoginForm />
     </div>
