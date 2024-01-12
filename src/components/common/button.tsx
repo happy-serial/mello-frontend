@@ -50,7 +50,7 @@ export const Button = ({
           backgroundColor: backgroundColor,
           color: color,
           border: `1.5px solid ${borderColor}`,
-          background: background,
+          background: background ? background : backgroundColor,
         }}
         onClick={onClick}
         {...props}

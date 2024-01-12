@@ -8,6 +8,7 @@ export enum Colors {
     yellow = '#FFEBAF',
     
     whiteTransparent = '#FFFFFFBF',
+    whiteTransparent40 = '#FFFFFF5F',
     grayTransparent = '#88888866',
     pinkTransparent = '#FF8CAB66',
     yellowTransparent = '#FFEBAF66',
