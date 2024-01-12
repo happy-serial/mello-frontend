@@ -1,18 +1,12 @@
-
 import { Colors } from "../../../public/styles/colors/colors";
 
 interface LineProps {
-    color: Colors;
-    length: string;
-    thickness?: number;
+  color: Colors;
+  length: string;
+  thickness?: number;
 }
 
-export const Line = ({
-    color,
-    length,
-    thickness,
-    ...props
-}: LineProps) => {
+export const Line = ({ color, length, thickness, ...props }: LineProps) => {
   return (
     <div
       style={{

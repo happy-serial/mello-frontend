@@ -12,6 +12,7 @@ import { SpringValue, animated } from "@react-spring/web";
 import { join, login } from "@/api";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { Loading } from "../common/loading";
 
 interface JoinFormInfoAddProps {
   emailState: string;
@@ -29,9 +30,11 @@ export const JoinFormInfoAdd = ({
   const [passwordState, setPasswordState] = useState("");
   const [confirmPasswordState, setConfirmPasswordState] = useState("");
   const [emailAllowState, setEmailAllowState] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
   const router = useRouter();
 
   const handleJoin = async () => {
+    setLoadingState(true);
     const response = await join({
       email: emailState,
       password: passwordState,
@@ -51,9 +54,10 @@ export const JoinFormInfoAdd = ({
       email: emailState,
       password: passwordState,
     });
+    setLoadingState(false);
     if (response.accessToken) {
-      Cookies.set("access-token", response.accessToken, {secure: true});
-      Cookies.set("refresh-token", response.refreshToken, {secure: true});
+      Cookies.set("access-token", response.accessToken, { secure: true });
+      Cookies.set("refresh-token", response.refreshToken, { secure: true });
 
       router.push("/");
     }
@@ -75,6 +79,11 @@ export const JoinFormInfoAdd = ({
         overflow: "hidden",
       }}
     >
+      <Loading
+        color={Colors.purple}
+        size={15}
+        isLoading={loadingState}
+      ></Loading>
       <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
         href={"/"}

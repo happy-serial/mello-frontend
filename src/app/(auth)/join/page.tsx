@@ -54,7 +54,14 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
-      <Background />
+      <Background 
+        particleCount={2700} 
+        size={0.07} 
+        segment={4} 
+        backgroundColorPreset="preset2" 
+        animateDirection="twist" 
+        animateSpeed={0.0007}
+      />
       <JoinFormEmailVerification
         emailState={emailState}
         setEmailState={setEmailState}

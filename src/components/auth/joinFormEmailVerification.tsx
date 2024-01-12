@@ -12,6 +12,7 @@ import { useState } from "react";
 import { sendVerificationEmail, verifyEmailCode } from "@/api";
 import { VerificationResponse } from "@/model";
 import { SpringValue, animated } from "@react-spring/web";
+import { Loading } from "../common/loading";
 
 interface JoinFormEmailVerificationProps {
   emailState: string;
@@ -30,21 +31,26 @@ export const JoinFormEmailVerification = ({
   ...props
 }: JoinFormEmailVerificationProps) => {
   const [verificationCodeState, setVerificationCodeState] = useState("");
-  const [emailSentState, setEmailSentState] = useState(true);
+  const [emailSentState, setEmailSentState] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
 
   const handleSendButton = async () => {
+    setLoadingState(true);
     const response = await sendVerificationEmail(emailState);
+    setLoadingState(false);
     if (response === "success") {
-      setEmailSentState(false);
+      setEmailSentState(true);
     }
   };
 
   const handleContinueButton = async () => {
+    setLoadingState(true);
     const response: VerificationResponse | string = await verifyEmailCode({
       email: emailState,
       approvalCode: verificationCodeState,
     });
 
+    setLoadingState(false);
     if (typeof response === "string") {
       alert(`${response}`);
     } else {
@@ -72,6 +78,11 @@ export const JoinFormEmailVerification = ({
         overflow: "hidden",
       }}
     >
+      <Loading
+        color={Colors.purple}
+        size={15}
+        isLoading={loadingState}
+      ></Loading>
       <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
         href={"/"}
@@ -120,7 +131,7 @@ export const JoinFormEmailVerification = ({
           label="Continue"
           purpose="event"
           onClick={handleContinueButton}
-          disabled={emailSentState}
+          disabled={!emailSentState}
         />
       </div>
       <Spacer shape="height" size="16px" />
