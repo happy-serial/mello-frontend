@@ -4,7 +4,7 @@ import { nanumSquare } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 
 interface ProfileProps {
-  size?: "large" | "small";
+  size?: "large" | "small" | "header";
   imgUrl?: string;
   username: string;
   onClick?: () => void;

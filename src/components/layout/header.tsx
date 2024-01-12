@@ -1,17 +1,36 @@
 import Image from "next/image";
 
-import styles from './css/header.module.css';
+import styles from "./css/header.module.css";
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
 import { Colors } from "../../../public/styles/colors/colors";
 
 import { Button } from "../common/button";
+import { Profile } from "../common/profile";
+import { cookies } from "next/headers";
+import { tokenHeader } from "@/model";
 
-interface HeaderProps {
-  isLogin?: boolean;
-  username?: string;
-}
+import { jwtDecode } from "jwt-decode";
 
-export const Header = ({ isLogin, username }: HeaderProps) => {
+interface HeaderProps {}
+
+export const Header = ({}: HeaderProps) => {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get("access-token")?.value;
+
+  let isLogin = false;
+  let username = "non-login";
+
+  if (accessToken) {
+    const decodedToken = jwtDecode(accessToken, {
+      header: true,
+    }) as unknown as tokenHeader;
+
+    if (decodedToken) {
+      isLogin = true;
+      username = decodedToken.Username;
+    }
+  }
+
   return (
     <header
       className={[styles.header].join(" ")}
@@ -31,23 +50,27 @@ export const Header = ({ isLogin, username }: HeaderProps) => {
             mello
           </div>
         </div>
-        <div>
-          <Button
-            label="JOIN"
-            backgroundColor={Colors.transparent}
-            color={Colors.black}
-            purpose="link"
-            href="/join"
-          />
-          <Button
-            label="LOG IN"
-            backgroundColor={Colors.transparent}
-            color={Colors.black}
-            borderColor={Colors.black}
-            purpose="link"
-            href="/login"
-          />
-        </div>
+        {isLogin ? (
+          <Profile username={username} size="header"></Profile>
+        ) : (
+          <div>
+            <Button
+              label="JOIN"
+              backgroundColor={Colors.transparent}
+              color={Colors.black}
+              purpose="link"
+              href="/join"
+            />
+            <Button
+              label="LOG IN"
+              backgroundColor={Colors.transparent}
+              color={Colors.black}
+              borderColor={Colors.black}
+              purpose="link"
+              href="/login"
+            />
+          </div>
+        )}
       </div>
     </header>
   );
