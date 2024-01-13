@@ -1,21 +1,26 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import { Suspense, useEffect, useRef } from "react";
-import style from "./css/background.module.css";
+import styles from "./css/backgroundBase.module.css";
+import stylesAurora from "./css/backgroundAurora.module.css"
 import { Colors } from "../../../public/styles/colors/colors";
-import { Group, Light, Mesh } from "three";
+import { Group } from "three";
 import * as THREE from 'three';
-// import fontJson from "../../../public/styles/fonts/NanumSquareRoundOTF Regular_Regular.json"
-import { FontLoader, TextGeometry } from "three/examples/jsm/Addons.js";
 
 interface BackgroundProps {
- particleCount?: number;
- size?: number; 
- segment?: number;
- backgroundColorPreset?: "preset1" | "preset2" | "preset3"; 
- lightColor?: Colors;
- animateDirection: "normal" | "twist" | "closer";
- animateSpeed: number;
+  purpose: "login" | "join";
+  backgroundColor: "black" | "white";
+  particleCount?: number;
+  size?: number; 
+  segment?: number;
+  lightColor?: Colors;
+  animateDirection: "normal" | "twist" | "closer";
+  animateSpeed: number;
+}
+
+interface AuroraProps {
+  purpose: "login" | "join";
+  backgroundColor: "black" | "white";
 }
 
 interface MeshGroupProps {
@@ -34,10 +39,11 @@ interface ParticleProps {
 }
 
 export function Background({
+  purpose,
+  backgroundColor,
   particleCount = 800,
   size = 0.1,
   segment = 7,
-  backgroundColorPreset = "preset1",
   lightColor = Colors.pink,
   animateDirection,
   animateSpeed,
@@ -46,17 +52,8 @@ export function Background({
 
   return (
     <>
-    {/* 추후 수정 예정 */}
-      <div className={[style["background--" + backgroundColorPreset]].join(" ")}>
-          <div className={[style["aurora-base"], style["aurora-right-top"]].join(" ")}></div>
-          <div className={[style["aurora-base"], style["aurora-left-top"]].join(" ")}></div>
-          <div className={[style["aurora-base"], style["aurora-right-bottom"]].join(" ")}></div>
-          <div className={[style["aurora-base"], style["aurora-left-bottom"]].join(" ")}></div>
-          <div className={[style["aurora-base"], style["aurora-center"]].join(" ")}></div>
-        <div className={[style["wave-base"] ,style["wave1-top"]].join(" ")}></div>
-        <div className={[style["wave-base"] ,style["wave1-bottom"]].join(" ")}></div>
-      </div>
-      <Canvas shadows className={[style["canvas"]].join(" ")} >
+      <Aurora purpose={purpose} backgroundColor={backgroundColor}/>
+      <Canvas shadows className={styles["canvas"]} >
         <Suspense>
           <directionalLight
             intensity={13}
@@ -74,11 +71,31 @@ export function Background({
             position={[50, 0, 50]}
             color={lightColor}
           />
-          <MeshGroup particleCount={particleCount} size={size} segment={segment} animateDirection={animateDirection} animateSpeed={animateSpeed}/>
+          <MeshGroup 
+            particleCount={particleCount} 
+            size={size} 
+            segment={segment} 
+            animateDirection={animateDirection} 
+            animateSpeed={animateSpeed}
+          />
         </Suspense>
       </Canvas>
     </>
   );
+}
+
+function Aurora({purpose, backgroundColor}: AuroraProps) {
+  return (<>
+    <div className={styles["background-base--" + backgroundColor]}>
+      <div className={styles["background-top--" + backgroundColor]}/>
+      <div className={styles["background-bottom--" + backgroundColor]}/>
+      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-right-top--" + purpose]].join(" ")}/>
+      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-left-top--" + purpose]].join(" ")}/>
+      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-right-bottom--" + purpose]].join(" ")}/>
+      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-left-bottom--" + purpose]].join(" ")}/>
+      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-center--" + purpose]].join(" ")}/>
+    </div>
+  </>);
 }
 
 function MeshGroup({ 

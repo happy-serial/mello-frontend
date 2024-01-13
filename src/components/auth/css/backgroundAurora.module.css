@@ -1,0 +1,134 @@
+.aurora-base {
+    position: absolute;
+    filter: blur(92px);
+    opacity: 1;
+} 
+
+.aurora-left-bottom--login {
+    border-radius: 90%;
+    width: 100vw;
+    height: 100vw;
+    background-color: #a020f083;
+    left: -20%;
+    top: 15%;
+    z-index: -1; /* 첫 번째 그라데이션이 맨 앞으로 오도록 조정 */
+
+    animation: rotateUpDown 5s linear infinite; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(80px) rotate(0); 
+}
+.aurora-right-bottom--login {
+    width: 100vw;
+    height: 100vw;
+    background-color: #9417e2;
+    left: 30%;
+    top: 40%;
+    border-radius: 20%;
+    animation: rotateUpDown 6s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(100px) rotate(0);   
+}
+.aurora-right-top--login {
+    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 150vw;
+    height: 100vw;
+    left: 10%;
+    bottom: 40%;
+    background-color: #b34bf369;
+
+    animation: rotateUpDown 5s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(100px) rotate(0);
+}
+
+.aurora-left-top--login {
+    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 150vw;
+    height: 100vw;
+    left: -80%;
+    bottom: 60%;
+    background-color: #bc61f5b9;
+
+    animation: rotateUpDown 6s ease-out infinite; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(120px) rotate(0);
+}
+
+.aurora-center--login {
+
+    border-radius: 30%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 120vw;
+    height: 20vw;
+    left: 0%;
+    bottom: 40%;
+    background-color: #ffffff82;
+    /* animation: rotate 6s ease-in-out infinite; */
+}
+.aurora-left-bottom--join {
+    border-radius: 90%;
+    width: 100vw;
+    height: 100vw;
+    background-color: #a020f083;
+    left: -20%;
+    top: 15%;
+    z-index: -1; /* 첫 번째 그라데이션이 맨 앞으로 오도록 조정 */
+
+    animation: rotateUpDown 5s linear infinite; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(80px) rotate(0); 
+}
+.aurora-right-bottom--join {
+    width: 100vw;
+    height: 100vw;
+    background-color: #9417e2;
+    left: 30%;
+    top: 40%;
+    border-radius: 20%;
+    animation: rotateUpDown 6s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(100px) rotate(0);   
+}
+.aurora-right-top--join {
+    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 150vw;
+    height: 100vw;
+    left: 10%;
+    bottom: 40%;
+    background-color: #b34bf369;
+
+    animation: rotateUpDown 5s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(100px) rotate(0);
+}
+
+.aurora-left-top--join {
+    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 150vw;
+    height: 100vw;
+    left: -80%;
+    bottom: 60%;
+    background-color: #bc61f5b9;
+
+    animation: rotateUpDown 6s ease-out infinite; /* 키프레임 애니메이션 적용 */
+    transform:rotate(0) translate(120px) rotate(0);
+}
+
+.aurora-center--join {
+
+    border-radius: 30%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    width: 120vw;
+    height: 20vw;
+    left: 0%;
+    bottom: 40%;
+    background-color: #ffffff82;
+    /* animation: rotate 6s ease-in-out infinite; */
+}
+@keyframes rotateUpDown {
+    100% {
+        transform:rotate(1turn) translate(100px) rotate(-1turn);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+    
+}
+
