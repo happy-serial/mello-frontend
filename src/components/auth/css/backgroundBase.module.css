@@ -15,7 +15,7 @@
     left: 0%;
     top: 0%;
     z-index: -10;
-    background-color: #000000;
+    background-color: #081025;
 }
 
 .background-top--black {
@@ -30,7 +30,7 @@
     margin-top: -196vw;
     border-radius: 40%;
     opacity: 0.9;
-    background: #000000;
+    background: #081025;
 }
 
 .background-bottom--black {
@@ -45,7 +45,7 @@
     margin-bottom: -196vw;
     border-radius: 40%;
     opacity: 0.9;
-    background: #000000;
+    background: #081025;
 }
 
 .background-base--white {

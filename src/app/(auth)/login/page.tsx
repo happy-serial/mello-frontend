@@ -18,8 +18,8 @@ export default function Home() {
     >
       <Background
         purpose="login" 
-        backgroundColor="black"
-        particleCount={1000} 
+        backgroundColor="white"
+        particleCount={2000} 
         size={0.1} 
         segment={3} 
         lightColor={Colors.white}

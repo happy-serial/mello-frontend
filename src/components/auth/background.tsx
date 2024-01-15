@@ -1,5 +1,4 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
 import { Suspense, useEffect, useRef } from "react";
 import styles from "./css/backgroundBase.module.css";
 import stylesAurora from "./css/backgroundAurora.module.css"
@@ -87,13 +86,13 @@ export function Background({
 function Aurora({purpose, backgroundColor}: AuroraProps) {
   return (<>
     <div className={styles["background-base--" + backgroundColor]}>
-      <div className={styles["background-top--" + backgroundColor]}/>
-      <div className={styles["background-bottom--" + backgroundColor]}/>
+      {/* <div className={styles["background-top--" + backgroundColor]}/>
+      <div className={styles["background-bottom--" + backgroundColor]}/> */}
       <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-right-top--" + purpose]].join(" ")}/>
       <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-left-top--" + purpose]].join(" ")}/>
       <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-right-bottom--" + purpose]].join(" ")}/>
       <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-left-bottom--" + purpose]].join(" ")}/>
-      <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-center--" + purpose]].join(" ")}/>
+      {/* <div className={[stylesAurora["aurora-base"], stylesAurora["aurora-center--" + purpose]].join(" ")}/> */}
     </div>
   </>);
 }
