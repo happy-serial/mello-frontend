@@ -35,10 +35,11 @@ export default function Home() {
   const openApi = useSpringRef();
   const open = useSpring({
     ref: openApi,
-    from: { width: "0px", padding: "0px" },
+    from: { width: "0px", padding: "0px", border: "0px" },
     to: {
       width: !verifiedState ? "0px" : "440px",
       padding: !verifiedState ? "0px" : "24px",
+      border: !verifiedState ? "0px" : "1px solid rgba(255, 255, 255, 0.18)",
     },
     config: animationConfig,
   });
@@ -76,6 +77,7 @@ export default function Home() {
         emailState={emailState}
         width={open.width}
         padding={open.padding}
+        border={open.border}
       />
     </div>
   );

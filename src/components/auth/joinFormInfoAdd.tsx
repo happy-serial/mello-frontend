@@ -18,12 +18,14 @@ interface JoinFormInfoAddProps {
   emailState: string;
   width: SpringValue<string>;
   padding: SpringValue<string>;
+  border: SpringValue<string>;
 }
 
 export const JoinFormInfoAdd = ({
   emailState,
   width,
   padding,
+  border,
   ...props
 }: JoinFormInfoAddProps) => {
   const [usernameState, setUsernameState] = useState("");
@@ -78,7 +80,7 @@ export const JoinFormInfoAdd = ({
         alignItems: "center",
         backgroundColor: Colors.whiteTransparent40,
         backdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.18)",
+        border: border,
         overflow: "hidden",
       }}
     >
