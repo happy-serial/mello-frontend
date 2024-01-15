@@ -17,10 +17,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Login: Story = {
     args: {
+        purpose: "login",
+        backgroundColor: "black",
         particleCount: 2400,
         size: 0.07,
         segment: 4,
-        backgroundColorPreset: "preset2",
         lightColor: Colors.pink,
         animateDirection: "twist",
         animateSpeed: 0.0007

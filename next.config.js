@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "57c3kqeaat.ap-northeast-1.awsapprunner.com",
+        hostname: "yapa5scinj.ap-northeast-1.awsapprunner.com",
         port: "",
         pathname: "/**",
       },

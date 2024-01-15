@@ -37,3 +37,5 @@ next-env.d.ts
 
 # custom runnder with env
 run-docker.sh
+# React Component Preview
+previewConfig.json
