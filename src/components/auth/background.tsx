@@ -1,4 +1,5 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
 import { Suspense, useEffect, useRef } from "react";
 import styles from "./css/backgroundBase.module.css";
 import stylesAurora from "./css/backgroundAurora.module.css"
@@ -51,12 +52,18 @@ export function Background({
 
   return (
     <>
+
       <Aurora purpose={purpose} backgroundColor={backgroundColor}/>
       <Canvas shadows className={styles["canvas"]} >
         <Suspense>
           <directionalLight
             intensity={13}
             position={[0, 200, 300]}
+            color={lightColor}
+          />
+          <directionalLight
+            intensity={13}
+            position={[-200, -400, 400]}
             color={lightColor}
           />
           <directionalLight

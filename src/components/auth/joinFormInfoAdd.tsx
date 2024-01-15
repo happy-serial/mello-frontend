@@ -45,6 +45,7 @@ export const JoinFormInfoAdd = ({
     if (typeof response === "string") {
       await handleLogin();
     } else {
+      setLoadingState(false);
       alert(response);
     }
   };

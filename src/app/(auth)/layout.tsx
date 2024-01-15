@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "mello",
   description: "mello company",
   icons: {
-    icon: "/resources/logo.png",
+    icon: "/Image/logo.png",
   },
 };
 

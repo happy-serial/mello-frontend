@@ -33,3 +33,8 @@ export type LoginResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type tokenHeader = {
+  alg : string,
+  Username : string,
+}

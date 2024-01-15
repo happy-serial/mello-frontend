@@ -17,10 +17,18 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-three/drei": "^9.93.0",
+=======
+<<<<<<< HEAD
+    "@react-three/drei": "^9.93.0",
+=======
+>>>>>>> main
     "@react-spring/web": "^9.7.3",
+>>>>>>> main
     "@react-three/fiber": "^8.15.13",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "react": "^18",

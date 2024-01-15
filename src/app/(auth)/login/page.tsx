@@ -5,6 +5,7 @@ import {Background} from "@/components/auth/background"
 import { Colors } from "../../../../public/styles/colors/colors";
 import { colorToRgba } from "@react-spring/shared";
 
+
 export default function Home() {
   return (
     <div
