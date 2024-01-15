@@ -76,7 +76,9 @@ export const JoinFormInfoAdd = ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: Colors.whiteTransparent,
+        backgroundColor: Colors.whiteTransparent40,
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(255, 255, 255, 0.18)",
         overflow: "hidden",
       }}
     >

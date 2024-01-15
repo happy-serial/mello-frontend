@@ -27,8 +27,8 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       password: passwordState,
     });
     if (response.accessToken) {
-      Cookies.set("access-token", response.accessToken, {secure: true});
-      Cookies.set("refresh-token", response.refreshToken, {secure: true});
+      Cookies.set("access-token", response.accessToken, { secure: true });
+      Cookies.set("refresh-token", response.refreshToken, { secure: true });
 
       router.push("/");
     }
@@ -37,7 +37,11 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
   return (
     <div
       className={styles.loginFormContainer}
-      style={{ backgroundColor: Colors.whiteTransparent }}
+      style={{
+        backgroundColor: Colors.whiteTransparent40,
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(255, 255, 255, 0.18)",
+      }}
     >
       <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
