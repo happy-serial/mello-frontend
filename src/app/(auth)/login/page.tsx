@@ -3,6 +3,8 @@
 import { LoginForm } from "@/components/auth/loginForm";
 import {Background} from "@/components/auth/background"
 import { Colors } from "../../../../public/styles/colors/colors";
+import { colorToRgba } from "@react-spring/shared";
+
 
 export default function Home() {
   return (
@@ -15,11 +17,12 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
-      <Background 
-        particleCount={1000} 
+      <Background
+        purpose="login" 
+        backgroundColor="white"
+        particleCount={2000} 
         size={0.1} 
         segment={3} 
-        backgroundColorPreset="preset1"
         lightColor={Colors.white}
         animateDirection="closer" 
         animateSpeed={0.1}

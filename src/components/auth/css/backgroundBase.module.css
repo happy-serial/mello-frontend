@@ -1,0 +1,197 @@
+.canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    z-index: 0;
+}
+
+.background-base--black {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    z-index: -10;
+    background-color: #081025;
+}
+
+.background-top--black {
+    z-index: 100;
+    position: absolute;
+    filter: blur(80px);
+    top: 20%;
+    left: 50%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -100vw;
+    margin-top: -196vw;
+    border-radius: 40%;
+    opacity: 0.9;
+    background: #081025;
+}
+
+.background-bottom--black {
+    z-index: 100;
+    filter: blur(80px);
+    position: absolute;
+    bottom: 34%;
+    left: 54%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -100vw;
+    margin-bottom: -196vw;
+    border-radius: 40%;
+    opacity: 0.9;
+    background: #081025;
+}
+
+.background-base--white {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    z-index: -10;
+    
+    background-color: #ffffff;
+}
+
+.background-top--white {
+    z-index: 100;
+    position: absolute;
+    filter: blur(80px);
+    top: 20%;
+    left: 50%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -100vw;
+    margin-top: -196vw;
+    border-radius: 40%;
+    opacity: 0.7;
+    background: #ffffff;
+}
+
+.background-bottom--white {
+    z-index: 100;
+    filter: blur(80px);
+    position: absolute;
+    bottom: 34%;
+    left: 54%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -100vw;
+    margin-bottom: -196vw;
+    border-radius: 40%;
+    opacity: 0.8;
+    background: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 임시보관용-안쓰는데 아까워서남겨둠 */
+.wave-base {
+    filter: blur(80px);
+}
+
+.wave2-top {
+
+    z-index: 2;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -100vw;
+    margin-top: -196vw;
+    border-radius: 47%;
+    animation: waveAnimation 43s infinite linear;
+    opacity: 0.9;
+
+    background-image: 
+        radial-gradient(at top left, #54dd5f53, transparent),
+        radial-gradient(at top right, #813cc553, transparent),
+        radial-gradient(at bottom left, #0a4c7b53, transparent);
+}
+
+
+
+.wave3-bottom {
+    z-index: 3;
+    position: absolute;
+    bottom: 20%;
+    left: 70%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -99vw;
+    margin-bottom: -193vw;
+    border-radius: 42%;
+    animation: waveAnimation 24s linear infinite;
+    opacity: 0.9;
+
+    background-color: #1457122c;
+    /* background-image: 
+        radial-gradient(at top left, #a2f865, transparent),
+        radial-gradient(at top right, #bfdf5d, transparent),
+        radial-gradient(at bottom left, #825417, transparent); */
+}
+
+.wave4-bottom {
+    z-index: 4;
+    position: absolute;
+    bottom: 2%;
+    left: 70%;
+    width: 200vw;
+    height: 200vw;
+    margin-left: -99vw;
+    margin-bottom: -193vw;
+    border-radius: 50%;
+    animation: waveAnimation 24s infinite linear;
+    opacity: 0.9;
+
+    background-color: #3f93af20;
+    /* background-image: 
+        radial-gradient(at top left, #a2f865, transparent),
+        radial-gradient(at top right, #bfdf5d, transparent),
+        radial-gradient(at bottom left, #825417, transparent); */
+}
+
+
+.wave2-bottom {
+    z-index: 2;
+    position: absolute;
+    bottom: 40%;
+    left: 17%;
+    width: 180vw;
+    height: 180vw;
+    margin-left: -90vw;
+    margin-bottom: -193vw;
+    border-radius: 40%;
+    animation: waveAnimation 26s infinite linear;
+    opacity: 0.9;
+
+    background-color: #c6c6c653;
+}
+
+
+@keyframes waveAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

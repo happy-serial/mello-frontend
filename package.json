@@ -20,6 +20,10 @@
 <<<<<<< HEAD
     "@react-three/drei": "^9.93.0",
 =======
+<<<<<<< HEAD
+    "@react-three/drei": "^9.93.0",
+=======
+>>>>>>> main
     "@react-spring/web": "^9.7.3",
 >>>>>>> main
     "@react-three/fiber": "^8.15.13",
