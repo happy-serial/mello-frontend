@@ -1,0 +1,16 @@
+.contentEditable{
+  height: 300px;
+  width: 300px;
+  padding: 0 8px;
+  border-radius: 1px solid #252525;
+}
+
+.placeholder{
+  position: absolute;
+  top: 10px;
+}
+
+.EditorWrapper{
+  position: relative;
+  top: 0px;
+}
