@@ -5,13 +5,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       style={{
         width: "100%",
         display: "flex",
+        paddingBottom: "12px",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
       <div
         style={{
-          width: "80%",
+          width: "70%",
           maxWidth: "1800px",
           minWidth: "300px",
           padding: "16px 24px 16px 24px",
