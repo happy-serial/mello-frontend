@@ -6,6 +6,7 @@ import { Background } from "@/components/auth/background";
 import { useState } from "react";
 import { JoinFormInfoAdd } from "@/components/auth/joinFormInfoAdd";
 import { easings, useSpring, useChain, useSpringRef } from "@react-spring/web";
+import { Colors } from "../../../../public/styles/colors/colors";
 
 export default function Home() {
   const [emailState, setEmailState] = useState("");
@@ -34,10 +35,11 @@ export default function Home() {
   const openApi = useSpringRef();
   const open = useSpring({
     ref: openApi,
-    from: { width: "0px", padding: "0px" },
+    from: { width: "0px", padding: "0px", border: "0px" },
     to: {
       width: !verifiedState ? "0px" : "440px",
       padding: !verifiedState ? "0px" : "24px",
+      border: !verifiedState ? "0px" : "1px solid rgba(255, 255, 255, 0.18)",
     },
     config: animationConfig,
   });
@@ -54,13 +56,15 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
-      <Background 
-        particleCount={2700} 
-        size={0.07} 
-        segment={4} 
-        backgroundColorPreset="preset2" 
-        animateDirection="twist" 
-        animateSpeed={0.0007}
+      <Background
+        purpose="login" 
+        backgroundColor="white"
+        particleCount={2000} 
+        size={0.1} 
+        segment={3} 
+        lightColor={Colors.white}
+        animateDirection="closer" 
+        animateSpeed={0.1}
       />
       <JoinFormEmailVerification
         emailState={emailState}
@@ -73,6 +77,7 @@ export default function Home() {
         emailState={emailState}
         width={open.width}
         padding={open.padding}
+        border={open.border}
       />
     </div>
   );

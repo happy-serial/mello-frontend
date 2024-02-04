@@ -1,16 +1,17 @@
 .background--preset1 {
-    overflow: auto;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: fixed;
     left: 0%;
     top: 0%;
     z-index: -10;
-    
+
     background-color: #000000;
 }
 
 .canvas {
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -19,62 +20,81 @@
     z-index: 0;
 }
 
+.canvas::-webkit-scrollbar {
+    display: none;
+}
+
 .aurora-base {
     position: absolute;
     filter: blur(92px);
     opacity: 1;
-} 
+    overflow: hidden;
+}
 
 .aurora-left-bottom {
+    overflow: hidden;
     border-radius: 90%;
     width: 100vw;
     height: 100vw;
     background-color: #a020f083;
     left: -20%;
     top: 15%;
-    z-index: -1; /* 첫 번째 그라데이션이 맨 앞으로 오도록 조정 */
+    z-index: -1;
+    /* 첫 번째 그라데이션이 맨 앞으로 오도록 조정 */
 
-    animation: rotateUpDown 5s linear infinite; /* 키프레임 애니메이션 적용 */
-    transform:rotate(0) translate(80px) rotate(0); 
+    animation: rotateUpDown 5s linear infinite;
+    /* 키프레임 애니메이션 적용 */
+    transform: rotate(0) translate(80px) rotate(0);
 }
+
 .aurora-right-bottom {
+    overflow: hidden;
     width: 100vw;
     height: 100vw;
     background-color: #9417e2;
     left: 30%;
     top: 40%;
     border-radius: 20%;
-    animation: rotateUpDown 6s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
-    transform:rotate(0) translate(100px) rotate(0);   
+    animation: rotateUpDown 6s ease-in-out infinite reverse;
+    /* 키프레임 애니메이션 적용 */
+    transform: rotate(0) translate(100px) rotate(0);
 }
+
 .aurora-right-top {
+    overflow: hidden;
     z-index: 100;
-    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    border-radius: 70%;
+    /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
     width: 150vw;
     height: 100vw;
     left: 10%;
     bottom: 40%;
     background-color: #b34bf369;
 
-    animation: rotateUpDown 5s ease-in-out infinite reverse; /* 키프레임 애니메이션 적용 */
-    transform:rotate(0) translate(100px) rotate(0);
+    animation: rotateUpDown 5s ease-in-out infinite reverse;
+    /* 키프레임 애니메이션 적용 */
+    transform: rotate(0) translate(100px) rotate(0);
 }
 
 .aurora-left-top {
-    border-radius: 70%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    overflow: hidden;
+    border-radius: 70%;
+    /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
     width: 150vw;
     height: 100vw;
     left: -80%;
     bottom: 60%;
     background-color: #bc61f5b9;
 
-    animation: rotateUpDown 6s ease-out infinite; /* 키프레임 애니메이션 적용 */
-    transform:rotate(0) translate(120px) rotate(0);
+    animation: rotateUpDown 6s ease-out infinite;
+    /* 키프레임 애니메이션 적용 */
+    transform: rotate(0) translate(120px) rotate(0);
 }
 
 .aurora-center {
-
-    border-radius: 30%; /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
+    overflow: hidden;
+    border-radius: 30%;
+    /* 그라데이션이 부드럽게 겹치도록 영역을 좀더 둥글게 */
     width: 120vw;
     height: 20vw;
     left: 0%;
@@ -82,9 +102,10 @@
     background-color: #ffffff82;
     /* animation: rotate 6s ease-in-out infinite; */
 }
+
 @keyframes rotateUpDown {
     100% {
-        transform:rotate(1turn) translate(100px) rotate(-1turn);
+        transform: rotate(1turn) translate(100px) rotate(-1turn);
     }
 }
 
@@ -92,10 +113,11 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(180deg);
     }
-    
+
 }
 
 
@@ -104,10 +126,11 @@
 .wave-base {
     filter: blur(80px);
 }
+
 .wave1-top {
     z-index: 100;
     position: absolute;
-    
+
     top: 20%;
     left: 50%;
     width: 200vw;
@@ -134,7 +157,7 @@
     animation: waveAnimation 43s infinite linear;
     opacity: 0.9;
 
-    background-image: 
+    background-image:
         radial-gradient(at top left, #54dd5f53, transparent),
         radial-gradient(at top right, #813cc553, transparent),
         radial-gradient(at bottom left, #0a4c7b53, transparent);
@@ -216,9 +239,10 @@
 
 @keyframes waveAnimation {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
