@@ -1,15 +1,16 @@
 "use client";
 
-import {$getRoot, $getSelection, EditorState} from 'lexical';
+import {$createTextNode, $getRoot, $getSelection, EditorState} from 'lexical';
 import {useEffect} from 'react';
 
+import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin'
 import {LexicalComposer} from '@lexical/react/LexicalComposer';
-import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { HeadingNode , $createHeadingNode } from '@lexical/rich-text'
 
 // 추후변경
 import './styles.css'
@@ -86,6 +87,18 @@ const theme = {
   },
 }
 
+function MyHeadingPlugin():JSX.Element{
+  const [editor] = useLexicalComposerContext();
+  const onClick = (e:React.MouseEvent) => {
+    editor.update(()=>{
+      const root = $getRoot();
+      root.append($createHeadingNode('h1').append($createTextNode("hello World")))
+;    })
+
+  }
+  return <button onClick={onClick}>Heading</button>;
+}
+
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
 function onChange(editorState: { read: (arg0: () => void) => void; }) {
@@ -133,13 +146,17 @@ function MyOnChangePlugin(props:{onChange:(editorState: EditorState)=> void}):an
 export function Editor() {
   const initialConfig = {
     namespace: 'MyEditor',
-    theme,
+    theme: theme,
     onError,
+    nodes: [
+      HeadingNode
+    ]
   };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}> 
-      <PlainTextPlugin
+    <LexicalComposer initialConfig={initialConfig}>
+      <MyHeadingPlugin/>
+      <RichTextPlugin
         contentEditable={<ContentEditable className='contentEditable'/>}
         placeholder={<div className='placeholder'>Enter some text...</div>}
         ErrorBoundary={LexicalErrorBoundary}
