@@ -1,6 +1,7 @@
 "use client";
 /**
  * TODO: 커서 위아래로 이동 시 이전 포커스를 기준으로 이동해야함..
+ * TODO: shift + 커서 움직이는 것, 마우스로 전체 드래그가 가능해야 함.
  *  */
 
 import { useEffect, useRef, useState } from "react";
@@ -48,53 +49,65 @@ const ContentBlock = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (e.nativeEvent.isComposing) return;
-      const selection = document.getSelection();
-      const currentPos = selection?.anchorOffset;
-      const textContent = ref.current?.innerText;
+    const selection = document.getSelection();
+    const currentPos = selection?.anchorOffset;
 
-      if (textContent && currentPos !== undefined) {
-        const beforeText = textContent.slice(0, currentPos);
-        const afterText = textContent.slice(currentPos);
-        console.log(afterText);
-        setHtml(beforeText);
-        onEnter(id, afterText);
-      } else {
-        onEnter(id, "");
-      }
-    } else if (e.key === "Backspace" && ref.current?.innerText === "") {
-      e.preventDefault();
-      onDelete(id);
-    } else if (e.key === "ArrowUp") {
-      const selection = document.getSelection();
-      const cursorPosition = selection?.anchorOffset;
-      e.preventDefault();
-      if (e.nativeEvent.isComposing) return;
-      onFocusPrev(id, cursorPosition);
-    } else if (e.key === "ArrowDown") {
-      const selection = document.getSelection();
-      const cursorPosition = selection?.anchorOffset;
-      e.preventDefault();
-      if (e.nativeEvent.isComposing) return;
-      onFocusNext(id, cursorPosition);
-    } else if (e.key === "ArrowLeft") {
-      const selection = document.getSelection();
-      const atStart = selection?.anchorOffset === 0;
-      if (atStart) {
+    if (e.nativeEvent.isComposing) return;
+
+    switch (e.key) {
+      case "Enter":
         e.preventDefault();
-        if (e.nativeEvent.isComposing) return;
-        onFocusPrevLeft(id);
-      }
-    } else if (e.key === "ArrowRight") {
-      const selection = document.getSelection();
-      const atEnd = selection?.anchorOffset === ref.current?.innerText.length;
-      if (atEnd) {
+        const textContent = ref.current?.innerText;
+        if (textContent && currentPos !== undefined) {
+          const beforeText = textContent.slice(0, currentPos);
+          const afterText = textContent.slice(currentPos);
+          console.log(afterText);
+          setHtml(beforeText);
+          onEnter(id, afterText);
+        } else {
+          onEnter(id, "");
+        }
+        break;
+
+      case "Backspace":
+        if (ref.current?.innerText === "") {
+          e.preventDefault();
+          onDelete(id);
+        }
+        break;
+
+      case "ArrowUp":
         e.preventDefault();
-        if (e.nativeEvent.isComposing) return;
-        onFocusNext(id);
-      }
+        onFocusPrev(id, currentPos);
+        break;
+
+      case "ArrowDown":
+        e.preventDefault();
+        console.log(currentPos);
+        onFocusNext(id, currentPos);
+        break;
+
+      case "ArrowLeft":
+        if (currentPos === 0) {
+          e.preventDefault();
+          onFocusPrevLeft(id);
+        }
+        break;
+
+      case "ArrowRight":
+        const atEnd = currentPos === ref.current?.innerText.length;
+        if (atEnd) {
+          e.preventDefault();
+          onFocusNext(id);
+        }
+        break;
+
+      default:
+        if (e.key === "c" && (e.metaKey || e.ctrlKey)) {
+          console.log("copy");
+          navigator.clipboard.writeText("asdfasdf");
+        }
+        break;
     }
   };
 
@@ -106,7 +119,12 @@ const ContentBlock = ({
       disabled={false}
       onKeyDown={handleKeyDown}
       onChange={handleChange}
-      style={{ width: "900px", fontSize: "1.2rem", outline: "none" }}
+      style={{
+        height: "30px",
+        width: "900px",
+        fontSize: "1.2rem",
+        outline: "none",
+      }}
     />
   );
 };
