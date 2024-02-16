@@ -871,3 +871,67 @@ i.outdent {
 i.mic {
   background-image: url(images/icons/mic.svg);
 }
+
+
+.actions {
+  position: absolute;
+  text-align: right;
+  margin: 10px;
+  bottom: 0;
+  right: 0;
+}
+
+.actions.tree-view {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.actions i {
+  background-size: contain;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  vertical-align: -0.25em;
+}
+
+
+.action-button {
+  background-color: #eee;
+  border: 0;
+  padding: 8px 12px;
+  position: relative;
+  margin-left: 5px;
+  border-radius: 15px;
+  color: #222;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #ddd;
+  color: #000;
+}
+
+.action-button-mic.active {
+  animation: mic-pulsate-color 3s infinite;
+}
+
+button.action-button:disabled {
+  opacity: 0.6;
+  background: #eee;
+  cursor: not-allowed;
+}
+
+@keyframes mic-pulsate-color {
+  0% {
+    background-color: #ffdcdc;
+  }
+
+  50% {
+    background-color: #ff8585;
+  }
+
+  100% {
+    background-color: #ffdcdc;
+  }
+}
