@@ -1,3 +1,4 @@
+"use client"
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -39,6 +40,8 @@ import Button from '../../ui/Button';
 import {DialogActions, DialogButtonsList} from '../../ui/Dialog';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
+import ReactDOM from 'react-dom';
+
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -184,12 +187,28 @@ export function InsertImageDialog({
   );
 }
 
+// const TRANSPARENT_IMAGE =
+// 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+// const img = document.createElement('img');
+// img.src = TRANSPARENT_IMAGE;
+
 export default function ImagesPlugin({
   captionsEnabled,
 }: {
   captionsEnabled?: boolean;
 }): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
+  const [imgElement,setImg] = useState(null)
+  useEffect(() => {
+    const imageElement = document.createElement('img');
+    const TRANSPARENT_IMAGE ='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    imageElement.src = TRANSPARENT_IMAGE;
+    // setImg(imageElement);
+    // 필요한 경우 img를 사용하는 로직 추가
+  //     const TRANSPARENT_IMAGE ='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  // img = document.createElement('img');
+  // img.src = TRANSPARENT_IMAGE;
+  }, []);
 
   useEffect(() => {
     if (!editor.hasNodes([ImageNode])) {
@@ -213,7 +232,7 @@ export default function ImagesPlugin({
       editor.registerCommand<DragEvent>(
         DRAGSTART_COMMAND,
         (event) => {
-          return onDragStart(event);
+          return onDragStart(event , imgElement);
         },
         COMMAND_PRIORITY_HIGH,
       ),
@@ -237,12 +256,8 @@ export default function ImagesPlugin({
   return null;
 }
 
-const TRANSPARENT_IMAGE =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-const img = document.createElement('img');
-img.src = TRANSPARENT_IMAGE;
+function onDragStart(event: DragEvent , img: any): boolean {
 
-function onDragStart(event: DragEvent): boolean {
   const node = getImageNodeInSelection();
   if (!node) {
     return false;

@@ -53,7 +53,6 @@ import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import {MaxLengthPlugin} from './plugins/MaxLengthPlugin';
 import PageBreakPlugin from './plugins/PageBreakPlugin';
 import PollPlugin from './plugins/PollPlugin';
-import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import TabFocusPlugin from './plugins/TabFocusPlugin';
 import TableCellActionMenuPlugin from './plugins/TableActionMenuPlugin';
 import TableCellResizer from './plugins/TableCellResizer';
@@ -142,11 +141,14 @@ export function Editor() {
         <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />
-        <ComponentPickerPlugin />
+        {
+          typeof window === 'object' ? 
+            <ComponentPickerPlugin /> : null
+        }
+        
         <AutoEmbedPlugin />
         <HashtagPlugin />
         <KeywordsPlugin />
-        <SpeechToTextPlugin />
         <AutoLinkPlugin />
           <>
             <HistoryPlugin externalHistoryState={historyState} />
@@ -170,7 +172,10 @@ export function Editor() {
               hasCellMerge={tableCellMerge}
               hasCellBackgroundColor={tableCellBackgroundColor}
             />
-            <TableCellResizer />
+            {/* {
+               typeof window === 'object' ? 
+                 <TableCellResizer /> : null
+            } */}
             <ImagesPlugin />
             <InlineImagePlugin />
             <LinkPlugin />

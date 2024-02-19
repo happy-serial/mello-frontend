@@ -1,16 +1,19 @@
 "use client"
-
 import {Editor} from "@/components/blog/write/Editor"
 import React from "react"
+import {useEffect , useState} from 'react'; 
 import { Colors } from "../../../../../public/styles/colors/colors";
 import "@/components/blog/write/styles.css"
-import { Button } from "../../../../../src/components/common/button.tsx"
-import { Spacer } from "../../../../../src/components/common/spacer.tsx"
-import {useEffect , useState} from 'react'; 
+import { Button } from "../../../../../src/components/common/button"
+import { Spacer } from "../../../../../src/components/common/spacer"
+import useLexicalComposerContext from '@lexical/react/LexicalComposerContext';
+
 
 
 export default function BlogWrite() {
 const [titleText , setTitleText] = useState<string>('');
+
+// const [editordata] = useLexicalComposerContext();
 
 function Getdata(){
   console.log("Getdata")
@@ -59,17 +62,17 @@ return (<>
         }}
       >
         <Button
-          backgroundColor = "white"
+          backgroundColor = {Colors.white}
           color = {Colors.purple}
           label = "임시저장"
           size = "middle"
           purpose="event"  
           onClick= {TemporaryStorage}
         />
-        <Spacer size = "30px"/>
+        <Spacer shape="width" size = "30px"/>
         <Button
           backgroundColor = {Colors.purple}
-          color = "white"
+          color = {Colors.white}
           label = "게시글 게시"
           size = "middle"
           purpose="event"

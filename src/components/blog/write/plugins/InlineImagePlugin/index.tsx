@@ -209,13 +209,19 @@ export default function InlineImagePlugin(): JSX.Element | null {
   return null;
 }
 
-const TRANSPARENT_IMAGE =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-const img = document.createElement('img');
-img.src = TRANSPARENT_IMAGE;
+// const TRANSPARENT_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+// const img = document.createElement('img');
+// img.src = TRANSPARENT_IMAGE;
 
 function onDragStart(event: DragEvent): boolean {
   const node = getImageNodeInSelection();
+  const [imgElement,setImg] = useState(null)
+  useEffect(() => {
+    const imageElement = document.createElement('img');
+    const TRANSPARENT_IMAGE ='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    imageElement.src = TRANSPARENT_IMAGE;
+  })
+  
   if (!node) {
     return false;
   }
