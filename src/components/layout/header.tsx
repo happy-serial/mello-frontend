@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import styles from "./css/header.module.css";
@@ -6,28 +8,59 @@ import { Colors } from "../../../public/styles/colors/colors";
 
 import { Button } from "../common/button";
 import { Profile } from "../common/profile";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
+import Cookies from "js-cookie";
 import { tokenHeader } from "@/model";
 
 import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
+import { validateToken } from "@/utils/tokenHandler";
+import { verifyToken } from "@/api";
+import { useState } from "react";
 
 interface HeaderProps {}
 
 export const Header = ({}: HeaderProps) => {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get("access-token")?.value;
+  const accessToken = Cookies.get("access-token");
+  const refreshToken = Cookies.get("refresh-token");
 
-  let isLogin = false;
-  let username = "non-login";
+  // TODO: zustand로 바꾸기
+  const [isLogin, setIsLogin] = useState(false);
+  const [username, setUsername] = useState("non-login");
 
-  if (accessToken) {
+  // TODO: 함수로 만들어서 뺴기
+  // TODO: 바꾸는거 빠르게 하는방법 알아보기(예를 들어 로그인에서 바꿔준다던가.)
+  if (accessToken && refreshToken) {
     const decodedToken = jwtDecode(accessToken, {
       header: true,
     }) as unknown as tokenHeader;
 
-    if (decodedToken) {
-      isLogin = true;
-      username = decodedToken.Username;
+    if (validateToken(accessToken)) {
+      verifyToken(accessToken, false).then((response) => {
+        if (response && decodedToken) {
+          if (response.accessToken) {
+            Cookies.set("access-token", response.accessToken);
+          }
+          setIsLogin(true);
+          setUsername(decodedToken.Username);
+        }
+      });
+    } else if (validateToken(refreshToken)) {
+      verifyToken(refreshToken, true).then((response) => {
+        if (response && decodedToken) {
+          if (response.accessToken) {
+            Cookies.set("access-token", response.accessToken);
+          }
+          if (response.refreshToken) {
+            Cookies.set("refresh-token", response.refreshToken);
+          }
+          setIsLogin(true);
+          setUsername(decodedToken.Username);
+        }
+      });
+    } else {
+      setIsLogin(false);
+      setUsername("non-login");
     }
   }
 
@@ -46,9 +79,12 @@ export const Header = ({}: HeaderProps) => {
             style={{ objectFit: "contain" }}
             priority
           />
-          <div className={[styles.logoText, blackOpsOne.className].join(" ")}>
+          <Link
+            className={[styles.logoText, blackOpsOne.className].join(" ")}
+            href={"/"}
+          >
             mello
-          </div>
+          </Link>
         </div>
         {isLogin ? (
           <Profile username={username} size="header"></Profile>

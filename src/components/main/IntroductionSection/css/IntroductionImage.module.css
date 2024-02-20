@@ -1,0 +1,70 @@
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes shake_1 {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+
+.flower {
+    animation: shake 1.5s infinite;
+    transform-origin: 50% 100%;
+}
+
+.flower_1 {
+    animation: shake_1 1.7s infinite;
+    transform-origin: 50% 100%;
+}
+
+.flower_2 {
+    animation: shake 1.8s infinite;
+    transform-origin: 50% 100%;
+}
+
+.flower_3 {
+    animation: shake 1.6s infinite;
+    transform-origin: 50% 100%;
+}
+
+@keyframes glow {
+    0% {
+      box-shadow: 0 0 5px #F55BD160;
+    }
+    50% {
+      box-shadow: 0 0 20px #F55BD190;
+    }
+    100% {
+      box-shadow: 0 0 5px #F55BD160;
+    }
+  }
+
+  .glowBox {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #F55BD130;
+    background-color: #F55BD130;
+    margin: 20px;
+    animation: glow 2s infinite ease-in-out;
+    position: absolute;
+    top: 390px;
+    left: 320px;
+    z-index: 999;
+  }

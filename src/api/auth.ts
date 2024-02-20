@@ -7,6 +7,7 @@ import {
   verificationRequest,
 } from "@/model";
 import { DefaultResponse, serverUrl } from ".";
+import { cookies } from "next/headers";
 
 export const sendVerificationEmail = async (email: string) => {
   try {
@@ -133,3 +134,33 @@ const socialJoin = async (data: SocialLoginRequest) => {
     throw new Error(`Failed to social Join : ${JSON.stringify(responseData)}`);
   }
 };
+
+export const verifyToken = async (token: string, isRefresh: boolean): Promise<any> => {
+  const response = await fetch(`${serverUrl}/test`, {
+    method: "GET",
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      IsRefresh: `${isRefresh}`,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status === 200) {
+    const accessToken = await response.headers.get("authorization");
+    const refreshToken = await response.headers.get("refresh");
+    if (isRefresh && accessToken && refreshToken) {
+      return {
+        accessToken,
+        refreshToken,
+      };
+    } else if (accessToken) {
+      return {
+        accessToken,
+      };
+    }
+  } else {
+    throw new Error(`Failed to verify token: ${JSON.stringify(response)}`);
+  }
+};
+
