@@ -22,7 +22,7 @@ import {TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 // import useLexicalEditable from '@lexical/react/useLexicalEditable';
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useState , forwardRef} from 'react';
 import { CAN_USE_DOM } from './shared/src/canUseDOM';
 import {$createParagraphNode, $createTextNode, $getRoot} from 'lexical';
 import {$createHeadingNode, $createQuoteNode} from '@lexical/rich-text';
@@ -67,7 +67,7 @@ import {SettingsContext, useSettings} from './context/SettingsContext';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme';
 
-export function Editor() {
+export const Editor = forwardRef((props,ref)=> {
   const {historyState} = useSharedHistoryContext();
   const {
     settings: {
@@ -128,11 +128,10 @@ export function Editor() {
       window.removeEventListener('resize', updateViewPortWidth);
     };
   }, [isSmallWidthViewport]);
-
   
 
   return (
-   <> 
+   <div> 
     <LexicalComposer initialConfig={initialConfig}>
      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} />
       <div
@@ -155,8 +154,8 @@ export function Editor() {
             <RichTextPlugin
               contentEditable={
                 <div className="editor-scroller">
-                  <div className="editor" ref={onRef}>
-                    <ContentEditable />
+                  <div className="editor" ref={onRef} ref={ref}>
+                    <ContentEditable/>
                   </div>
                 </div>
               }
@@ -222,6 +221,6 @@ export function Editor() {
       </div>
       {showTreeView && <TreeViewPlugin />}
     </LexicalComposer> 
-   </>  
+   </div>  
   );
-}
+});
