@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./css/introductionImage.module.css";
+import styles from "./css/IntroductionImage.module.css";
 
 interface IntroductionImageProps {}
 

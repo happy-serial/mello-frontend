@@ -16,6 +16,16 @@
     align-items: center;
 }
 
+.navigation {
+    display: flex;
+}
+
+.userInteractionSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .logo {
     display: flex;
     align-items: center;

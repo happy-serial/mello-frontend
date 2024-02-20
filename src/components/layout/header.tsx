@@ -8,7 +8,6 @@ import { Colors } from "../../../public/styles/colors/colors";
 
 import { Button } from "../common/button";
 import { Profile } from "../common/profile";
-// import { cookies } from "next/headers";
 import Cookies from "js-cookie";
 import { tokenHeader } from "@/model";
 
@@ -17,6 +16,8 @@ import Link from "next/link";
 import { validateToken } from "@/utils/tokenHandler";
 import { verifyToken } from "@/api";
 import { useState } from "react";
+
+import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
 
 interface HeaderProps {}
 
@@ -87,7 +88,19 @@ export const Header = ({}: HeaderProps) => {
           </Link>
         </div>
         {isLogin ? (
-          <Profile username={username} size="header"></Profile>
+          <div className={styles.userInteractionSection}>
+            <RiQuillPenLine
+              size="30px"
+              color={Colors.black}
+              style={{ padding: "12px 4px 12px 12px" }}
+            ></RiQuillPenLine>
+            <RiBellLine
+              size="30px"
+              color={Colors.black}
+              style={{ padding: "12px 20px 12px 12px" }}
+            ></RiBellLine>
+            <Profile username={username} size="header"></Profile>
+          </div>
         ) : (
           <div>
             <Button
