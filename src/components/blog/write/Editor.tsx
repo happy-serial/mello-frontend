@@ -66,7 +66,7 @@ import {LexicalComposer} from "@lexical/react/LexicalComposer"
 import {SettingsContext, useSettings} from './context/SettingsContext';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme';
-
+import "./styles.css"
 
 const Editor = forwardRef((props , ref)=> {
   const {historyState} = useSharedHistoryContext();
@@ -132,7 +132,7 @@ const Editor = forwardRef((props , ref)=> {
   
 
   return (
-   <div> 
+   <div   style={{ width: "100%"  }}> 
     <LexicalComposer initialConfig={initialConfig}>
      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} />
       <div
@@ -220,7 +220,7 @@ const Editor = forwardRef((props , ref)=> {
         {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
         <ActionsPlugin isRichText={isRichText} />
       </div>
-      {showTreeView && <TreeViewPlugin />}
+      {/* {showTreeView && <TreeViewPlugin />} */}
     </LexicalComposer> 
    </div>  
   );

@@ -6,9 +6,13 @@ import { Button } from "../../common/button";
 import { Spacer } from "../../common/spacer";
 import { useState , useEffect } from "react";
 
-export const Category = ({categoryList , setCategoryList}) => {
+interface CategoryProps{
+  categoryList : string[];
+  setCategoryList : React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export const Category: React.FC<CategoryProps> = ({categoryList , setCategoryList}) => {
   const [categoryText , setCategoryText] = useState<string>('');
-  // const [categoryList , setCategoryList] = useState([])
 
   const placeholderText = "엔터를눌러 카테고리를 입력해주세요"
 
@@ -37,11 +41,10 @@ export const Category = ({categoryList , setCategoryList}) => {
     }
   }
 
-  const deleteSelectCategory = (e) =>{
+  const deleteSelectCategory = (e) => {
     const deleteCategoryItem = e.target.innerText
     const filteredCategoryList = categoryList.filter(categoryText => categoryText !== deleteCategoryItem)
     setCategoryList(filteredCategoryList)
-
   }
 
   return (

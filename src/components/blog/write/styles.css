@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.editorWrap{
+  width : 100%;
+}
+
 .other h2 {
   font-size: 18px;
   color: #444;

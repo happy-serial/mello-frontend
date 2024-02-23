@@ -1,0 +1,29 @@
+.writeModalWrapper{
+  width : 500px;
+  height : 550px;
+  background-color : green;
+}
+
+.thumbnailWrapper{
+  width : 100%;
+  height : 250px;
+  background-color : aqua;
+}
+
+.aboutWrapper{
+  width : 100%;
+  height : 200px;
+  background-color : purple;
+}
+
+.privacyWrapper{
+  width: 100%;
+  height : 50px;
+  background-color : red;
+}
+
+.writeModalButtonWrapper{
+  width: 100%;
+  height : 50px;
+  background-color : yellow;
+}

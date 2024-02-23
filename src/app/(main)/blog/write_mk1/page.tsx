@@ -1,16 +1,21 @@
 "use client"
+
 import Editor from "@/components/blog/write/Editor"
 import React from "react"
-import {useEffect , useState , useRef} from 'react'; 
-import { Colors } from "../../../../../public/styles/colors/colors";
+import {useEffect , useState , useRef} from 'react'
+import { Colors } from "../../../../../public/styles/colors/colors"
 import "@/components/blog/write/styles.css"
 import { Button } from "../../../../../src/components/common/button"
 import { Spacer } from "../../../../../src/components/common/spacer"
 import { Category } from "@/components/blog/write/Category"
+import { WriteModal } from "@/components/blog/write/WriteModal" 
+import { styles } from "@/components/blog/css/write.module.css"
 
 export default function BlogWrite() {
   const [titleText , setTitleText] = useState<string>('');
-  const [categoryList , setCategoryList] = useState([])
+  const [categoryList , setCategoryList] = useState([]);
+  const [viewModal , setViewModal] = useState<boolean>(true);
+
   const childRef = useRef(null);
   let textData = '';
 
@@ -21,10 +26,12 @@ export default function BlogWrite() {
       const parser = new DOMParser();
       const doc = parser.parseFromString(childRef.current.innerHTML, 'text/html');
       const outerDivElement = doc.querySelector('.ContentEditable__root');
-      outerDivElement.childNodes.forEach(node => {
-        textData += node.outerHTML;
-      });
-      // console.log(textData);
+      if(outerDivElement !== null){
+        outerDivElement.childNodes.forEach(node => {
+          textData += node.outerHTML;
+          // console.log(textData);
+        });
+      }
     }else {
       console.log("childRef isn`t undefined");
     }
@@ -35,10 +42,12 @@ export default function BlogWrite() {
     console.log("SendData")
     console.log(categoryList)
     console.log(textData)
+    setViewModal(true)
   }
 
   function TemporaryStorage(){
     console.log("TemporaryStorage")
+    setViewModal(false)
   }
 
   return (
@@ -84,6 +93,7 @@ export default function BlogWrite() {
             onClick = {SendData}
           />
         </div>
+        { viewModal && <WriteModal viewModal = {viewModal} setViewModal = {setViewModal} />}
     </>
   )
 }
