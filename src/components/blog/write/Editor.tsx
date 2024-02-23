@@ -67,7 +67,8 @@ import {SettingsContext, useSettings} from './context/SettingsContext';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme';
 
-export const Editor = forwardRef((props,ref)=> {
+
+const Editor = forwardRef((props , ref)=> {
   const {historyState} = useSharedHistoryContext();
   const {
     settings: {
@@ -224,3 +225,6 @@ export const Editor = forwardRef((props,ref)=> {
    </div>  
   );
 });
+Editor.displayName = 'Editor';
+
+export default Editor

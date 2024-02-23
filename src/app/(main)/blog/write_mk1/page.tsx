@@ -1,37 +1,40 @@
 "use client"
-import {Editor} from "@/components/blog/write/Editor"
+import Editor from "@/components/blog/write/Editor"
 import React from "react"
 import {useEffect , useState , useRef} from 'react'; 
 import { Colors } from "../../../../../public/styles/colors/colors";
 import "@/components/blog/write/styles.css"
 import { Button } from "../../../../../src/components/common/button"
 import { Spacer } from "../../../../../src/components/common/spacer"
+import { Category } from "@/components/blog/write/Category"
 
 export default function BlogWrite() {
   const [titleText , setTitleText] = useState<string>('');
-  const childRef = useRef();
-  useEffect(()=>{
-    if(childRef.current){
-      console.log(childRef.current.innerHTML)
-    }
-  })
+  const [categoryList , setCategoryList] = useState([])
+  const childRef = useRef(null);
+  let textData = '';
 
   function GetTextdata(){
     console.log("Getdata")
-    const textdata = childRef.current.innerHTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(textdata, 'text/html');
-    const outerDivElement = doc.querySelector('.ContentEditable__root');
-    let innerHTMLString = '';
-    outerDivElement.childNodes.forEach(node => {
-        innerHTMLString += node.outerHTML;
-    });
-    console.log(innerHTMLString);
+    if(childRef && childRef.current){
+      textData = '';
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(childRef.current.innerHTML, 'text/html');
+      const outerDivElement = doc.querySelector('.ContentEditable__root');
+      outerDivElement.childNodes.forEach(node => {
+        textData += node.outerHTML;
+      });
+      // console.log(textData);
+    }else {
+      console.log("childRef isn`t undefined");
+    }
   }
 
   function SendData(){
     GetTextdata()
     console.log("SendData")
+    console.log(categoryList)
+    console.log(textData)
   }
 
   function TemporaryStorage(){
@@ -54,16 +57,7 @@ export default function BlogWrite() {
             border: "0px"
           }}
         />
-        <input
-          placeholder = "hashtag"
-          style={{
-            color: "gray",
-            width: "100%",
-            alignItems: "center",
-            fontSize: "24px",
-            border: "0px"
-          }}
-        />
+        <Category categoryList = {categoryList} setCategoryList = {setCategoryList}/>
         <Editor ref= {childRef} />
         <div
           style={{
