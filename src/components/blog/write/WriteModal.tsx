@@ -4,12 +4,13 @@ import styles from "../css/writeModal.module.css";
 import { Colors } from "../../../../public/styles/colors/colors";
 import { Button } from "../../common/button";
 import { Spacer } from "../../common/spacer";
-import { useState , useEffect } from "react";
+import { useState , useEffect, ChangeEvent } from "react";
 import { sendImage } from "@/api"
+import Image from "next/image";
 
 interface WriteModalProps{
   viewModal: boolean;
-  setCategoryList : React.Dispatch<React.SetStateAction<boolean>>;
+  setViewModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}) => {
@@ -24,8 +25,8 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
     setthumbnailURL("")
   }
 
-  const handleFileChange = async (e) =>{
-    if(e.target.files[0] !== null){
+  const handleFileChange = async (e : ChangeEvent<HTMLInputElement>) =>{
+    if(e.target.files && (e.target.files.length > 0)){
       try{
         const file = e.target.files[0]
         const imageURL = await sendImage(file)
@@ -53,7 +54,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
         <div className = {[styles.thumbnailWrapper].join(" ")}>
           썸네일
           <input accept = "image/*" type = "file" onChange = {(e) => handleFileChange(e)}/>
-          { thumbnailURL && <img src={thumbnailURL} alt = "Upload Image"/>}
+          { thumbnailURL && <Image src={thumbnailURL} alt = "Upload Image" width={500} height={500}/>}
         </div>
         <div className = {[styles.aboutWrapper].join(" ")}>
           소개글

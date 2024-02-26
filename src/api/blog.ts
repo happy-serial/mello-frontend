@@ -9,7 +9,7 @@ enum ImageFileType {
   JPG = 'image/jpg',
 }
 
-export const sendImage = async ( file : ImageFileType ) => {
+export const sendImage = async ( file : File ) => {
   try {
     const formData = new FormData();
     formData.append( "file" , file);
@@ -25,7 +25,12 @@ export const sendImage = async ( file : ImageFileType ) => {
     const responseData: DefaultResponse<Object> = await response.json();
     console.log(JSON.stringify(responseData));
     if (responseData.statusCode == 201){
-      return responseData.data.imageUrl;
+      //추후 object 타입을 따로선언해주는걸로 bugfix 현재 치명적오류는아님.
+      const imageUrl = responseData.data?.imageUrl ?? null;
+
+      if (imageUrl !== null){
+        return imageUrl
+      }
     } else {
       throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`)
       console.log(response)
