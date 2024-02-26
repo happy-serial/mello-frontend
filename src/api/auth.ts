@@ -135,15 +135,17 @@ const socialJoin = async (data: SocialLoginRequest) => {
   }
 };
 
-export const verifyToken = async (token: string, isRefresh: boolean): Promise<any> => {
+export const verifyToken = async (
+  token: string,
+  isRefresh: boolean
+): Promise<any> => {
   const response = await fetch(`${serverUrl}/test`, {
     method: "GET",
-    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
       IsRefresh: `${isRefresh}`,
       Authorization: `Bearer ${token}`,
-    },
+    }
   });
 
   if (response.status === 200) {
@@ -163,4 +165,3 @@ export const verifyToken = async (token: string, isRefresh: boolean): Promise<an
     throw new Error(`Failed to verify token: ${JSON.stringify(response)}`);
   }
 };
-

@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {
   args: {
-    isLogin: true,
-    username: "김다현",
+    accessToken: "asdf",
+    refreshToken: "asdf"
   },
 };
