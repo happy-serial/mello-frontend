@@ -5,6 +5,7 @@ import { Colors } from "../../../../public/styles/colors/colors";
 import { Button } from "../../common/button";
 import { Spacer } from "../../common/spacer";
 import { useState , useEffect } from "react";
+import { sendImage } from "@/api"
 
 interface WriteModalProps{
   viewModal: boolean;
@@ -13,21 +14,34 @@ interface WriteModalProps{
 
 export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}) => {
   const [aboutText , setAboutText] = useState<string>("");
-  const [aboutLength , setAboutLength] = useState<integer>(0);
-  const [privacy , setPrivacy] = useState<boolean>(null);
-  const [thumbnailURL , setthumbnailURL] = useState<string>(null);
+  const [aboutLength , setAboutLength] = useState<number>(0);
+  const [privacy , setPrivacy] = useState<boolean>(false);
+  const [thumbnailURL , setthumbnailURL] = useState<string>("");
 
   const submit = () =>{
     console.log("제출버튼")
+    console.log(thumbnailURL)
+    setthumbnailURL("")
   }
 
-  const handleFileChange = (e) =>{
-    const file = e.target.files[0]
-    console.log(file)
-    console.log("파일제출됨")
-    console.log(e)
+  const handleFileChange = async (e) =>{
+    if(e.target.files[0] !== null){
+      try{
+        const file = e.target.files[0]
+        const imageURL = await sendImage(file)
+        setthumbnailURL(imageURL)
+        console.log("이미지URL", imageURL)
+      } catch (error){
+        console.log(error)
+      }
+    }else{
+      console.log("이미지가 없어요")
+    }
   }
 
+  useEffect(()=>{
+    console.log(thumbnailURL)
+  },[thumbnailURL])
 
   useEffect(() =>{
     setAboutLength(aboutText.length)
@@ -39,6 +53,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
         <div className = {[styles.thumbnailWrapper].join(" ")}>
           썸네일
           <input accept = "image/*" type = "file" onChange = {(e) => handleFileChange(e)}/>
+          { thumbnailURL && <img src={thumbnailURL} alt = "Upload Image"/>}
         </div>
         <div className = {[styles.aboutWrapper].join(" ")}>
           소개글

@@ -2,7 +2,7 @@
 
 import Editor from "@/components/blog/write/Editor"
 import React from "react"
-import {useEffect , useState , useRef} from 'react'
+import { useEffect , useState , useRef } from 'react'
 import { Colors } from "../../../../../public/styles/colors/colors"
 import "@/components/blog/write/styles.css"
 import { Button } from "../../../../../src/components/common/button"
