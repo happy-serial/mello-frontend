@@ -7,7 +7,6 @@ import {
   verificationRequest,
 } from "@/model";
 import { DefaultResponse, serverUrl } from ".";
-import { cookies } from "next/headers";
 
 export const sendVerificationEmail = async (email: string) => {
   try {

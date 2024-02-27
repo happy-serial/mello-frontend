@@ -13,8 +13,10 @@ import Link from "next/link";
 
 import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
 import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { checkLogin } from "@/utils/tokenHandler";
+import { TextField } from "../common/textField";
+import { Spacer } from "../common/spacer";
 
 interface HeaderProps {
   isLogin: boolean;
@@ -39,6 +41,8 @@ export const Header = ({
       store.setUsernameStatus,
     ]
   );
+
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     if (accessToken && refreshToken) {
@@ -70,6 +74,19 @@ export const Header = ({
         </div>
         {isLoginState ? (
           <div className={styles.userInteractionSection}>
+            <TextField
+              width="500px"
+              color={Colors.black}
+              borderRadius="30px"
+              borderColor={Colors.transparent}
+              backgroundColor={Colors.lightGrayTransparent}
+              type={"search"}
+              placeholder=" search..."
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+            />
+            <Spacer shape="width" size="10px" />
             <RiQuillPenLine
               size="30px"
               color={Colors.black}
