@@ -5,7 +5,7 @@ import { Colors } from "../../../../public/styles/colors/colors";
 import { Button } from "../../common/button";
 import { Spacer } from "../../common/spacer";
 import { useState , useEffect, ChangeEvent } from "react";
-import { sendImage } from "@/api"
+import { getImageURL } from "@/api"
 import Image from "next/image";
 
 interface WriteModalProps{
@@ -19,7 +19,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
   const [privacy , setPrivacy] = useState<boolean>(false);
   const [thumbnailURL , setthumbnailURL] = useState<string>("");
 
-  const submit = () =>{
+  const submit = async () =>{
     console.log("제출버튼")
     console.log(thumbnailURL)
     setthumbnailURL("")
@@ -29,7 +29,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
     if(e.target.files && (e.target.files.length > 0)){
       try{
         const file = e.target.files[0]
-        const imageURL = await sendImage(file)
+        const imageURL = await getImageURL(file)
         setthumbnailURL(imageURL)
         console.log("이미지URL", imageURL)
       } catch (error){

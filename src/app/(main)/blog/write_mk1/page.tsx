@@ -10,8 +10,10 @@ import { Spacer } from "../../../../../src/components/common/spacer"
 import { Category } from "@/components/blog/write/Category"
 import { WriteModal } from "@/components/blog/write/WriteModal" 
 import { styles } from "@/components/blog/css/write.module.css"
+import { createTemporaryBlog , saveTemporaryBlog } from "@/api"
 
 export default function BlogWrite() {
+  const [blogID , setBlogID] = useState<string>('');
   const [titleText , setTitleText] = useState<string>('');
   const [categoryList , setCategoryList] = useState([]);
   const [viewModal , setViewModal] = useState<boolean>(true);
@@ -19,7 +21,7 @@ export default function BlogWrite() {
   const childRef = useRef(null);
   let textData = '';
 
-  function GetTextdata(){
+  function GetTextData(){
     console.log("Getdata")
     if(childRef && childRef.current){
       textData = '';
@@ -29,7 +31,7 @@ export default function BlogWrite() {
       if(outerDivElement !== null){
         outerDivElement.childNodes.forEach(node => {
           textData += node.outerHTML;
-          // console.log(textData);
+          console.log(textData);
         });
       }
     }else {
@@ -37,18 +39,26 @@ export default function BlogWrite() {
     }
   }
 
+  const TemporaryStorage = async() =>{
+    console.log("TemporaryStorage")
+    if(blogID === ''){
+      const data = await createTemporaryBlog()
+      setBlogID(data.tempBlogId)
+    }
+    GetTextData()
+    const success = await saveTemporaryBlog( blogID , titleText , categoryList , textData)
+    console.log("성공여부",success)
+    setViewModal(false)
+  }
+
   function SendData(){
-    GetTextdata()
+    GetTextData()
     console.log("SendData")
     console.log(categoryList)
     console.log(textData)
     setViewModal(true)
   }
 
-  function TemporaryStorage(){
-    console.log("TemporaryStorage")
-    setViewModal(false)
-  }
 
   return (
     <>

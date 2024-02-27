@@ -132,11 +132,10 @@ const Editor = forwardRef((props , ref)=> {
   
 
   return (
-   <div   style={{ width: "100%"  }}> 
+   <div style={{ width: "100%"  }}> 
     <LexicalComposer initialConfig={initialConfig}>
      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} />
-      <div
-        className={`editor-container ${showTreeView ? 'tree-view' : ''} ${''}`}>
+      <div className={`editor-container ${showTreeView ? 'tree-view' : ''} ${''}`}>
         <MaxLengthPlugin maxLength={100000} />
         <DragDropPaste />
         <AutoFocusPlugin />
