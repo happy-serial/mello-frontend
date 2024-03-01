@@ -1,7 +1,12 @@
 import { Header } from "@/components/layout/header";
+import { Content } from "@/components/main/Content";
+import { Introduction } from "@/components/main/Introduction";
 
 export default function Home() {
   return (
-    <div>메인 페이지입니다.</div>
+    <>
+      <Introduction />
+      <Content />
+    </>
   );
 }

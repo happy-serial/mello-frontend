@@ -1,5 +1,6 @@
-import Cookies from "js-cookie";
+import { serverUrl } from "@/api";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 type TokenProps = {
   accessToken?: string;
@@ -20,7 +21,7 @@ export const validateToken = (token: string): boolean => {
 
 export const getToken = (): TokenProps => {
   const accessToken = Cookies.get("access-token");
-  const refreshToken = Cookies.get("access-token");
+  const refreshToken = Cookies.get("refresh-token");
 
   return { accessToken, refreshToken };
 };
