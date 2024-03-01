@@ -81,7 +81,7 @@ export const Header = ({
               borderColor={Colors.transparent}
               backgroundColor={Colors.lightGrayTransparent}
               type={"search"}
-              placeholder=" search..."
+              placeholder="search..."
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
