@@ -20,11 +20,8 @@ export const getImageURL = async ( file : File ) => {
       body : formData
     })
     const responseData: DefaultResponse<ImageURLRequest> = await response.json();
-    console.log(JSON.stringify(responseData));
     if (responseData.statusCode == 201){
-      //추후 object 타입을 따로선언해주는걸로 bugfix 현재 치명적오류는아님.
-      const imageUrl = responseData.data?.imageUrl ?? null;
-
+      const imageUrl = responseData.data?.imageUrl;
       if (imageUrl !== null){
         return imageUrl
       }
