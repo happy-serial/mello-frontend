@@ -6,3 +6,4 @@ export type DefaultResponse<T> = {
     success: boolean
 }
 export * from "./auth"
+export * from "./blog"

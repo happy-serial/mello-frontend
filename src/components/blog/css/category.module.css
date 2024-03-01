@@ -1,0 +1,49 @@
+.categoryWrapper{
+  display : inline-block;
+  flex-direction: column;
+  position : relative;
+  max-width: 100%;
+  width: 100%;
+}
+
+.categoryInput{
+  display : inline;
+  max-width: 100%;
+  width : auto;
+  color : gray;
+  border : none;
+  height : 28px;
+  padding : 4px;
+  pointer-events: auto;
+  vertical-align: middle;
+}
+
+.placeholder{
+  color: gray;
+  position : absolute;
+  top : 0px;
+  pointer-events: none;
+}
+
+.categoryInput:focus{
+  outline : none;
+}
+
+.tagWrapper{
+  height : 24px;
+  display : inline-block;
+  background-color : #7D77BE;
+  border-radius : 16px;
+  padding : 2px;
+  margin : 2px;
+  color: gray;
+  align-items : center;
+  vertical-align : middle;
+}
+
+.tagText{
+  display : inline-block;
+  color : #FDFDFD;
+  align-items : center;
+  vertical-align : middle;
+}
