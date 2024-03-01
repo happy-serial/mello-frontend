@@ -7,22 +7,26 @@ import { Spacer } from "../../common/spacer";
 import { useState , useEffect, ChangeEvent } from "react";
 import { getImageURL } from "@/api"
 import Image from "next/image";
+import { postBlog } from "@/api"
 
 interface WriteModalProps{
-  viewModal: boolean;
+  blogID : string,
   setViewModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}) => {
+export const WriteModal: React.FC<WriteModalProps> = ({ blogID , setViewModal}) => {
   const [aboutText , setAboutText] = useState<string>("");
   const [aboutLength , setAboutLength] = useState<number>(0);
-  const [privacy , setPrivacy] = useState<boolean>(false);
+  const [privacy , setPrivacy] = useState<string>("PRIVATE");
   const [thumbnailURL , setthumbnailURL] = useState<string>("");
 
   const submit = async () =>{
-    console.log("제출버튼")
     console.log(thumbnailURL)
-    setthumbnailURL("")
+    console.log(aboutText)
+    console.log(privacy)
+    console.log(blogID)
+    const success = await postBlog(blogID , thumbnailURL , privacy , aboutText)
+    console.log(success)
   }
 
   const handleFileChange = async (e : ChangeEvent<HTMLInputElement>) =>{
@@ -40,13 +44,10 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
     }
   }
 
-  useEffect(()=>{
-    console.log(thumbnailURL)
-  },[thumbnailURL])
-
   useEffect(() =>{
     setAboutLength(aboutText.length)
   },[aboutText])
+
 
   return (
     <>
@@ -54,7 +55,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
         <div className = {[styles.thumbnailWrapper].join(" ")}>
           썸네일
           <input accept = "image/*" type = "file" onChange = {(e) => handleFileChange(e)}/>
-          { thumbnailURL && <Image src={thumbnailURL} alt = "Upload Image" width={500} height={500}/>}
+          { thumbnailURL && <img src={thumbnailURL} alt = "Upload Image"/>}
         </div>
         <div className = {[styles.aboutWrapper].join(" ")}>
           소개글
@@ -67,20 +68,20 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
         <div  className = {[styles.privacyWrapper].join(" ")}>
           공개설정
           <Button
-            backgroundColor = {privacy === false ? Colors.purple : Colors.white}
-            color = {privacy === false ? Colors.white : Colors.purple}
+            backgroundColor = {privacy === "PUBLIC" ? Colors.purple : Colors.white}
+            color = {privacy === "PUBLIC" ? Colors.white : Colors.purple}
             label = "전체공개"
             size = "small"
             purpose = "event"
-            onClick = {()=> setPrivacy(false)}
+            onClick = {()=> setPrivacy("PUBLIC")}
           />
           <Button
-            backgroundColor = {privacy === true ? Colors.purple : Colors.white}
-            color = {privacy === true ? Colors.white : Colors.purple}
+            backgroundColor = {privacy === "PRIVATE" ? Colors.purple : Colors.white}
+            color = {privacy === "PRIVATE" ? Colors.white : Colors.purple}
             label = "비공개"
             size = "small"
             purpose = "event"
-            onClick = {() => setPrivacy(true)}
+            onClick = {() => setPrivacy("PRIVATE")}
           />
         </div>
         <div className = {[styles.writeModalButtonWrapper].join(" ")}>
@@ -99,6 +100,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({viewModal , setViewModal}
             size = "small"
             purpose = "event"
             onClick = {submit}
+            disabled = {(thumbnailURL == '' || aboutText == '')}
           />
         </div>
       </div>

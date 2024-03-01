@@ -35,6 +35,7 @@ export const getImageURL = async ( file : File ) => {
 }
 
 export const createTemporaryBlog = async () =>{
+  console.log("createTemporaryBlog")
   try {
     const response = await fetch(`${serverUrl}/blog/temp`,{
       method: "POST",
@@ -58,14 +59,14 @@ export const createTemporaryBlog = async () =>{
 }
 
 export const saveTemporaryBlog = async ( blogID : string , titleText : string , categoryList : string[] , textData : string ) =>{
-
+  console.log("saveTemporaryBlog")
   const dataJSON = JSON.stringify({
     tempBlogId : blogID,
     title : titleText,
     category : categoryList,
     contents : textData,
   })
-
+  console.log(dataJSON)
   try {
     const response = await fetch(`${serverUrl}/blog/temp`,{
       method: "PUT",
@@ -90,6 +91,7 @@ export const saveTemporaryBlog = async ( blogID : string , titleText : string , 
 }
 
 export const showTemporaryblog = async ( tempBlogId : string ) =>{
+  console.log("showTemporaryBlog")
   try {
     const response = await fetch(`${serverUrl}/blog/temp/${tempBlogId}`,{
       method: "POST",
@@ -113,6 +115,7 @@ export const showTemporaryblog = async ( tempBlogId : string ) =>{
 }
 
 export const showAllTemporaryblog = async ( tempBlogId : string ) =>{
+  console.log("showAllTemporaryBlog")
   try {
     const response = await fetch(`${serverUrl}/blog/temp/${tempBlogId}`,{
       method: "POST",
@@ -135,6 +138,35 @@ export const showAllTemporaryblog = async ( tempBlogId : string ) =>{
   }  
 }
 
-export const postBlog = async () =>{
- 
+export const postBlog = async ( tempBlogId , thumbnailURL , privacy , aboutText ) =>{
+  console.log("postTemporaryBlog")
+  const dataJSON = JSON.stringify({
+    tempBlogId : tempBlogId,
+    thumbnailUrl : thumbnailURL,
+    accessStatus : privacy,
+    about : aboutText,
+  })
+
+  try {
+    const response = await fetch(`${serverUrl}/blog`,{
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Authorization":  `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: dataJSON
+    })
+    const responseData: DefaultResponse<Object> = await response.json();
+    console.log(JSON.stringify(responseData));
+    if (responseData.statusCode == 201){
+      console.log(responseData)
+      return responseData.success
+    } else {
+      throw new Error(`Failed to verify code: ${JSON.stringify(responseData)}`)
+      console.log(response)
+    }
+  } catch (error){
+    console.error(error);
+  }  
 }

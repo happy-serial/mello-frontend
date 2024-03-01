@@ -31,7 +31,6 @@ export default function BlogWrite() {
       if(outerDivElement !== null){
         outerDivElement.childNodes.forEach(node => {
           textData += node.outerHTML;
-          console.log(textData);
         });
       }
     }else {
@@ -44,21 +43,32 @@ export default function BlogWrite() {
     if(blogID === ''){
       const data = await createTemporaryBlog()
       setBlogID(data.tempBlogId)
+      GetTextData()
+      const success = await saveTemporaryBlog( data.tempBlogId , titleText , categoryList , textData)
+      console.log("임시저장성공",success)
+    }else{
+      GetTextData()
+      const success = await saveTemporaryBlog( blogID , titleText , categoryList , textData)
+      console.log("임시저장성공",success)
     }
-    GetTextData()
-    const success = await saveTemporaryBlog( blogID , titleText , categoryList , textData)
-    console.log("성공여부",success)
-    setViewModal(false)
   }
 
-  function SendData(){
-    GetTextData()
+  // const TemporaryStorage = async() =>{
+  //   console.log("TemporaryStorage")
+  //   if(blogID === ''){
+  //     const data = await createTemporaryBlog()
+  //     setBlogID(data.tempBlogId)
+  //   }
+  //   GetTextData()
+  //   const success = await saveTemporaryBlog(blogID, titleText, categoryList, textData)
+  //   console.log("임시저장성공", success)
+  // }
+
+  const SendData = async() => {
     console.log("SendData")
-    console.log(categoryList)
-    console.log(textData)
+    await TemporaryStorage()
     setViewModal(true)
   }
-
 
   return (
     <>
@@ -103,7 +113,7 @@ export default function BlogWrite() {
             onClick = {SendData}
           />
         </div>
-        { viewModal && <WriteModal viewModal = {viewModal} setViewModal = {setViewModal} />}
+        { viewModal && <WriteModal blogID = {blogID} setViewModal = {setViewModal} />}
     </>
   )
 }
