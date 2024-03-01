@@ -10,7 +10,7 @@ import Image from "next/image";
 import { postBlog } from "@/api"
 
 interface WriteModalProps{
-  blogID : string,
+  blogID : string|undefined,
   setViewModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,13 +18,9 @@ export const WriteModal: React.FC<WriteModalProps> = ({ blogID , setViewModal}) 
   const [aboutText , setAboutText] = useState<string>("");
   const [aboutLength , setAboutLength] = useState<number>(0);
   const [privacy , setPrivacy] = useState<string>("PRIVATE");
-  const [thumbnailURL , setthumbnailURL] = useState<string>("");
+  const [thumbnailURL , setthumbnailURL] = useState<string | undefined>("");
 
   const submit = async () =>{
-    console.log(thumbnailURL)
-    console.log(aboutText)
-    console.log(privacy)
-    console.log(blogID)
     const success = await postBlog(blogID , thumbnailURL , privacy , aboutText)
     console.log(success)
   }
@@ -35,7 +31,6 @@ export const WriteModal: React.FC<WriteModalProps> = ({ blogID , setViewModal}) 
         const file = e.target.files[0]
         const imageURL = await getImageURL(file)
         setthumbnailURL(imageURL)
-        console.log("이미지URL", imageURL)
       } catch (error){
         console.log(error)
       }
@@ -55,7 +50,7 @@ export const WriteModal: React.FC<WriteModalProps> = ({ blogID , setViewModal}) 
         <div className = {[styles.thumbnailWrapper].join(" ")}>
           썸네일
           <input accept = "image/*" type = "file" onChange = {(e) => handleFileChange(e)}/>
-          { thumbnailURL && <img src={thumbnailURL} alt = "Upload Image"/>}
+          { thumbnailURL && <Image src={thumbnailURL} alt = "Upload Image"/>}
         </div>
         <div className = {[styles.aboutWrapper].join(" ")}>
           소개글
