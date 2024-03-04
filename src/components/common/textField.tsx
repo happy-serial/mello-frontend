@@ -7,23 +7,28 @@ import { CSSProperties, useState } from "react";
 
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
+import { BsSearch } from "react-icons/bs";
 
 interface TextFieldProps {
   color?: Colors;
+  width?: string;
   borderColor?: Colors;
   backgroundColor?: Colors;
   boxShadowColor?: Colors;
   placeholder?: string;
-  type: "text" | "password" | "email";
+  borderRadius?: string;
+  type: "text" | "password" | "email" | "search";
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const TextField = ({
   color,
   borderColor,
+  width = "100%",
   backgroundColor,
   boxShadowColor = Colors.transparent,
   placeholder,
+  borderRadius = "6px",
   onChange,
   type,
   ...props
@@ -34,7 +39,7 @@ export const TextField = ({
     setInputType(inputType === "password" ? "text" : "password");
   };
 
-  const iconStyle: CSSProperties = {
+  const EyeIconStyle: CSSProperties = {
     position: "absolute",
     right: "20px",
     top: "50%",
@@ -43,16 +48,29 @@ export const TextField = ({
     color: color ? color : Colors.gray,
     width: "24px",
     height: "24px",
+    zIndex: 201,
+  };
+
+  const SearchIconStyle: CSSProperties = {
+    position: "absolute",
+    left: "20px",
+    color: Colors.black,
+    zIndex: 201,
   };
 
   return (
-    <div className={styles.textFieldContainer}>
+    <div className={styles.textFieldContainer} style={{ width: width }}>
+      {type === "search" ? (
+        <BsSearch size="20px" style={SearchIconStyle} />
+      ) : null}
       <input
         type={type === "password" ? inputType : type}
         className={[styles.textField, aldrich.className].join(" ")}
         placeholder={placeholder}
         onChange={(e) => onChange(e)}
         style={{
+          paddingLeft: type === "search" ? "50px" : "0px",
+          borderRadius,
           backgroundColor,
           border: `1.5px solid ${borderColor}`,
           color: Colors.black,
@@ -62,9 +80,9 @@ export const TextField = ({
       {type === "password" && (
         <div className={styles.toggleButton} onClick={toggleInputType}>
           {inputType === "password" ? (
-            <GoEye style={iconStyle} />
+            <GoEye style={EyeIconStyle} />
           ) : (
-            <GoEyeClosed style={iconStyle} />
+            <GoEyeClosed style={EyeIconStyle} />
           )}
         </div>
       )}

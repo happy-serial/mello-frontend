@@ -8,61 +8,47 @@ import { Colors } from "../../../public/styles/colors/colors";
 
 import { Button } from "../common/button";
 import { Profile } from "../common/profile";
-// import { cookies } from "next/headers";
-import Cookies from "js-cookie";
-import { tokenHeader } from "@/model";
 
-import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
-import { validateToken } from "@/utils/tokenHandler";
-import { verifyToken } from "@/api";
-import { useState } from "react";
 
-interface HeaderProps {}
+import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
+import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
+import { useEffect, useState } from "react";
+import { checkLogin } from "@/utils/tokenHandler";
+import { TextField } from "../common/textField";
+import { Spacer } from "../common/spacer";
 
-export const Header = ({}: HeaderProps) => {
-  const accessToken = Cookies.get("access-token");
-  const refreshToken = Cookies.get("refresh-token");
+interface HeaderProps {
+  isLogin: boolean;
+  username: string;
+  accessToken?: string | undefined;
+  refreshToken?: string | undefined;
+}
 
-  // TODO: zustand로 바꾸기
-  const [isLogin, setIsLogin] = useState(false);
-  const [username, setUsername] = useState("non-login");
+export const Header = ({
+  isLogin,
+  username,
+  accessToken,
+  refreshToken,
+}: HeaderProps) => {
+  const authStore = UseLoginStatusStore({ isLogin, username });
 
-  // TODO: 함수로 만들어서 뺴기
-  // TODO: 바꾸는거 빠르게 하는방법 알아보기(예를 들어 로그인에서 바꿔준다던가.)
-  if (accessToken && refreshToken) {
-    const decodedToken = jwtDecode(accessToken, {
-      header: true,
-    }) as unknown as tokenHeader;
+  const [isLoginState, setIsLogin, usernameState, setUsername] = authStore(
+    (store) => [
+      store.loginStatus,
+      store.setLoginStatus,
+      store.usernameStatus,
+      store.setUsernameStatus,
+    ]
+  );
 
-    if (validateToken(accessToken)) {
-      verifyToken(accessToken, false).then((response) => {
-        if (response && decodedToken) {
-          if (response.accessToken) {
-            Cookies.set("access-token", response.accessToken);
-          }
-          setIsLogin(true);
-          setUsername(decodedToken.Username);
-        }
-      });
-    } else if (validateToken(refreshToken)) {
-      verifyToken(refreshToken, true).then((response) => {
-        if (response && decodedToken) {
-          if (response.accessToken) {
-            Cookies.set("access-token", response.accessToken);
-          }
-          if (response.refreshToken) {
-            Cookies.set("refresh-token", response.refreshToken);
-          }
-          setIsLogin(true);
-          setUsername(decodedToken.Username);
-        }
-      });
-    } else {
-      setIsLogin(false);
-      setUsername("non-login");
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    if (accessToken && refreshToken) {
+      checkLogin(accessToken, refreshToken, setIsLogin, setUsername);
     }
-  }
+  }, []);
 
   return (
     <header
@@ -86,8 +72,33 @@ export const Header = ({}: HeaderProps) => {
             mello
           </Link>
         </div>
-        {isLogin ? (
-          <Profile username={username} size="header"></Profile>
+        {isLoginState ? (
+          <div className={styles.userInteractionSection}>
+            <TextField
+              width="500px"
+              color={Colors.black}
+              borderRadius="30px"
+              borderColor={Colors.transparent}
+              backgroundColor={Colors.lightGrayTransparent}
+              type={"search"}
+              placeholder="search..."
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+            />
+            <Spacer shape="width" size="10px" />
+            <RiQuillPenLine
+              size="30px"
+              color={Colors.black}
+              style={{ padding: "12px 4px 12px 12px" }}
+            ></RiQuillPenLine>
+            <RiBellLine
+              size="30px"
+              color={Colors.black}
+              style={{ padding: "12px 20px 12px 12px" }}
+            ></RiBellLine>
+            <Profile username={usernameState} size="header"></Profile>
+          </div>
         ) : (
           <div>
             <Button
