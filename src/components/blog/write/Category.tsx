@@ -16,12 +16,12 @@ export const Category: React.FC<CategoryProps> = ({categoryList , setCategoryLis
 
   const placeholderText = "엔터를눌러 카테고리를 입력해주세요"
 
-  const onKeyPress = (e:React.KeyboardEvent<HTMLElement>) =>{
+  const onKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) =>{
     if (categoryText !== undefined){
       if (categoryText.length !== 0 && e.key === 'Enter'){
         submitTagItem()
       }
-      if (categoryText.length == 0 && e.key == 'Backspace'){
+      if (categoryText.length === 0 && e.key === 'Backspace'){
         deleteCategory()
       }
     }
@@ -35,14 +35,14 @@ export const Category: React.FC<CategoryProps> = ({categoryList , setCategoryLis
   }
 
   const deleteCategory = () =>{
-    if (categoryText.trim() == "") {
+    if (categoryText.trim() === "") {
       let deleteCategoryList = categoryList.slice(0, categoryList.length - 1);
       setCategoryList(deleteCategoryList);
     }
   }
 
-  const deleteSelectCategory = (e) => {
-    const deleteCategoryItem = e.target.innerText
+  const deleteSelectCategory = (e:React.MouseEvent<HTMLDivElement>) => {
+    const deleteCategoryItem = (e.target as HTMLDivElement).innerText
     const filteredCategoryList = categoryList.filter(categoryText => categoryText !== deleteCategoryItem)
     setCategoryList(filteredCategoryList)
   }

@@ -9,16 +9,15 @@ import { Button } from "../../../../../src/components/common/button"
 import { Spacer } from "../../../../../src/components/common/spacer"
 import { Category } from "@/components/blog/write/Category"
 import { WriteModal } from "@/components/blog/write/WriteModal" 
-import { styles } from "@/components/blog/css/write.module.css"
 import { createTemporaryBlog , saveTemporaryBlog } from "@/api"
 
 export default function BlogWrite() {
-  const [blogID , setBlogID] = useState<string>('');
+  const [blogID , setBlogID] = useState<string | undefined>('');
   const [titleText , setTitleText] = useState<string>('');
-  const [categoryList , setCategoryList] = useState([]);
+  const [categoryList , setCategoryList] = useState<string[]>([]);
   const [viewModal , setViewModal] = useState<boolean>(true);
 
-  const childRef = useRef(null);
+  const childRef = useRef<HTMLDivElement>(null);
   let textData = '';
 
   function GetTextData(){
@@ -28,11 +27,20 @@ export default function BlogWrite() {
       const parser = new DOMParser();
       const doc = parser.parseFromString(childRef.current.innerHTML, 'text/html');
       const outerDivElement = doc.querySelector('.ContentEditable__root');
+      // if(outerDivElement !== null){
+      //   outerDivElement.childNodes.forEach(node => {
+      //     textData += node.outerHTML;
+      //   });
+      // }
       if(outerDivElement !== null){
-        outerDivElement.childNodes.forEach(node => {
-          textData += node.outerHTML;
+        Array.from(outerDivElement.childNodes).forEach(node => {
+            if(node instanceof HTMLElement){
+                textData += node.outerHTML;
+            } else if (node instanceof Text) {
+                textData += node.textContent;
+            }
         });
-      }
+    }
     }else {
       console.log("childRef isn`t undefined");
     }
@@ -41,10 +49,10 @@ export default function BlogWrite() {
   const TemporaryStorage = async() =>{
     console.log("TemporaryStorage")
     if(blogID === ''){
-      const data = await createTemporaryBlog()
-      setBlogID(data.tempBlogId)
+      const tempBlogId = await createTemporaryBlog()
+      setBlogID(tempBlogId?.tempBlogId)
       GetTextData()
-      const success = await saveTemporaryBlog( data.tempBlogId , titleText , categoryList , textData)
+      const success = await saveTemporaryBlog( tempBlogId?.tempBlogId , titleText , categoryList , textData)
       console.log("임시저장성공",success)
     }else{
       GetTextData()
@@ -52,17 +60,6 @@ export default function BlogWrite() {
       console.log("임시저장성공",success)
     }
   }
-
-  // const TemporaryStorage = async() =>{
-  //   console.log("TemporaryStorage")
-  //   if(blogID === ''){
-  //     const data = await createTemporaryBlog()
-  //     setBlogID(data.tempBlogId)
-  //   }
-  //   GetTextData()
-  //   const success = await saveTemporaryBlog(blogID, titleText, categoryList, textData)
-  //   console.log("임시저장성공", success)
-  // }
 
   const SendData = async() => {
     console.log("SendData")
