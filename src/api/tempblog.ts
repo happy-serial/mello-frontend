@@ -1,5 +1,5 @@
 import {
-  createTemporaryBlogRequest,
+  createTemporaryBlogResponse,
 } from "@/model";
 import { DefaultResponse, serverUrl } from ".";
 
@@ -16,7 +16,7 @@ export const createTemporaryBlog = async () =>{
         "Authorization":  `Bearer ${token}`,
       },
     })
-    const responseData: DefaultResponse<createTemporaryBlogRequest> = await response.json();
+    const responseData: DefaultResponse<createTemporaryBlogResponse> = await response.json();
     if (responseData.statusCode == 201){
       return responseData.data
     } else {
@@ -27,7 +27,11 @@ export const createTemporaryBlog = async () =>{
   }
 }
 
-export const saveTemporaryBlog = async ( blogID : string|undefined , titleText : string , categoryList : string[] , textData : string ) =>{
+export const saveTemporaryBlog = async ( 
+  blogID : string|undefined , 
+  titleText : string , 
+  categoryList : string[] , 
+  textData : string ) =>{
   console.log("saveTemporaryBlog")
 
   const dataJSON = JSON.stringify({
@@ -101,7 +105,12 @@ export const showAllTemporaryblog = async ( tempBlogId : string ) =>{
   }  
 }
 
-export const postBlog = async ( tempBlogId , thumbnailURL , privacy , aboutText ) =>{
+export const postBlog = async ( 
+  tempBlogId : string|undefined, 
+  thumbnailURL: string|undefined , 
+  privacy : string , 
+  aboutText : string 
+  ) =>{
   console.log("postTemporaryBlog")
 
   const dataJSON = JSON.stringify({
