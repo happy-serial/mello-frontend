@@ -8,3 +8,4 @@ export type DefaultResponse<T> = {
 export * from "./auth"
 export * from "./tempblog"
 export * from "./blog"
+export * from "./myPage"
