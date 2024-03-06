@@ -8,7 +8,7 @@ import { Friends } from './../../../components/mypage/Friends';
 
 export default function MyPage() {
   const [tab , setTab] = useState<string>("Friends")
-
+  const tabArray = ["ActivityLog","Friends"]
   useEffect(()=>{
     GetData()
   },[])
@@ -21,7 +21,7 @@ export default function MyPage() {
   return (
     <>
       <MyProfile/>
-      <TabButtons setTab = {setTab}/>
+      <TabButtons setTab = {setTab} tabArray = {tabArray}/>
       {tab === "ActivityLog" && <ActivityLog/>}
       {tab === "Friends" && <Friends/>}
     </>
