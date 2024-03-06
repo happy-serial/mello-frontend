@@ -10,15 +10,24 @@ import { Spacer } from "../../../../../src/components/common/spacer"
 import { Category } from "@/components/blog/write/Category"
 import { WriteModal } from "@/components/blog/write/WriteModal" 
 import { createTemporaryBlog , saveTemporaryBlog } from "@/api"
+import { useRouter } from "next/navigation";
+import { useSearchParams} from "next/navigation"
 
-export default function BlogWrite() {
+export default function BlogWrite( {query} ) {
   const [blogID , setBlogID] = useState<string | undefined>('');
   const [titleText , setTitleText] = useState<string>('');
   const [categoryList , setCategoryList] = useState<string[]>([]);
   const [viewModal , setViewModal] = useState<boolean>(true);
+  const blogTextId = useSearchParams()
+  // const router = useRouter();
+  // const tempBlogId = router.query;
 
   const childRef = useRef<HTMLDivElement>(null);
   let textData = '';
+
+  useEffect(()=>{
+    console.log(blogTextId.get('tempBlogId'))
+  },[])
 
   function GetTextData(){
     console.log("Getdata")

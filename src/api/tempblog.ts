@@ -83,19 +83,19 @@ export const showTemporaryblog = async ( tempBlogId : string ) =>{
   }  
 }
 
-export const showAllTemporaryblog = async ( tempBlogId : string ) =>{
+export const showAllTemporaryblog = async ( ) =>{
   console.log("showAllTemporaryBlog")
 
   try {
-    const response = await fetch(`${serverUrl}/blog/temp/${tempBlogId}`,{
-      method: "POST",
+    const response = await fetch(`${serverUrl}/blog/temp`,{
+      method: "GET",
       cache: "no-store",
       headers: {
         "Authorization":  `Bearer ${token}`,
       },
     })
     const responseData: DefaultResponse<Object> = await response.json();
-    if (responseData.statusCode == 201){
+    if (responseData.statusCode == 200){
       return responseData.data
     } else {
       throw new Error(`Failed to load all temporary blogs: ${JSON.stringify(responseData)}`)
