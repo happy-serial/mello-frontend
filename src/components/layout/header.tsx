@@ -31,24 +31,31 @@ export const Header = ({
   accessToken,
   refreshToken,
 }: HeaderProps) => {
-  const authStore = UseLoginStatusStore({ isLogin, username });
 
-  const [isLoginState, setIsLogin, usernameState, setUsername] = authStore(
-    (store) => [
+  let tempIsLogin = isLogin;
+  let tempUsername = username;
+
+  const [isLoginState, setIsLogin, usernameState, setUsername] =
+    UseLoginStatusStore((store) => [
       store.loginStatus,
       store.setLoginStatus,
       store.usernameStatus,
       store.setUsernameStatus,
-    ]
-  );
+    ]);
 
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     if (accessToken && refreshToken) {
       checkLogin(accessToken, refreshToken, setIsLogin, setUsername);
+      console.log("isLoginState: ", isLoginState);
     }
   }, []);
+
+  useEffect(() => {
+    tempIsLogin = isLoginState;
+    tempUsername = usernameState;
+  }, [isLoginState, usernameState]);
 
   return (
     <header
@@ -72,7 +79,7 @@ export const Header = ({
             mello
           </Link>
         </div>
-        {isLoginState ? (
+        {tempIsLogin ? (
           <div className={styles.userInteractionSection}>
             <TextField
               width="500px"
@@ -97,7 +104,7 @@ export const Header = ({
               color={Colors.black}
               style={{ padding: "12px 20px 12px 12px" }}
             ></RiBellLine>
-            <Profile username={usernameState} size="header"></Profile>
+            <Profile username={tempUsername} size="header"></Profile>
           </div>
         ) : (
           <div>
