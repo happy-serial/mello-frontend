@@ -10,17 +10,15 @@ import { Spacer } from "../../../../../src/components/common/spacer"
 import { Category } from "@/components/blog/write/Category"
 import { WriteModal } from "@/components/blog/write/WriteModal" 
 import { createTemporaryBlog , saveTemporaryBlog } from "@/api"
-import { useRouter } from "next/navigation";
-import { useSearchParams} from "next/navigation"
+import { useSearchParams } from "next/navigation"
 
-export default function BlogWrite( {query} ) {
+export default function BlogWrite( ) {
   const [blogID , setBlogID] = useState<string | undefined>('');
   const [titleText , setTitleText] = useState<string>('');
   const [categoryList , setCategoryList] = useState<string[]>([]);
   const [viewModal , setViewModal] = useState<boolean>(true);
   const blogTextId = useSearchParams()
-  // const router = useRouter();
-  // const tempBlogId = router.query;
+
 
   const childRef = useRef<HTMLDivElement>(null);
   let textData = '';
@@ -36,11 +34,7 @@ export default function BlogWrite( {query} ) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(childRef.current.innerHTML, 'text/html');
       const outerDivElement = doc.querySelector('.ContentEditable__root');
-      // if(outerDivElement !== null){
-      //   outerDivElement.childNodes.forEach(node => {
-      //     textData += node.outerHTML;
-      //   });
-      // }
+
       if(outerDivElement !== null){
         Array.from(outerDivElement.childNodes).forEach(node => {
             if(node instanceof HTMLElement){

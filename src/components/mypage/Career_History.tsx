@@ -1,12 +1,12 @@
 import { Colors } from "../../../public/styles/colors/colors";
 import { Spacer } from "../common/spacer";
-import { ArticleListItem } from "@/src/components/blog/list/articleListItem.tsx"
 
-export const ActivityLog = () => {
+
+export const Career_History = () => {
   return (
     <>
       <div>
-        활동기록
+        커리어 및 연혁
       </div>
     </>
   );

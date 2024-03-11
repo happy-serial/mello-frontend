@@ -6,11 +6,12 @@ import { ProfileDescription } from "@/components/mypage/ProfileDescription"
 import { ActivityLog } from './../../../components/mypage/ActivityLog';
 import { Friends } from './../../../components/mypage/Friends';
 import { TempBlog } from "@/components/mypage/TempBlog";
-
+import { Career_History } from "@/components/mypage/Career_History"
+import { MyBlogs } from "@/components/mypage/MyBlogs"
 
 export default function MyPage() {
   const [tab , setTab] = useState<string>("Friends")
-  const tabArray = ["ActivityLog","Friends","TempBlog"]
+  const tabArray = ["Career and History","ActivityLog","Friends","MyBlogs","TempBlog"]
 
   useEffect(()=>{
     GetData()
@@ -23,10 +24,14 @@ export default function MyPage() {
 
   const renderTabPage = ( page : string ) =>{
     switch (page){
+      case 'Career and History':
+        return <Career_History/>
       case 'ActivityLog':
         return <ActivityLog/>
       case 'Friends':
         return <Friends/>
+      case 'MyBlogs':
+        return  <MyBlogs/>
       case 'TempBlog':
         return  <TempBlog/>
       default : 
