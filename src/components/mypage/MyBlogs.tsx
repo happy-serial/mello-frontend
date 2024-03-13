@@ -19,7 +19,7 @@ export const MyBlogs = () => {
         setBlogs(myBlogs)
       }
     }catch(error){
-      console.error("Error fetching temporary blog data :", error)
+      console.error("Error fetching MyBlogs data :", error)
     }
   }
 

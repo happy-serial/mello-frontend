@@ -13,17 +13,21 @@ interface TempBlogData {
 }
 
 export const TempBlog = () => {
-  const [allTempBlogData , setAllTempBlogData] = useState<string>([])
-
+  const [allTempBlogData , setAllTempBlogData] = useState<TempBlogData[]>([])
   useEffect(()=>{
     getData()
-  },[ ])
+  },[])
+
+  useEffect(() => {
+    console.log(allTempBlogData);
+  }, [allTempBlogData]);
 
   const getData = async () =>{
     try{
-      const tempBlogs = await showAllTemporaryblog();
+      const tempBlogs: TempBlogData[] | undefined | null = await showAllTemporaryblog();
       if(tempBlogs !== undefined){
         setAllTempBlogData(tempBlogs)
+        console.log(tempBlogs)
       }
     }catch(error){
       console.error("Error fetching temporary blog data :", error)
