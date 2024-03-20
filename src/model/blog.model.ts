@@ -1,21 +1,25 @@
-import { profileModel } from "./user.model"
-
 // TODO: createdAt type should be Date
 export type thumbnailResponse = {
-    user: profileModel;
-    image: string;
-    createdAt: string;
-    title: string;
-    summary: string;
-    viewCount: number;
-    commentCount: number;
-    likeCount: number;
-    categories: string[];
-}
-export type createTemporaryBlogRequest = {
-  bltemBlogId : string
-}
+  blogId: string;
+  title: string;
+  about: string;
+  membershipId: string;
+  authorName: string;
+  viewCount: number;
+  like: number;
+  thumbnailUrl: string;
+  accessStatus: string;
+  commentCount: number;
+  categoryName: string[];
+  authorPhotoUrl: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type createTemporaryBlogResponse = {
+  tempBlogId: string;
+};
 
 export type getImageURL = {
-  imageUrl : string
-}
+  imageUrl: string;
+};

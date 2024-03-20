@@ -1,4 +1,4 @@
-import { ArticleSection } from "@/components/main/articleSection";
+import { Combination } from "@/components/main/combination";
 import { checkAllTokenLife } from "@/utils/tokenHandler";
 import { cookies } from "next/headers";
 
@@ -12,5 +12,5 @@ export default function Home() {
     refreshToken,
   });
 
-  return <ArticleSection isLogin={isLogin} />;
+  return <Combination isLogin={isLogin} />;
 }

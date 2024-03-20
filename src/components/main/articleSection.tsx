@@ -1,36 +1,24 @@
 "use client";
 
-import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
-import { useEffect } from "react";
-import { Content } from "./Content";
-import { Introduction } from "./Introduction";
+interface ArticleSectionProps {}
 
-interface ArticleSectionProps {
-  isLogin: boolean;
-}
-
-export const ArticleSection = ({ isLogin }: ArticleSectionProps) => {
-  let tempIsLogin = isLogin;
-
-  const isLoginState = UseLoginStatusStore((store) => store.loginStatus);
-
-  useEffect(() => {
-    tempIsLogin = isLoginState;
-    console.log("isLoginState: ", isLoginState);
-  }, [isLoginState]);
-
+export const ArticleSection = ({}: ArticleSectionProps) => {
   return (
     <>
-      {tempIsLogin ? (
-        <>
-            <div>지금이니?</div>
-        </>
-      ) : (
-        <>
-          <Content />
-          <Introduction />
-        </>
-      )}
+      <div
+        style={{ display: "flex", width: "100wh", justifyContent: "center" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            width: "75vw",
+            justifyContent: "center",
+            border: "1px solid black",
+          }}
+        >
+          지금이니?
+        </div>
+      </div>
     </>
   );
 };

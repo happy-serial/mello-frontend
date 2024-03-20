@@ -121,7 +121,7 @@ export const JoinFormEmailVerification = ({
         boxShadowColor={Colors.grayTransparent}
         placeholder="Verification Code"
         onChange={(e) => {
-        setVerificationCodeState(e.target.value);
+          setVerificationCodeState(e.target.value);
         }}
       />
       <Spacer shape="height" size="16px" />
