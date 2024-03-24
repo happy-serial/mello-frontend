@@ -8,10 +8,11 @@ import { Friends } from './../../../components/mypage/Friends';
 import { TempBlog } from "@/components/mypage/TempBlog";
 import { Career_History } from "@/components/mypage/Career_History"
 import { MyBlogs } from "@/components/mypage/MyBlogs"
+import { Banner } from "@/components/mypage/Banner"
 
 export default function MyPage() {
-  const [tab , setTab] = useState<string>("Friends")
-  const tabArray = ["Career and History","ActivityLog","Friends","MyBlogs","TempBlog"]
+  const [tab , setTab] = useState<string>("소개")
+  const tabArray = ["소개","경험","게시물","활동내역"]
 
   useEffect(()=>{
     GetData()
@@ -24,26 +25,35 @@ export default function MyPage() {
 
   const renderTabPage = ( page : string ) =>{
     switch (page){
-      case 'Career and History':
+      case '경험':
         return <Career_History/>
-      case 'ActivityLog':
+      case '활동기록':
         return <ActivityLog/>
-      case 'Friends':
+      case '게시물':
         return <Friends/>
-      case 'MyBlogs':
-        return  <MyBlogs/>
-      case 'TempBlog':
-        return  <TempBlog/>
+      case '소개':
+        return <ProfileDescription/>
       default : 
         return <div>ErrorPage</div>
     }
   }
 
   return (
-    <>
-      <ProfileDescription/>
-      <TabButtons setTab = {setTab} tabArray = {tabArray}/>
-      {renderTabPage(tab)}
-    </>
+    <div
+      style={{
+        display : "flex",
+      }}
+    >
+      <Banner/>
+      <div>여기에 옆구리에 들어갈거</div>
+      <div
+        style={{
+          display : "block",
+        }}
+      >
+        <TabButtons tab = {tab} setTab = {setTab} tabArray = {tabArray}/>
+        {renderTabPage(tab)}
+      </div>
+    </div>
   )
 }

@@ -25,7 +25,7 @@ export const TempBlog = () => {
   const getData = async () =>{
     try{
       const tempBlogs: TempBlogData[] | undefined | null = await showAllTemporaryblog();
-      if(tempBlogs !== undefined){
+      if(tempBlogs !== undefined && tempBlogs !== null){
         setAllTempBlogData(tempBlogs)
         console.log(tempBlogs)
       }
