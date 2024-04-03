@@ -22,7 +22,7 @@ export const TabButtons:React.FC<TabButtonsProps> = ({tab , setTab , tabArray}) 
               backgroundColor = {Colors.black}
               color = {tab === myArray ? Colors.white : Colors.gray}
               label = {`${myArray}`}
-              size = "middle"
+              size = "large"
               purpose="event"
               onClick = {() => setTab(myArray)}
             />

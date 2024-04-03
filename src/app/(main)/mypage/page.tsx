@@ -9,6 +9,7 @@ import { TempBlog } from "@/components/mypage/TempBlog";
 import { Career_History } from "@/components/mypage/Career_History"
 import { MyBlogs } from "@/components/mypage/MyBlogs"
 import { Banner } from "@/components/mypage/Banner"
+import { ProfileCard } from "@/components/mypage/ProfileCard"
 
 export default function MyPage() {
   const [tab , setTab] = useState<string>("소개")
@@ -45,7 +46,7 @@ export default function MyPage() {
       }}
     >
       <Banner/>
-      <div>여기에 옆구리에 들어갈거</div>
+      <ProfileCard/>
       <div
         style={{
           display : "block",

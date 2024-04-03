@@ -1,10 +1,10 @@
 import { Colors } from "../../../public/styles/colors/colors";
 import { Spacer } from "../common/spacer";
 import Image from "next/image";
-import { useState , useEffect } from "react";
 import ContentEditable from "react-contenteditable";
 import { getImageURL } from "@/api"
 import { useRouter }  from "next/navigation";
+import React,{ ChangeEvent , useState , useEffect } from "react";
 
 export const ProfileDescription = () => {
   const [editable , setEditable] = useState<boolean>(true)

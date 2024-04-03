@@ -40,7 +40,7 @@ export const TempBlog = () => {
         {
           allTempBlogData.map(( data , index )=>{
             return(
-              <TempBlogPreview  
+              <TempBlogPreview
                 key = {index}
                 tempBlogId = {data.tempBlogId}
                 title = {data.title}
