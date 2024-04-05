@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface LoginStatusStore {
   loginStatus: boolean;
@@ -7,15 +8,18 @@ interface LoginStatusStore {
   setUsernameStatus: (usernameStatus: string) => void;
 }
 
-export const UseLoginStatusStore = (initialState: {
-  isLogin: boolean;
-  username: string;
-}) => {
-  return create<LoginStatusStore>((set) => ({
-    loginStatus: initialState.isLogin,
-    usernameStatus: initialState.username,
-    setLoginStatus: (loginStatus) => set({ loginStatus: loginStatus }),
-    setUsernameStatus: (usernameStatus) =>
-      set({ usernameStatus: usernameStatus }),
-  }));
-};
+export const UseLoginStatusStore = create<LoginStatusStore>()(
+  persist(
+    (set) => ({
+      loginStatus: false,
+      usernameStatus: "non-login",
+      setLoginStatus: (loginStatus) => set({ loginStatus: loginStatus }),
+      setUsernameStatus: (usernameStatus) =>
+        set({ usernameStatus: usernameStatus }),
+    }),
+    {
+      name: "loginStatus",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

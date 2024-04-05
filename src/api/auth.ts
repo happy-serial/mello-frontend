@@ -27,7 +27,7 @@ export const sendVerificationEmail = async (email: string) => {
   } catch (error) {
     console.error(error);
   }
-};
+};    
 
 export const verifyEmailCode = async (
   data: verificationRequest
@@ -44,8 +44,11 @@ export const verifyEmailCode = async (
 
   console.log(JSON.stringify(responseData));
 
-  if (responseData.statusCode === 200 && responseData.data) {
-    return responseData.data;
+  if (responseData.statusCode === 200) {
+    const emailIsValid: VerificationResponse = {
+      emailIsValid: responseData.success,
+    };
+    return emailIsValid;
   } else if (responseData.statusCode === 400) {
     console.log(responseData.messages[0]);
     return responseData.messages[0];
@@ -144,7 +147,7 @@ export const verifyToken = async (
       "Content-Type": "application/json",
       IsRefresh: `${isRefresh}`,
       Authorization: `Bearer ${token}`,
-    }
+    },
   });
 
   if (response.status === 200) {

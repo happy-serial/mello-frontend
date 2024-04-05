@@ -23,10 +23,7 @@ export type SocialLoginRequest = {
 };
 
 export type VerificationResponse = {
-  emailIdValidId: string,
-  email: string,
-  emailIsValid: boolean,
-  createdAt: Date
+  emailIsValid: boolean;
 }
 
 export type LoginResponse = {
