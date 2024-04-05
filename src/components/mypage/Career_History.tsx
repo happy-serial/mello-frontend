@@ -1,11 +1,12 @@
 import { Colors } from "../../../public/styles/colors/colors";
 import { Spacer } from "../common/spacer";
 
-export const ActivityLog = () => {
+
+export const Career_History = () => {
   return (
     <>
       <div>
-        활동기록
+        커리어 및 연혁
       </div>
     </>
   );

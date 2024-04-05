@@ -4,7 +4,7 @@ import {
 import { DefaultResponse, serverUrl } from ".";
 
 // 임시토큰사용
-const token = "eyJVc2VybmFtZSI6IuyEnOuylOyImCIsImFsZyI6IkhTMjU2In0.eyJzdWIiOiI5OTUxMDA1ZC04ZTc0LTQ2NDAtYmEwYi0wNTg2YmNkYjQwM2IiLCJhdXRoIjoiTk9STUFMX01FTUJFUiIsImV4cCI6MTcxMDE1NDg0NX0.ZRQUw0jcjn_qPsseEeSxrQUZU3Vyd65FlFQF0a20H9g"
+const token = "eyJVc2VybmFtZSI6IuyEnOuylOyImCIsImFsZyI6IkhTMjU2In0.eyJzdWIiOiI5OTUxMDA1ZC04ZTc0LTQ2NDAtYmEwYi0wNTg2YmNkYjQwM2IiLCJhdXRoIjoiTk9STUFMX01FTUJFUiIsImV4cCI6MTcxMTM2ODk5NH0.bayQTnYgjVrdqYwmKCjSbCedkyO9YlTfLq7N5jI1OVI"
 
 export const createTemporaryBlog = async () =>{
   console.log("createTemporaryBlog")
@@ -83,19 +83,19 @@ export const showTemporaryblog = async ( tempBlogId : string ) =>{
   }  
 }
 
-export const showAllTemporaryblog = async ( tempBlogId : string ) =>{
+export const showAllTemporaryblog = async ( ) =>{
   console.log("showAllTemporaryBlog")
 
   try {
-    const response = await fetch(`${serverUrl}/blog/temp/${tempBlogId}`,{
-      method: "POST",
+    const response = await fetch(`${serverUrl}/blog/temp`,{
+      method: "GET",
       cache: "no-store",
       headers: {
         "Authorization":  `Bearer ${token}`,
       },
     })
     const responseData: DefaultResponse<Object> = await response.json();
-    if (responseData.statusCode == 201){
+    if (responseData.statusCode == 200){
       return responseData.data
     } else {
       throw new Error(`Failed to load all temporary blogs: ${JSON.stringify(responseData)}`)

@@ -19,7 +19,13 @@ const nextConfig = {
         hostname: "i.namu.wiki",
         port: "",
         pathname: "/**",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "mello-s3-dev.s3.ap-northeast-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   output: "standalone",
