@@ -4,7 +4,6 @@
 
 import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
 import { useEffect } from "react";
-import { Content } from "./Content";
 import { Introduction } from "./Introduction";
 import { ArticleSection } from "./articleSection";
 
@@ -24,16 +23,8 @@ export const Combination = ({ isLogin }: CombinationProps) => {
 
   return (
     <>
-      {tempIsLogin ? (
-        <>
-          <ArticleSection />
-        </>
-      ) : (
-        <>
-          <Content />
-          <Introduction />
-        </>
-      )}
+      {!tempIsLogin ? <Introduction /> : <div></div>}
+      <ArticleSection />
     </>
   );
 };

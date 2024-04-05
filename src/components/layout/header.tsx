@@ -31,7 +31,6 @@ export const Header = ({
   accessToken,
   refreshToken,
 }: HeaderProps) => {
-
   let tempIsLogin = isLogin;
   let tempUsername = username;
 
@@ -58,10 +57,7 @@ export const Header = ({
   }, [isLoginState, usernameState]);
 
   return (
-    <header
-      className={[styles.header].join(" ")}
-      style={{ borderBottom: "1px solid " + Colors.lightGray }}
-    >
+    <header className={[styles.header].join(" ")}>
       <div className={[styles.headerContents].join(" ")}>
         <div className={styles.logo}>
           <Image

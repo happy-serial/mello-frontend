@@ -19,7 +19,13 @@ const nextConfig = {
         hostname: "i.namu.wiki",
         port: "",
         pathname: "/**",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "images.christiantoday.co.kr",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   output: "standalone",
