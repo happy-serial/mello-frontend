@@ -22,7 +22,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "images.christiantoday.co.kr",
+        hostname: "mello-s3-dev.s3.ap-northeast-1.amazonaws.com",
         port: "",
         pathname: "/**",
       },
