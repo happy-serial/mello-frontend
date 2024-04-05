@@ -13,7 +13,7 @@ import { ProfileCard } from "@/components/mypage/ProfileCard"
 
 export default function MyPage() {
   const [tab , setTab] = useState<string>("소개")
-  const tabArray = ["소개","경험","게시물","활동내역"]
+  const tabArray = ["소개","경험","게시물","활동내역","임시 저장"]
 
   useEffect(()=>{
     GetData()
@@ -34,6 +34,8 @@ export default function MyPage() {
         return <Friends/>
       case '소개':
         return <ProfileDescription/>
+      case '임시 저장':
+        return <TempBlog/>
       default : 
         return <div>ErrorPage</div>
     }

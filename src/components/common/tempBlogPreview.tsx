@@ -24,7 +24,6 @@ export const TempBlogPreview = ({
       <div onClick = {()=>{
         router.push(`/blog/write_mk1?tempBlogId=${tempBlogId}`)
       }}>
-        <div>blogID : {tempBlogId}</div>
         <div>제목{title}</div>
         <div>언제만듬?{createdAt}</div>
         <div>언제업뎃함?{updatedAt}</div>

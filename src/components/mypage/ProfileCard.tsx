@@ -69,7 +69,7 @@ export const ProfileCard = () => {
           color: "#1C1C20",
           fontSize: "18px",
           backgroundColor: "#F7085A",
-          borderRadius: "18px",
+          borderRadius: "20px",
           justifyContent: "center", 
           alignItems: "center",
         }}
