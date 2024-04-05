@@ -1,5 +1,7 @@
 "use client";
 
+import { NewColors } from "../../../public/styles/colors/colors";
+
 interface ArticleSectionProps {}
 
 export const ArticleSection = ({}: ArticleSectionProps) => {
@@ -11,9 +13,9 @@ export const ArticleSection = ({}: ArticleSectionProps) => {
         <div
           style={{
             display: "flex",
-            width: "75vw",
+            width: "1168px",
             justifyContent: "center",
-            border: "1px solid black",
+            color: NewColors.fontWhite,
           }}
         >
           지금이니?

@@ -6,6 +6,7 @@ import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
 import { useEffect } from "react";
 import { Introduction } from "./Introduction";
 import { ArticleSection } from "./articleSection";
+import { pretendard } from "../../../public/styles/fonts/fonts";
 
 interface CombinationProps {
   isLogin: boolean;
