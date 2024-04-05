@@ -35,10 +35,14 @@ export const Profile = ({
       />
       <div
         className={[styles.profileName, nanumSquare.className].join(" ")}
-        style={{ color: Colors.black }}
+        style={{ color: Colors.black, maxLines: 1 }}
       >
         {username}
       </div>
     </div>
   );
 };
+
+/**
+ * Ia
+ */

@@ -1,8 +1,9 @@
-import { serverUrl } from "@/api";
+import { serverUrl, verifyToken } from "@/api";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { tokenHeader } from "@/model";
 
-type TokenProps = {
+export type TokenProps = {
   accessToken?: string;
   refreshToken?: string;
 };
@@ -19,18 +20,71 @@ export const validateToken = (token: string): boolean => {
   return true;
 };
 
-export const getToken = (): TokenProps => {
-  const accessToken = Cookies.get("access-token");
-  const refreshToken = Cookies.get("refresh-token");
+export const checkAllTokenLife = (
+  tokens: TokenProps
+): {
+  isLogin: boolean;
+  username: string;
+} => {
+  if (tokens.accessToken && tokens.refreshToken) {
+    const decodedToken = jwtDecode(tokens.accessToken, {
+      header: true,
+    }) as unknown as tokenHeader;
 
-  return { accessToken, refreshToken };
+    if (
+      validateToken(tokens.accessToken) ||
+      validateToken(tokens.refreshToken)
+    ) {
+      return {
+        isLogin: true,
+        username: decodedToken.Username,
+      };
+    }
+  }
+  return {
+    isLogin: false,
+    username: "non-login",
+  };
 };
 
-export const setToken = ({ accessToken, refreshToken }: TokenProps) => {
-  if (accessToken) {
-    Cookies.set("access-token", accessToken);
-  }
-  if (refreshToken) {
-    Cookies.set("refresh-token", refreshToken);
+export const checkLogin = (
+  accessToken: string,
+  refreshToken: string,
+  setIsLogin: (isLogin: boolean) => void,
+  setUsername: (username: string) => void
+) => {
+  console.log("checkLogin called");
+  if (accessToken && refreshToken) {
+    const decodedToken = jwtDecode(accessToken, {
+      header: true,
+    }) as unknown as tokenHeader;
+
+    if (validateToken(accessToken)) {
+      verifyToken(accessToken, false).then((response) => {
+        if (response && decodedToken) {
+          if (response.accessToken) {
+            Cookies.set("access-token", response.accessToken);
+          }
+          setIsLogin(true);
+          setUsername(decodedToken.Username);
+        }
+      });
+    } else if (validateToken(refreshToken)) {
+      verifyToken(refreshToken, true).then((response) => {
+        if (response && decodedToken) {
+          if (response.accessToken) {
+            Cookies.set("access-token", response.accessToken);
+          }
+          if (response.refreshToken) {
+            Cookies.set("refresh-token", response.refreshToken);
+          }
+          setIsLogin(true);
+          setUsername(decodedToken.Username);
+        }
+      });
+    } else {
+      setIsLogin(false);
+      setUsername("non-login");
+    }
   }
 };

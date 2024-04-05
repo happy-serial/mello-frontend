@@ -16,6 +16,17 @@
     align-items: center;
 }
 
+.navigation {
+    display: flex;
+}
+
+.userInteractionSection {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .logo {
     display: flex;
     align-items: center;
