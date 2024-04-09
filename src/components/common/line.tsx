@@ -1,20 +1,37 @@
-import { Colors } from "../../../public/styles/colors/colors";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
 
 interface LineProps {
-  color: Colors;
+  // TODO: direction의?를 지우고 direction을 필수로 만들어주세요.
+  direction?: "horizontal" | "vertical";
+  color: Colors | NewColors;
   length: string;
   thickness?: number;
 }
 
-export const Line = ({ color, length, thickness, ...props }: LineProps) => {
+export const Line = ({
+  direction = "horizontal",
+  color,
+  length,
+  thickness,
+  ...props
+}: LineProps) => {
+  const horizontalStyle = {
+    width: length,
+    height: `${thickness}px`,
+    backgroundColor: color,
+    margin: "10px 0",
+    borderRadius: "5px",
+  };
+
+  const verticalStyle = {
+    height: length,
+    width: `${thickness}px`,
+    backgroundColor: color,
+    margin: "0 10px",
+    borderRadius: "5px",
+  };
+
   return (
-    <div
-      style={{
-        width: length,
-        borderRadius: "5px",
-        borderBottom: `${thickness}px solid ${color}`,
-        margin: "10px 0 10px",
-      }}
-    />
+    <div style={direction === "horizontal" ? horizontalStyle : verticalStyle} />
   );
 };
