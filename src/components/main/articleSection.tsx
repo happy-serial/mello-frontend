@@ -7,6 +7,8 @@ import { SectionTitle } from "./ArticleSection/SectionTitle";
 import { HotUser } from "./ArticleSection/HotUser";
 import { Category } from "./ArticleSection/category";
 import { PopularArticlePreview } from "./ArticleSection/popularArticlePreview";
+import { pretendard } from "../../../public/styles/fonts/fonts";
+import { ArticlePreview } from "./ArticleSection/articlePreview";
 
 interface ArticleSectionProps {}
 
@@ -43,6 +45,8 @@ export const ArticleSection = ({}: ArticleSectionProps) => {
             />
             <Spacer shape={"height"} size={"24px"} />
             <HotUserList />
+            <Spacer shape={"height"} size={"66px"} />
+            <AllArticleList />
           </div>
         </div>
       </div>
@@ -102,6 +106,22 @@ function PopularArticleList({}) {
 
 // TODO: 이 친구는 많이, 아주 많이 바뀔거라 예상됩니다.
 function HotUserList({}) {
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault(); // 기본 스크롤 동작 방지
+    const container = e.currentTarget;
+    const scrollAmount = e.deltaY; // 상하 스크롤 양을 얻음
+
+    container.scrollLeft += scrollAmount; // 가로 스크롤로 변환
+  };
+
+  const disablePageScroll = () => {
+    document.body.style.overflow = "hidden"; // 페이지 스크롤 방지
+  };
+
+  const enablePageScroll = () => {
+    document.body.style.overflow = ""; // 페이지 스크롤 가능
+  };
+
   return (
     <div
       className="HotUserSection"
@@ -113,22 +133,66 @@ function HotUserList({}) {
         maxWidth: "100%",
         whiteSpace: "nowrap",
       }}
+      onWheel={handleWheel} // 마우스 휠 이벤트에 핸들러 연결
+      onMouseEnter={disablePageScroll} // 마우스 진입 시 페이지 스크롤 방지
+      onMouseLeave={enablePageScroll}
     >
-      <HotUser />
+      <HotUser author="1" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="2" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="3" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="4" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="5" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="6" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="7" />
       <Spacer shape={"width"} size={"9px"} />
-      <HotUser />
+      <HotUser author="8" />
     </div>
+  );
+}
+
+function AllArticleList({}) {
+  return (
+    <>
+      <div
+        className={pretendard.className}
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <SectionTitle
+          src="Image/AllArticleIcon.svg"
+          alt={"HotUserIcon"}
+          title={"전체 아티클"}
+        />
+        <Spacer shape={"width"} size={"12px"} />
+        <div
+          style={{
+            fontSize: "28px",
+            fontWeight: "700",
+            color: NewColors.gray2,
+            textAlign: "center",
+            lineHeight: "1.4",
+          }}
+        >
+          4063
+        </div>
+      </div>
+      <Spacer shape={"height"} size={"24px"} />
+      <ArticlePreview />
+      <Spacer shape={"height"} size={"16px"} />
+      <ArticlePreview />
+      <Spacer shape={"height"} size={"16px"} />
+      <ArticlePreview />
+      <Spacer shape={"height"} size={"16px"} />
+      <ArticlePreview />
+      <Spacer shape={"height"} size={"16px"} />
+    </>
   );
 }

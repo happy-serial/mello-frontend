@@ -1,7 +1,7 @@
 import { Spacer } from "@/components/common/spacer";
 import { NewColors } from "../../../../public/styles/colors/colors";
 
-export const HotUser = ({}) => {
+export const HotUser = ({ author }: { author: string }) => {
   return (
     <div
       style={{
@@ -26,7 +26,7 @@ export const HotUser = ({}) => {
         }}
       ></div>
       <Spacer shape={"height"} size={"6px"} />
-      <div>영화</div>
+      <div>{author}</div>
       <Spacer shape={"height"} size={"4px"} />
       <div>스타트업·UX디자이너</div>
       <Spacer shape={"height"} size={"9px"} />
@@ -35,6 +35,8 @@ export const HotUser = ({}) => {
           backgroundColor: "transparent",
           border: "none",
           color: NewColors.mainRed,
+          fontSize: "15px",
+          fontWeight: "700",
         }}
       >
         팔로우
