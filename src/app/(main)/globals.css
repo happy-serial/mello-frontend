@@ -14,3 +14,7 @@ a:-webkit-any-link {
 body::-webkit-scrollbar {
     display: none;
 }
+
+.HotUserSection::-webkit-scrollbar {
+    display: none;
+}

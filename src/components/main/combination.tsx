@@ -6,6 +6,8 @@ import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
 import { useEffect } from "react";
 import { Introduction } from "./Introduction";
 import { ArticleSection } from "./articleSection";
+import { pretendard } from "../../../public/styles/fonts/fonts";
+import { Spacer } from "../common/spacer";
 
 interface CombinationProps {
   isLogin: boolean;
@@ -24,6 +26,7 @@ export const Combination = ({ isLogin }: CombinationProps) => {
   return (
     <>
       {!tempIsLogin ? <Introduction /> : <div></div>}
+      <Spacer shape={"height"} size={"66px"} />
       <ArticleSection />
     </>
   );

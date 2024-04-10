@@ -1,15 +1,15 @@
 "use client";
 
 import styles from "./css/button.module.css";
-import { aldrich } from "../../../public/styles/fonts/fonts";
-import { Colors } from "../../../public/styles/colors/colors";
+import { pretendard } from "../../../public/styles/fonts/fonts";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
 import Link from "next/link";
 
 interface ButtonProps {
-  backgroundColor?: Colors;
-  background?: Colors;
-  color?: Colors;
-  borderColor?: Colors;
+  backgroundColor?: Colors | NewColors;
+  background?: Colors | NewColors;
+  color?: Colors | NewColors;
+  borderColor?: Colors | NewColors;
   size?: "large" | "middle" | "small" | "wide" | "text";
   purpose: "event" | "link";
   label: string;
@@ -35,10 +35,12 @@ export const Button = ({
     ? [
         styles.button,
         styles["button--" + size],
-        aldrich.className,
+        pretendard.className,
         styles.disabled,
       ].join(" ")
-    : [styles.button, styles["button--" + size], aldrich.className].join(" ");
+    : [styles.button, styles["button--" + size], pretendard.className].join(
+        " "
+      );
 
   if (purpose === "event") {
     return (
@@ -72,3 +74,4 @@ export const Button = ({
     );
   }
 };
+
