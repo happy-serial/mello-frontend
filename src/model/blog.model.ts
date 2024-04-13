@@ -20,6 +20,6 @@ export type createTemporaryBlogResponse = {
   tempBlogId: string;
 };
 
-export type getImageURL = {
+export type ImageURLRequest = {
   imageUrl: string;
 };
