@@ -24,7 +24,13 @@ import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import * as React from "react";
 import { useEffect, useState, forwardRef } from "react";
 import { CAN_USE_DOM } from "./shared/src/canUseDOM";
-import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+import {
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+  $insertNodes,
+} from "lexical";
+
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 
 import { useSharedHistoryContext } from "./context/SharedHistoryContext";
@@ -67,9 +73,17 @@ import { SettingsContext, useSettings } from "./context/SettingsContext";
 import PlaygroundNodes from "./nodes/PlaygroundNodes";
 import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
 import "./styles.css";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { summarizeText } from "@/api";
+import SummarizeTextPlugin from "./plugins/SummarizeTextPlugin";
 
-const Editor = forwardRef((props, ref) => {
+interface EditorProps {
+  parentFunction: () => string;
+}
+
+const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
   const { historyState } = useSharedHistoryContext();
+  
   const {
     settings: {
       isCharLimit,
@@ -128,6 +142,7 @@ const Editor = forwardRef((props, ref) => {
     };
   }, [isSmallWidthViewport]);
 
+  
   return (
     <div style={{ width: "100%" }}>
       <LexicalComposer initialConfig={initialConfig}>
@@ -151,7 +166,7 @@ const Editor = forwardRef((props, ref) => {
             <HistoryPlugin externalHistoryState={historyState} />
             <RichTextPlugin
               contentEditable={
-                <div className="editor-scroller">
+                <div className="editor-scroller" {...props} ref={ref}>
                   <div className="editor" ref={onRef}>
                     <ContentEditable />
                   </div>
@@ -215,6 +230,7 @@ const Editor = forwardRef((props, ref) => {
           )}
           <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
           {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
+          <SummarizeTextPlugin getParsedData={props.parentFunction}/>
           <ActionsPlugin isRichText={isRichText} />
         </div>
         {/* {showTreeView && <TreeViewPlugin />} */}

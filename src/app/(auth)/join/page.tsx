@@ -53,7 +53,7 @@ export default function Home() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",z
+        justifyContent: "center",
       }}
     >
       <Background
