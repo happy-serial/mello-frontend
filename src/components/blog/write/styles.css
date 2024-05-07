@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  background: #fdfdfd;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
     sans-serif;
   font-weight: 500;
@@ -349,7 +348,8 @@ pre::-webkit-scrollbar-thumb {
 .toolbar {
   display: flex;
   margin-bottom: 1px;
-  background: #fff;
+  background: #323232;
+  box-sizing: border-box;
   padding: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -601,7 +601,7 @@ i.chevron-down {
   max-width: 300px;
   width: 100%;
   opacity: 0;
-  background-color: #fff;
+  background-color: #323232;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   transition: opacity 0.5s;

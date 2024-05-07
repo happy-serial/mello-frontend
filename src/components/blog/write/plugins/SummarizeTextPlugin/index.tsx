@@ -1,3 +1,8 @@
+import { summarizeText } from "@/api";
+import {
+  $convertFromMarkdownString,
+  TRANSFORMERS
+} from "@lexical/markdown";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $createParagraphNode,
@@ -5,21 +10,9 @@ import {
   $createTextNode,
   $getRoot,
   $getSelection,
-  $setSelection,
-  EditorState,
-  INSERT_PARAGRAPH_COMMAND,
   LexicalEditor,
-  ParagraphNode,
+  ParagraphNode
 } from "lexical";
-import {
-  $convertFromMarkdownString,
-  $convertToMarkdownString,
-  TRANSFORMERS,
-} from "@lexical/markdown";
-import { Colors } from "../../../../../../public/styles/colors/colors";
-import { Button } from "@/components/common/button";
-import { Dispatch, SetStateAction, useState } from "react";
-import { summarizeText } from "@/api";
 
 export const parseStream = async (
   reader: ReadableStreamDefaultReader<Uint8Array>,

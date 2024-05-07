@@ -21,19 +21,13 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 // import useLexicalEditable from '@lexical/react/useLexicalEditable';
-import * as React from "react";
-import { useEffect, useState, forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { CAN_USE_DOM } from "./shared/src/canUseDOM";
-import {
-  $createParagraphNode,
-  $createTextNode,
-  $getRoot,
-  $insertNodes,
-} from "lexical";
 
-import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { useSettings } from "./context/SettingsContext";
 import { useSharedHistoryContext } from "./context/SharedHistoryContext";
+import PlaygroundNodes from "./nodes/PlaygroundNodes";
 import ActionsPlugin from "./plugins/ActionsPlugin";
 import AutoEmbedPlugin from "./plugins/AutoEmbedPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
@@ -59,31 +53,26 @@ import MarkdownShortcutPlugin from "./plugins/MarkdownShortcutPlugin";
 import { MaxLengthPlugin } from "./plugins/MaxLengthPlugin";
 import PageBreakPlugin from "./plugins/PageBreakPlugin";
 import PollPlugin from "./plugins/PollPlugin";
+import SummarizeTextPlugin from "./plugins/SummarizeTextPlugin";
 import TabFocusPlugin from "./plugins/TabFocusPlugin";
 import TableCellActionMenuPlugin from "./plugins/TableActionMenuPlugin";
 import TableCellResizer from "./plugins/TableCellResizer";
 import TableOfContentsPlugin from "./plugins/TableOfContentsPlugin";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
-import TreeViewPlugin from "./plugins/TreeViewPlugin";
 import YouTubePlugin from "./plugins/YouTubePlugin";
+import "./styles.css";
+import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
 import ContentEditable from "./ui/ContentEditable";
 import Placeholder from "./ui/Placeholder";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { SettingsContext, useSettings } from "./context/SettingsContext";
-import PlaygroundNodes from "./nodes/PlaygroundNodes";
-import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
-import "./styles.css";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { summarizeText } from "@/api";
-import SummarizeTextPlugin from "./plugins/SummarizeTextPlugin";
 
 interface EditorProps {
   parentFunction: () => string;
 }
 
 const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
+  const getParsedData = props.parentFunction;
   const { historyState } = useSharedHistoryContext();
-  
+
   const {
     settings: {
       isCharLimit,
@@ -104,6 +93,7 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
   const [isSmallWidthViewport, setIsSmallWidthViewport] =
     useState<boolean>(false);
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
+  const [documentBody, setDocumentBody] = useState<HTMLElement | null>(null);
 
   const onRef = (_floatingAnchorElem: HTMLDivElement) => {
     if (_floatingAnchorElem !== null) {
@@ -126,6 +116,12 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
   };
 
   useEffect(() => {
+    if (documentBody === null) {
+      setDocumentBody(document.body);
+    }
+  }, [documentBody]);
+
+  useEffect(() => {
     const updateViewPortWidth = () => {
       const isNextSmallWidthViewport =
         CAN_USE_DOM && window.matchMedia("(max-width: 1025px)").matches;
@@ -142,7 +138,6 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
     };
   }, [isSmallWidthViewport]);
 
-  
   return (
     <div style={{ width: "100%" }}>
       <LexicalComposer initialConfig={initialConfig}>
@@ -184,10 +179,7 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
               hasCellMerge={tableCellMerge}
               hasCellBackgroundColor={tableCellBackgroundColor}
             />
-            {/* {
-               typeof window === 'object' ? 
-                 <TableCellResizer /> : null
-            } */}
+            {documentBody && <TableCellResizer documentBody={documentBody} />}
             <ImagesPlugin />
             <InlineImagePlugin />
             <LinkPlugin />
@@ -230,7 +222,7 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
           )}
           <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
           {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
-          <SummarizeTextPlugin getParsedData={props.parentFunction}/>
+          <SummarizeTextPlugin getParsedData={getParsedData} />
           <ActionsPlugin isRichText={isRichText} />
         </div>
         {/* {showTreeView && <TreeViewPlugin />} */}

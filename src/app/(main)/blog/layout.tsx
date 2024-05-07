@@ -20,7 +20,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          border: "1px solid #000",
         }}
       >
         {children}
