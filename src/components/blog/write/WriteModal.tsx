@@ -1,13 +1,11 @@
 "use client";
 
-import styles from "../css/writeModal.module.css";
+import { getImageURL, postBlog } from "@/api";
+import Image from "next/image";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Colors } from "../../../../public/styles/colors/colors";
 import { Button } from "../../common/button";
-import { Spacer } from "../../common/spacer";
-import { useState , useEffect, ChangeEvent } from "react";
-import { getImageURL } from "@/api"
-import Image from "next/image";
-import { postBlog } from "@/api"
+import styles from "../css/writeModal.module.css";
 
 interface WriteModalProps{
   blogID : string|undefined,

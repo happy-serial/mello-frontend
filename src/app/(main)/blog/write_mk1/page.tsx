@@ -1,19 +1,15 @@
 "use client";
 
+import { createTemporaryBlog, saveTemporaryBlog } from "@/api";
 import Editor from "@/components/blog/write/Editor";
-import React from "react";
-import { useEffect, useState, useRef } from "react";
-import { Colors } from "../../../../../public/styles/colors/colors";
 import "@/components/blog/write/styles.css";
+import { htmlToText } from "@/utils/stringModifier";
+import { useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Colors } from "../../../../../public/styles/colors/colors";
+import { pretendard } from "../../../../../public/styles/fonts/fonts";
 import { Button } from "../../../../../src/components/common/button";
 import { Spacer } from "../../../../../src/components/common/spacer";
-import { Category } from "@/components/blog/write/Category";
-import { WriteModal } from "@/components/blog/write/WriteModal";
-import { createTemporaryBlog, saveTemporaryBlog } from "@/api";
-import { useSearchParams } from "next/navigation";
-import { htmlToText } from "@/utils/stringModifier";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 
 export default function BlogWrite() {
   const [blogID, setBlogID] = useState<string | undefined>("");
@@ -92,22 +88,19 @@ export default function BlogWrite() {
 
   return (
     <>
-      <input
-        placeholder="제목을 입력하세요"
-        type="text"
-        value={titleText}
-        onChange={(e) => {
-          setTitleText(e.target.value);
-        }}
+      <Title titleText={titleText} setTitleText={setTitleText} />
+      {/* <Category categoryList={categoryList} setCategoryList={setCategoryList} /> */}
+      <Spacer shape="height" size="16px" />
+      <div
         style={{
           width: "100%",
-          alignItems: "center",
-          fontSize: "48px",
-          border: "0px",
+          justifyContent: "center",
+          backgroundColor: "#313233",
+          borderRadius: "24px",
         }}
-      />
-      <Category categoryList={categoryList} setCategoryList={setCategoryList} />
-      <Editor ref={childRef} parentFunction={getParsedData}/>
+      >
+        <Editor ref={childRef} parentFunction={getParsedData} />
+      </div>
       <div
         style={{
           width: "100%",
@@ -157,5 +150,44 @@ export default function BlogWrite() {
         }}
       /> */}
     </>
+  );
+}
+
+function Title({
+  titleText,
+  setTitleText,
+}: {
+  titleText: string;
+  setTitleText: Dispatch<SetStateAction<string>>;
+}) {
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+
+  return (
+    <textarea
+      placeholder="제목을 입력하세요"
+      value={titleText}
+      className={pretendard.className}
+      onChange={(e) => {
+        setTitleText(e.target.value);
+      }}
+      style={{
+        boxSizing: "border-box",
+        padding: "24px 27px 90px 27px",
+        fontWeight: 600,
+        width: "100%",
+        height: "156px",
+        backgroundColor: "#313233",
+        borderRadius: "24px",
+        fontSize: "36px",
+        border: "0px",
+        color: Colors.white,
+        lineHeight: "36px",
+        outline: isFocus ? "1px solid" : "none",
+        outlineColor: Colors.white,
+        resize: "none",
+      }}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+    />
   );
 }
