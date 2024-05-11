@@ -2,21 +2,20 @@
 
 import Image from "next/image";
 
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
 import styles from "./css/header.module.css";
-import { blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { Colors } from "../../../public/styles/colors/colors";
 
-import { Button } from "../common/button";
+import { LinkButton } from "../common/button";
 import { Profile } from "../common/profile";
 
 import Link from "next/link";
 
-import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
-import { UseLoginStatusStore } from "@/state-manage/store/auth.store";
-import { useEffect, useState } from "react";
+import { UseLoginStatusStore } from "@/state-manage/store";
 import { checkLogin } from "@/utils/tokenHandler";
-import { TextField } from "../common/textField";
+import { useEffect, useState } from "react";
+import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
 import { Spacer } from "../common/spacer";
+import { TextField } from "../common/textField";
 
 interface HeaderProps {
   isLogin: boolean;
@@ -57,23 +56,64 @@ export const Header = ({
   }, [isLoginState, usernameState]);
 
   return (
-    <header className={[styles.header].join(" ")}>
+    <header
+      className={[styles.header].join(" ")}
+      style={{ borderBottom: `1px solid ${NewColors.weakWhite}` }}
+    >
       <div className={[styles.headerContents].join(" ")}>
-        <div className={styles.logo}>
-          <Image
-            alt="company logo"
-            src="/Image/logo.png"
-            width={60}
-            height={60}
-            style={{ objectFit: "contain" }}
-            priority
-          />
+        <div className={styles.linkSection}>
           <Link
-            className={[styles.logoText, blackOpsOne.className].join(" ")}
             href={"/"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "28px",
+            }}
           >
-            mello
+            <Image
+              alt="company logo"
+              src="/Image/logo.svg"
+              width={102}
+              height={26}
+              style={{ objectFit: "contain" }}
+              priority
+            />
           </Link>
+          <LinkButton
+            href={"/"}
+            disabled={false}
+            label={"아티클"}
+            width={41}
+            height={18}
+            padding={"0px"}
+            fontSize={16}
+            fontWeight={700}
+            color={NewColors.buttonWhite}
+          />
+          <Spacer shape="width" size="14px" />
+          <LinkButton
+            href={"/"}
+            disabled={false}
+            label={"커뮤니티"}
+            width={54}
+            height={18}
+            padding={"0px"}
+            fontSize={16}
+            fontWeight={500}
+            color={NewColors.buttonGray}
+          />
+          <Spacer shape="width" size="14px" />
+          <LinkButton
+            href={"/"}
+            disabled={false}
+            label={"프로필"}
+            width={41}
+            height={18}
+            padding={"0px"}
+            fontSize={16}
+            fontWeight={500}
+            color={NewColors.buttonGray}
+          />
         </div>
         {tempIsLogin ? (
           <div className={styles.userInteractionSection}>
@@ -103,21 +143,45 @@ export const Header = ({
             <Profile username={tempUsername} size="header"></Profile>
           </div>
         ) : (
-          <div>
-            <Button
-              label="JOIN"
-              backgroundColor={Colors.transparent}
-              color={Colors.black}
-              purpose="link"
-              href="/join"
+          <div
+            style={{
+              width: "243px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              alt="searchIcon"
+              src="/Image/searchIconWhite.svg"
+              width={19}
+              height={19}
+              style={{ marginLeft: "12px" }}
             />
-            <Button
-              label="LOG IN"
-              backgroundColor={Colors.transparent}
-              color={Colors.black}
-              borderColor={Colors.black}
-              purpose="link"
+            <LinkButton
+              label="로그인"
+              backgroundColor={NewColors.transparent}
+              color={NewColors.buttonWhite}
               href="/login"
+              disabled={false}
+              width={41}
+              height={19}
+              padding={""}
+              fontSize={16}
+              fontWeight={400}
+            />
+            <LinkButton
+              label="시작하기"
+              backgroundColor={NewColors.primary}
+              color={NewColors.backgroundBlack}
+              href="/join"
+              disabled={false}
+              borderRadius={100}
+              width={102}
+              height={49}
+              padding={"15px 24px"}
+              fontSize={16}
+              fontWeight={600}
             />
           </div>
         )}

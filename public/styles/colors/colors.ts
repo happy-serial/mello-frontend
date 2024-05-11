@@ -24,10 +24,8 @@ export enum Colors {
 }
 
 export enum NewColors {
-  backgroundBlack = "#151515",
   fontWhite = "#F8F9FE",
   white = "#FFFFFF",
-
 
   blackTransparent = "#1A1B1EA2",
 
@@ -41,4 +39,11 @@ export enum NewColors {
   mainRed = "#F7085A",
   mainOrange = "#FF9500",
   mainBlack = "#222222",
+
+  transparent = "transparent",
+  buttonWhite = "#F8F9FE",
+  weakWhite = "#ffffff0f",
+  buttonGray = "#9DA5B6",
+  backgroundBlack = "#1C1C20",
+  primary = "#7AFB57",
 }
