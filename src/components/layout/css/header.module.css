@@ -9,8 +9,7 @@
 
 .headerContents {
     height: 100;
-    width: 98%;
-    padding: 0px 16px 0px 16px;
+    width: 67%;
     display: flex;
     justify-content: space-between;
     max-width: 1280px;
