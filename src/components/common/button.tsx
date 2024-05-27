@@ -86,13 +86,15 @@ export const EventButton = ({
     boxSizing: "border-box",
   };
 
-  <button
-    type="button"
-    disabled={disabled}
-    className={pretendard.className}
-    style={buttonStyle}
-    onClick={onClick}
-  >
-    {label}
-  </button>;
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className={pretendard.className}
+      style={buttonStyle}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
 };
