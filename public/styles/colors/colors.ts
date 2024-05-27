@@ -48,4 +48,6 @@ export enum NewColors {
   backgroundBlack = "#1C1C20",
   primary = "#7AFB57",
   introductionBackground = "#14121C",
+  userCard = "#26272B",
+  userCardBorder = "#303238",
 }

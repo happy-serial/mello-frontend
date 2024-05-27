@@ -19,7 +19,7 @@ export const Line = ({
     width: length,
     height: `${thickness}px`,
     backgroundColor: color,
-    margin: "10px 0",
+    margin: "0px 0",
     borderRadius: "5px",
   };
 
@@ -27,7 +27,7 @@ export const Line = ({
     height: length,
     width: `${thickness}px`,
     backgroundColor: color,
-    margin: "0 10px",
+    margin: "0 0px",
     borderRadius: "5px",
   };
 

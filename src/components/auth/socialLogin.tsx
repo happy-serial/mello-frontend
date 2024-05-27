@@ -1,14 +1,14 @@
 "use client";
 
-import styles from "./css/socialLogin.module.css";
+import { signIn } from "next-auth/react";
 import { Colors } from "../../../public/styles/colors/colors";
 import { aldrich } from "../../../public/styles/fonts/fonts";
 import { Line } from "../common/line";
-import { signIn } from "next-auth/react";
+import styles from "./css/socialLogin.module.css";
 
-import { SiNaver } from "react-icons/si";
-import { RiKakaoTalkFill } from "react-icons/ri";
 import Image from "next/image";
+import { RiKakaoTalkFill } from "react-icons/ri";
+import { SiNaver } from "react-icons/si";
 
 interface SocialLoginProps {}
 
@@ -47,7 +47,12 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
           onClick={() => signIn("google", { callbackUrl: "/" })}
           style={{ backgroundColor: Colors.white }}
         >
-          <Image src={"/Image/google.svg"} alt={"구글 아이콘"} width={30} height={30}/>
+          <Image
+            src={"/Image/google.svg"}
+            alt={"구글 아이콘"}
+            width={30}
+            height={30}
+          />
         </button>
       </div>
     </div>
