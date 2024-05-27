@@ -1,77 +1,98 @@
 "use client";
 
-import styles from "./css/button.module.css";
-import { pretendard } from "../../../public/styles/fonts/fonts";
-import { Colors, NewColors } from "../../../public/styles/colors/colors";
 import Link from "next/link";
+import { CSSProperties } from "react";
+import { NewColors } from "../../../public/styles/colors/colors";
+import { pretendard } from "../../../public/styles/fonts/fonts";
+import { BorderProps, ColorProps, FontProps, SizeProps } from "../commonProps";
 
-interface ButtonProps {
-  backgroundColor?: Colors | NewColors;
-  background?: Colors | NewColors;
-  color?: Colors | NewColors;
-  borderColor?: Colors | NewColors;
-  size?: "large" | "middle" | "small" | "wide" | "text";
-  purpose: "event" | "link";
+interface ButtonProps
+  extends Partial<BorderProps>,
+    Partial<ColorProps>,
+    SizeProps,
+    FontProps {
+  disabled: boolean;
   label: string;
-  disabled?: boolean;
-  onClick?: () => void;
-  href?: string;
 }
 
-export const Button = ({
-  backgroundColor,
-  background,
-  color,
-  borderColor,
-  size = "large",
-  purpose,
+interface LinkButtonProps extends ButtonProps {
+  href: string;
+}
+
+interface EventButtonProps extends ButtonProps {
+  onClick: () => void;
+}
+
+export const LinkButton = ({
+  borderColor = NewColors.transparent,
+  borderWidth = 0,
+  borderRadius = 0,
+  backgroundColor = NewColors.transparent,
+  color = NewColors.transparent,
   label,
-  disabled = false,
-  onClick,
+  disabled,
   href,
   ...props
-}: ButtonProps) => {
-  const classNames = disabled
-    ? [
-        styles.button,
-        styles["button--" + size],
-        pretendard.className,
-        styles.disabled,
-      ].join(" ")
-    : [styles.button, styles["button--" + size], pretendard.className].join(
-        " "
-      );
+}: LinkButtonProps) => {
+  // TODO: disabled 상태일 때 색상 변경
+  const buttonStyle: CSSProperties = {
+    border: `${borderWidth}px solid ${borderColor}`,
+    borderRadius: `${borderRadius}px`,
+    backgroundColor: backgroundColor,
+    color: color,
+    width: props.width,
+    height: props.height,
+    padding: props.padding,
+    fontSize: props.fontSize,
+    letterSpacing: "-0.0375em",
+    fontWeight: props.fontWeight,
+    boxSizing: "border-box",
+  };
 
-  if (purpose === "event") {
-    return (
-      <button
-        type="button"
-        disabled={disabled}
-        className={classNames}
-        style={{
-          backgroundColor: backgroundColor,
-          color: color,
-          border: `1.5px solid ${borderColor}`,
-          background: background ? background : backgroundColor,
-        }}
-        onClick={onClick}
-        {...props}
-      >
-        {label}
-      </button>
-    );
-  } else if (purpose === "link") {
-    return (
-      <Link
-        href={href!}
-        type="button"
-        className={classNames}
-        style={{ backgroundColor, color, border: `1.5px solid ${borderColor}` }}
-        {...props}
-      >
-        {label}
-      </Link>
-    );
-  }
+  return (
+    <Link
+      href={href!}
+      type="button"
+      className={pretendard.className}
+      style={buttonStyle}
+    >
+      {label}
+    </Link>
+  );
 };
 
+export const EventButton = ({
+  borderColor,
+  borderWidth,
+  borderRadius,
+  backgroundColor,
+  color,
+  label,
+  disabled,
+  onClick,
+  ...props
+}: EventButtonProps) => {
+  const buttonStyle: CSSProperties = {
+    border: `${borderWidth}px solid ${borderColor}`,
+    borderRadius: `${borderRadius}px`,
+    backgroundColor: backgroundColor,
+    color: color,
+    width: props.width,
+    height: props.height,
+    padding: props.padding,
+    fontSize: props.fontSize,
+    fontWeight: props.fontWeight,
+    letterSpacing: "-0.0375em",
+    boxSizing: "border-box",
+  };
+
+  <button
+    type="button"
+    disabled={disabled}
+    className={pretendard.className}
+    style={buttonStyle}
+    onClick={onClick}
+  >
+    {label}
+  </button>;
+};

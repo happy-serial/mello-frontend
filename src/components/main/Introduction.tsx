@@ -1,91 +1,141 @@
-import Link from "next/link";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { NewColors } from "../../../public/styles/colors/colors";
 import { pretendard } from "../../../public/styles/fonts/fonts";
-import { Button } from "../common/button";
 import { Spacer } from "../common/spacer";
-import Image from "next/image";
 
 interface IntroductionProps {}
 
 export const Introduction = ({}: IntroductionProps) => {
+  // TODO: 사이즈가 바로 안바껴서 바뀌는게 살짝 보임. 빌드해도 안바뀔거임. 
+  const [width, setWidth] = useState(1920);
+  const [figureSize, setFigureSize] = useState((width / 1920) * 260);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        const newWidth = window.innerWidth;
+        setWidth(newWidth);
+        setFigureSize((newWidth / 1920) * 260);
+      };
+
+      handleResize();
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
+
+  if (width === null || figureSize === null) {
+    return null;
+  }
+
   return (
-    <>
+    <div
+      className={pretendard.className}
+      style={{
+        width: "100vw",
+        margin: "84px 0px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <div
         style={{
-          width: "100vw",
-          height: "470px",
-          display: "flex",
-          position: "relative",
+          width: "67vw",
+          maxWidth: "1280px",
         }}
       >
-        <Image
-          alt="to be changed"
-          src="/Image/mainBackground.png"
-          width={1920}
-          height={470}
-          style={{ width: "100vw", height: "470px" }}
-          priority
-        />
         <div
-          className={pretendard.className}
           style={{
-            display: "flex",
-            flexDirection: "column",
-            color: NewColors.fontWhite,
-            justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-            top: "0",
-            left: "0",
-            width: "100vw",
-            height: "470px",
-            backgroundColor: NewColors.blackTransparent,
+            color: NewColors.titleWhite,
+            fontSize: "64px",
+            fontWeight: "bold",
+            lineHeight: "1.3",
           }}
         >
-          <div
-            style={{
-              fontWeight: "bold",
-              textAlign: "center",
-              fontSize: "56.72px",
-              lineHeight: "1.27",
-            }}
-          >
-            공부하면서 기록하고,
-            <br /> 함께 성장하기
-          </div>
-          <Spacer shape="height" size="16px" />
-          <div
-            style={{
-              display: "flex",
-              textAlign: "center",
-              fontSize: "18px",
-            }}
-          >
-            <div style={{ fontWeight: "bold" }}>serial</div>
-            <div>에서 내 커리어 성장이 시작됩니다.</div>
-          </div>
-          <Spacer shape="height" size="24px" />
-          <Link
-            href="/auth/login"
-            className={pretendard.className}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "240px",
-              height: "64px",
-              backgroundColor: NewColors.mainRed,
-              color: NewColors.fontWhite,
-              fontSize: "18px",
-              fontWeight: "500",
-              borderRadius: "32px",
-              border: "none",
-            }}
-          >
-            시작하기
-          </Link>
+          모두를 위한 스타트업 플랫폼,
+          <br />
+          Serial에서 내 커리어 성장을 시작해요.
         </div>
+        <Spacer shape="height" size="32px" />
+        <IconicImage figureSize={figureSize} />
       </div>
-    </>
+    </div>
   );
 };
+
+function IconicImage({ figureSize }: { figureSize: number }) {
+  const images = [
+    { number: 1, src: "/Image/rectangleWhite.svg" },
+    { number: 2, src: "/Image/hexagonGreen.svg" },
+    { number: 3, src: "/Image/hexagonWhite.svg" },
+    { number: 4, src: "/Image/rectangleGreen.svg" },
+  ];
+
+  const getImageSrc = (number: number) => {
+    const image = images.find((img) => img.number === number);
+    return image ? image.src : "/Image/default.svg";
+  };
+
+  const translationPX = 3200;
+  const iterationArray = Array.from({ length: 16 }, (_, i) => (i % 4) + 1);
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  useEffect(() => {
+    setStartAnimation(true);
+  }, []);
+
+  return (
+    <div
+      style={{
+        backgroundColor: NewColors.introductionBackground,
+        height: "420px",
+        width: "100%",
+        borderRadius: "24px",
+        display: "flex",
+        alignItems: "center",
+        overflowX: "hidden",
+      }}
+    >
+      {iterationArray.map((number) => (
+        <Image
+          key={number}
+          alt="recWhite"
+          src={getImageSrc(number)}
+          width={figureSize}
+          height={figureSize}
+          style={{
+            margin: "2px",
+            transition: startAnimation ? "transform 9s ease-in-out" : "none",
+            transform: startAnimation
+              ? `translateX(-${translationPX}px)`
+              : "translateX(0)",
+          }}
+        />
+      ))}
+      <Spacer shape="width" size="200px" />
+      {images.map(({ number, src }) => (
+        <Image
+          key={number}
+          alt="recWhite"
+          src={src}
+          width={figureSize}
+          height={figureSize}
+          style={{
+            margin: "2px",
+            transition: startAnimation ? "transform 10s ease-in-out" : "none",
+            transform: startAnimation
+              ? `translateX(-${translationPX + 400}px)`
+              : "translateX(0)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}

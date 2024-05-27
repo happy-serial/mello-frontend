@@ -1,5 +1,6 @@
 .header {
     width: 100%;
+    height: 70px;
     padding: 12px 0px 12px 0px;
     display: flex;
     justify-content: center;
@@ -8,11 +9,10 @@
 
 .headerContents {
     height: 100;
-    width: 98%;
-    padding: 0px 16px 0px 16px;
+    width: 67%;
     display: flex;
     justify-content: space-between;
-    max-width: 2000px;
+    max-width: 1280px;
     align-items: center;
 }
 
@@ -27,9 +27,11 @@
     justify-content: space-between;
 }
 
-.logo {
+.linkSection {
+    width: 364px;
     display: flex;
     align-items: center;
+
 }
 
 .logoText {
