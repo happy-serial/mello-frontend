@@ -20,7 +20,7 @@ interface LinkButtonProps extends ButtonProps {
 }
 
 interface EventButtonProps extends ButtonProps {
-  onClick: () => void;
+  OnClick: () => void;
 }
 
 export const LinkButton = ({
@@ -69,7 +69,7 @@ export const EventButton = ({
   color,
   label,
   disabled,
-  onClick,
+  OnClick,
   ...props
 }: EventButtonProps) => {
   const buttonStyle: CSSProperties = {
@@ -86,12 +86,12 @@ export const EventButton = ({
     boxSizing: "border-box",
   };
 
-  <button
+  return <button
     type="button"
     disabled={disabled}
     className={pretendard.className}
     style={buttonStyle}
-    onClick={onClick}
+    onClick={OnClick}
   >
     {label}
   </button>;
