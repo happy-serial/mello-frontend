@@ -2,9 +2,9 @@
 
 import styles from "./css/joinFormEmailVerification.module.css";
 import { TextField } from "@/components/common/textField";
-import { Colors } from "../../../public/styles/colors/colors";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
 import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { Button } from "../common/button";
+import { LinkButton, EventButton } from "../common/button";
 import { SocialLogin } from "./socialLogin";
 import { Spacer } from "../common/spacer";
 import Link from "next/link";
@@ -105,13 +105,29 @@ export const JoinFormEmailVerification = ({
         <div className={aldrich.className} style={{ color: Colors.gray }}>
           Send Code&nbsp;&nbsp;
         </div>
-        <Button
+        {/* <EventButton
           background={Colors.mainGradient}
           label="send"
           size="middle"
           purpose="event"
           color={Colors.white}
           onClick={handleSendButton}
+        /> */}
+        <EventButton
+          borderColor = {NewColors.primary}
+          borderWidth={75}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.ghostWhite}
+          label="보내기"
+          disabled={false}
+          onClick={handleSendButton}
+          // purpose="link"
+          width={75}
+          height={22}
+          padding="19px 97px"
+          fontSize={14}
+          fontWeight={400}
         />
       </div>
       <Spacer shape="height" size="16px" />
@@ -126,15 +142,32 @@ export const JoinFormEmailVerification = ({
       />
       <Spacer shape="height" size="16px" />
       <div className={styles.verificationButtonContainer}>
-        <Button
+        {/* <EventButton
           size="wide"
           backgroundColor={Colors.purple}
           color={Colors.white}
           label="Continue"
           purpose="event"
           onClick={handleContinueButton}
+          disabled={!emailSentState}  
+        /> */}
+        <EventButton
+          borderColor = {NewColors.primary}
+          borderWidth={75}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.ghostWhite}
+          label="계속하기"
           disabled={!emailSentState}
+          onClick={handleContinueButton}
+          // purpose="link"
+          width={75}
+          height={22}
+          padding="19px 97px"
+          fontSize={14}
+          fontWeight={400}
         />
+        
       </div>
       <Spacer shape="height" size="16px" />
       <SocialLogin />

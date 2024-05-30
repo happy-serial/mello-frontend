@@ -2,9 +2,9 @@
 
 import styles from "./css/joinFormInfoAdd.module.css";
 import { TextField } from "@/components/common/textField";
-import { Colors } from "../../../public/styles/colors/colors";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
 import { blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { Button } from "../common/button";
+import { LinkButton, EventButton } from "../common/button";
 import { Spacer } from "../common/spacer";
 import Link from "next/link";
 import { useState } from "react";
@@ -142,7 +142,7 @@ export const JoinFormInfoAdd = ({
       </div>
       <Spacer shape="height" size="16px" />
       <div className={styles.JoinButtonContainer}>
-        <Button
+        {/* <Button
           size="wide"
           backgroundColor={Colors.purple}
           color={Colors.white}
@@ -155,6 +155,22 @@ export const JoinFormInfoAdd = ({
             !confirmPasswordState ||
             !emailAllowState
           }
+        /> */}
+        <EventButton
+          borderColor = {NewColors.primary}
+          borderWidth={75}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.ghostWhite}
+          label="가입하기"
+          disabled={false}
+          onClick={handleJoin}
+          // purpose="link"
+          width={75}
+          height={22}
+          padding="19px 97px"
+          fontSize={14}
+          fontWeight={400}
         />
       </div>
     </animated.div>
