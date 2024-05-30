@@ -1,18 +1,18 @@
 "use client";
 
-import styles from "./css/joinFormInfoAdd.module.css";
-import { TextField } from "@/components/common/textField";
-import { Colors } from "../../../public/styles/colors/colors";
-import { blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { Button } from "../common/button";
-import { Spacer } from "../common/spacer";
-import Link from "next/link";
-import { useState } from "react";
-import { SpringValue, animated } from "@react-spring/web";
 import { join, login } from "@/api";
-import { useRouter } from "next/navigation";
+import { TextField } from "@/components/common/textField";
+import { SpringValue, animated } from "@react-spring/web";
 import Cookies from "js-cookie";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
+import { blackOpsOne } from "../../../public/styles/fonts/fonts";
+import { EventButton } from "../common/button";
 import { Loading } from "../common/loading";
+import { Spacer } from "../common/spacer";
+import styles from "./css/joinFormInfoAdd.module.css";
 
 interface JoinFormInfoAddProps {
   emailState: string;
@@ -142,19 +142,25 @@ export const JoinFormInfoAdd = ({
       </div>
       <Spacer shape="height" size="16px" />
       <div className={styles.JoinButtonContainer}>
-        <Button
-          size="wide"
-          backgroundColor={Colors.purple}
-          color={Colors.white}
+        <EventButton
+          borderColor={NewColors.primary}
+          borderWidth={75}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.fontWhite}
           label="Join"
-          purpose="event"
-          onClick={handleJoin}
           disabled={
             !usernameState ||
             !passwordState ||
             !confirmPasswordState ||
             !emailAllowState
           }
+          OnClick={handleJoin}
+          width={75}
+          height={22}
+          padding="19px 97px"
+          fontSize={14}
+          fontWeight={400}
         />
       </div>
     </animated.div>

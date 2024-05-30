@@ -73,7 +73,7 @@ export const EventButton = ({
   ...props
 }: EventButtonProps) => {
   const buttonStyle: CSSProperties = {
-    border: `${borderWidth}px solid ${borderColor}`,
+    border: borderWidth ? `${borderWidth}px solid ${borderColor}` : "none",
     borderRadius: `${borderRadius}px`,
     backgroundColor: backgroundColor,
     color: color,
@@ -86,13 +86,15 @@ export const EventButton = ({
     boxSizing: "border-box",
   };
 
-  return <button
-    type="button"
-    disabled={disabled}
-    className={pretendard.className}
-    style={buttonStyle}
-    onClick={OnClick}
-  >
-    {label}
-  </button>;
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className={pretendard.className}
+      style={buttonStyle}
+      onClick={OnClick}
+    >
+      {label}
+    </button>
+  );
 };
