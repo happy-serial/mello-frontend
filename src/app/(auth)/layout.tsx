@@ -1,24 +1,37 @@
 import type { Metadata } from "next";
-import AuthSession from "./authSession";
-import "./globals.css";
+import { Header } from "../../components/layout/header";
+import { cookies } from "next/headers";
 
-export const metadata: Metadata = {
-  title: "mello",
-  description: "mello company",
-  icons: {
-    icon: "/Image/logo.png",
-  },
-};
+import "./globals.css";
+import {
+  TokenProps,
+  checkAllTokenLife,
+  validateToken,
+} from "@/utils/tokenHandler";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  let accessToken = cookieStore.get("access-token")?.value;
+  let refreshToken = cookieStore.get("refresh-token")?.value;
+
+  const { isLogin, username } = checkAllTokenLife({
+    accessToken,
+    refreshToken,
+  });
   return (
     <html lang="en">
       <body>
-        <AuthSession>{children}</AuthSession>
+        <Header
+          isLogin={isLogin}
+          username={username}
+          accessToken={accessToken}
+          refreshToken={refreshToken}
+        />
+        {children}
       </body>
     </html>
   );

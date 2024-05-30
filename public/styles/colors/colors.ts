@@ -26,6 +26,7 @@ export enum Colors {
 export enum NewColors {
   fontWhite = "#F8F9FE",
   white = "#FFFFFF",
+  ghostWhite = "#F8F8E9",
 
   blackTransparent = "#1A1B1EA2",
 
