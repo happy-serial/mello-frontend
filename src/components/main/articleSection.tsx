@@ -1,9 +1,10 @@
 "use client";
 
 import useWindowDimensions from "@/hook/useWindowWidth";
-import Link from "next/link";
+import { useState } from "react";
 import { NewColors } from "../../../public/styles/colors/colors";
 import { pretendard } from "../../../public/styles/fonts/fonts";
+import { EventButton } from "../common/button";
 import { Spacer } from "../common/spacer";
 import { HotUser } from "./ArticleSection/HotUser";
 import { SectionTitle } from "./ArticleSection/SectionTitle";
@@ -67,18 +68,6 @@ function PopularArticleList({}) {
       >
         <SectionTitle title={"오늘의 인기 게시글"} />
         {/* TODO: 링크 수정하기 */}
-        <Link
-          href={"/"}
-          type="button"
-          style={{
-            fontWeight: "600",
-            fontSize: "16px",
-            color: NewColors.gray7,
-            textAlign: "center",
-          }}
-        >
-          전체보기
-        </Link>
       </div>
       <div
         style={{
@@ -123,6 +112,12 @@ function HotUserList({}) {
 }
 
 function AllArticleList({}) {
+  const [activeButton, setActiveButton] = useState<string>("전체");
+
+  const handleButtonClick = (buttonLabel: string) => {
+    setActiveButton(buttonLabel);
+  };
+
   const renderArticles = () => {
     const elements = [];
     for (let i = 0; i < 8; i++) {
@@ -130,6 +125,14 @@ function AllArticleList({}) {
     }
     return elements;
   };
+
+  const buttons = [
+    { label: "전체", width: 52 },
+    { label: "디자인", width: 65 },
+    { label: "기술", width: 52 },
+    { label: "스타트업", width: 78 },
+    { label: "자유주제", width: 78 },
+  ];
 
   return (
     <>
@@ -144,6 +147,77 @@ function AllArticleList({}) {
         <Spacer shape={"width"} size={"12px"} />
       </div>
       <Spacer shape={"height"} size={"15px"} />
+      <div
+        style={{
+          boxSizing: "border-box",
+          borderBottom: `1px solid rgba(128, 137, 156, 0.2)`,
+          height: "50px",
+          width: "100vw",
+          position: "absolute",
+          left: 0,
+
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "67%",
+            maxWidth: "1280px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignContent: "center",
+            letterSpacing: "-0.6px",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            {buttons.map((button) => (
+              <div
+                key={button.label}
+                style={{
+                  borderBottom:
+                    activeButton === button.label
+                      ? `2px solid ${NewColors.primary}`
+                      : "none",
+                }}
+              >
+                <EventButton
+                  key={button.label}
+                  OnClick={() => handleButtonClick(button.label)}
+                  disabled={false}
+                  label={button.label}
+                  width={button.width}
+                  height={49}
+                  padding={"14px 12px 16px"}
+                  fontSize={16}
+                  fontWeight={600}
+                  color={
+                    activeButton === button.label
+                      ? NewColors.fontWhite
+                      : NewColors.buttonGray
+                  }
+                  backgroundColor={NewColors.transparent}
+                />
+              </div>
+            ))}
+          </div>
+          <select
+            style={{
+              border: `1px solid ${NewColors.fontWhite}`,
+              padding: "6px 14px",
+              borderRadius: "8px",
+              backgroundColor: NewColors.transparent,
+              color: NewColors.fontWhite,
+              
+            }}
+          >
+            <option value={"최신순"}>최신순</option>
+            <option value={"추천순"}>추천순</option>
+            <option value={"조회순"}>조회순</option>
+          </select>
+        </div>
+      </div>
+      <Spacer shape={"height"} size={"70px"} />
       <div
         style={{
           display: "grid",

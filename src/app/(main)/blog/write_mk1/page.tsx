@@ -6,9 +6,9 @@ import "@/components/blog/write/styles.css";
 import { htmlToText } from "@/utils/stringModifier";
 import { useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { Colors } from "../../../../../public/styles/colors/colors";
+import { Colors, NewColors } from "../../../../../public/styles/colors/colors";
 import { pretendard } from "../../../../../public/styles/fonts/fonts";
-import { Button } from "../../../../../src/components/common/button";
+import { EventButton } from "../../../../../src/components/common/button";
 import { Spacer } from "../../../../../src/components/common/spacer";
 
 export default function BlogWrite() {
@@ -108,22 +108,41 @@ export default function BlogWrite() {
           justifyContent: "center",
         }}
       >
-        <Button
+        <EventButton
+          onClick={() => console.log("test")}
+          disabled={false}
+          label={"임시저장"}
+          width={326}
+          height={60}
+          padding={"19px 120px"}
+          fontSize={18}
+          fontWeight={600}
+          borderRadius={16}
+          backgroundColor={NewColors.gray10}
+          color={NewColors.fontWhite}
+        />
+        {/* <Button
           backgroundColor={Colors.white}
           color={Colors.purple}
           label="임시저장"
           size="middle"
           purpose="event"
           onClick={TemporaryStorage}
-        />
+        /> */}
         <Spacer shape="width" size="30px" />
-        <Button
-          backgroundColor={Colors.purple}
-          color={Colors.white}
-          label="게시글 게시"
-          size="middle"
-          purpose="event"
-          onClick={SendData}
+        <EventButton
+          onClick={() => console.log("test")}
+          disabled={false}
+          label={"임시저장"}
+          width={326}
+          height={60}
+          padding={"19px 120px"}
+          fontSize={18}
+          fontWeight={600}
+          borderWidth={1}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.backgroundBlack}
         />
       </div>
       {/* {viewModal && <WriteModal blogID={blogID} setViewModal={setViewModal} />} */}
