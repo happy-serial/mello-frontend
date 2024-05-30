@@ -24,15 +24,14 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { useCallback, useEffect, useRef, useState } from "react";
-import * as React from "react";
 import { createPortal } from "react-dom";
 
+import { summarizeText } from "@/api";
+import { EventButton } from "@/components/common/button";
+import { NewColors } from "../../../../../../public/styles/colors/colors";
 import { getDOMRangeRect } from "../../utils/getDOMRangeRect";
 import { getSelectedNode } from "../../utils/getSelectedNode";
 import { setFloatingElemPosition } from "../../utils/setFloatingElemPosition";
-import { Button } from "@/components/common/button";
-import { Colors } from "../../../../../../public/styles/colors/colors";
-import { summarizeText } from "@/api";
 import { parseStream } from "../SummarizeTextPlugin";
 
 function TextFormatFloatingToolbar({
@@ -289,13 +288,20 @@ function TextFormatFloatingToolbar({
           >
             <i className="format link" />
           </button>
-          <Button
-            backgroundColor={Colors.purple}
-            color={Colors.white}
-            label="AI"
-            size="middle"
-            purpose="event"
-            onClick={() => summarizeDraggedText()}
+          <EventButton
+            borderColor={NewColors.primary}
+            borderWidth={75}
+            borderRadius={16}
+            backgroundColor={NewColors.primary}
+            color={NewColors.fontWhite}
+            label="보내기"
+            disabled={false}
+            OnClick={() => summarizeDraggedText()}
+            width={75}
+            height={22}
+            padding="19px 97px"
+            fontSize={14}
+            fontWeight={400}
           />
         </>
       )}

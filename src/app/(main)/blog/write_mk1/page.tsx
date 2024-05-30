@@ -109,7 +109,7 @@ export default function BlogWrite() {
         }}
       >
         <EventButton
-          onClick={() => console.log("test")}
+          onClick={() => console.log("test")
           disabled={false}
           label={"임시저장"}
           width={326}
