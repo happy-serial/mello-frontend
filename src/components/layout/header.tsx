@@ -1,21 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
-import { Colors, NewColors } from "../../../public/styles/colors/colors";
+import { NewColors } from "../../../public/styles/colors/colors";
 import styles from "./css/header.module.css";
 
 import { LinkButton } from "../common/button";
-import { Profile } from "../common/profile";
-
-import Link from "next/link";
 
 import { UseLoginStatusStore } from "@/state-manage/store";
 import { checkLogin } from "@/utils/tokenHandler";
 import { useEffect, useState } from "react";
-import { RiBellLine, RiQuillPenLine } from "react-icons/ri";
 import { Spacer } from "../common/spacer";
-import { TextField } from "../common/textField";
 
 interface HeaderProps {
   isLogin: boolean;
@@ -117,30 +113,70 @@ export const Header = ({
         </div>
         {tempIsLogin ? (
           <div className={styles.userInteractionSection}>
-            <TextField
-              width="500px"
-              color={Colors.black}
-              borderRadius="30px"
-              borderColor={Colors.transparent}
-              backgroundColor={Colors.lightGrayTransparent}
-              type={"search"}
-              placeholder="search..."
-              onChange={(e) => {
-                setSearchText(e.target.value);
+            <Link
+              href={"/blog/write_mk1"}
+              type="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "0px 10px",
               }}
-            />
-            <Spacer shape="width" size="10px" />
-            <RiQuillPenLine
-              size="30px"
-              color={Colors.black}
-              style={{ padding: "12px 4px 12px 12px" }}
-            ></RiQuillPenLine>
-            <RiBellLine
-              size="30px"
-              color={Colors.black}
-              style={{ padding: "12px 20px 12px 12px" }}
-            ></RiBellLine>
-            <Profile username={tempUsername} size="header"></Profile>
+            >
+              <Image
+                src={"Image/writeBtn.svg"}
+                alt="header_icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+            <Link
+              href={"/"}
+              type="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "0px 10px",
+              }}
+            >
+              <Image
+                src={"Image/alarmBtn.svg"}
+                alt="header_icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+            <Link
+              href={"/"}
+              type="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "0px 10px",
+              }}
+            >
+              <Image
+                src={"Image/searchBtn.svg"}
+                alt="header_icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+            <Link
+              href={"/"}
+              type="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                paddingLeft: "32px",
+              }}
+            >
+              <Image
+                src={"Image/defaultProfile.svg"}
+                alt="header_icon"
+                width={40}
+                height={40}
+              />
+            </Link>
           </div>
         ) : (
           <div
