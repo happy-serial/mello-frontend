@@ -73,7 +73,7 @@ export const EventButton = ({
   ...props
 }: EventButtonProps) => {
   const buttonStyle: CSSProperties = {
-    border: `${borderWidth}px solid ${borderColor}`,
+    border: borderWidth ? `${borderWidth}px solid ${borderColor}` : "none",
     borderRadius: `${borderRadius}px`,
     backgroundColor: backgroundColor,
     color: color,

@@ -183,7 +183,7 @@ function AllArticleList({}) {
               >
                 <EventButton
                   key={button.label}
-                  OnClick={() => handleButtonClick(button.label)}
+                  onClick={() => handleButtonClick(button.label)}
                   disabled={false}
                   label={button.label}
                   width={button.width}
@@ -204,7 +204,7 @@ function AllArticleList({}) {
           <select
             style={{
               border: `1px solid ${NewColors.fontWhite}`,
-              padding: "6px 14px",
+              padding: "1px 14px",
               borderRadius: "8px",
               backgroundColor: NewColors.transparent,
               color: NewColors.fontWhite,
