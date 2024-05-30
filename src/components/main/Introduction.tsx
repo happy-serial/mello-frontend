@@ -112,7 +112,7 @@ function IconicImage({ figureSize }: { figureSize: number }) {
           height={figureSize}
           style={{
             margin: "2px",
-            transition: startAnimation ? "transform 9s ease-in-out" : "none",
+            transition: startAnimation ? "transform 8s" : "none",
             transform: startAnimation
               ? `translateX(-${translationPX}px)`
               : "translateX(0)",
@@ -129,7 +129,7 @@ function IconicImage({ figureSize }: { figureSize: number }) {
           height={figureSize}
           style={{
             margin: "2px",
-            transition: startAnimation ? "transform 10s ease-in-out" : "none",
+            transition: startAnimation ? "transform 9s" : "none",
             transform: startAnimation
               ? `translateX(-${translationPX + 400}px)`
               : "translateX(0)",
