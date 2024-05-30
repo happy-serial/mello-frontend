@@ -92,7 +92,7 @@ export const EventButton = ({
       disabled={disabled}
       className={pretendard.className}
       style={buttonStyle}
-      onClick={onClick}
+      onClick={OnClick}
     >
       {label}
     </button>
