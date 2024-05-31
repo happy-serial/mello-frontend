@@ -24,15 +24,13 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { useCallback, useEffect, useRef, useState } from "react";
-import * as React from "react";
 import { createPortal } from "react-dom";
 
+import { summarizeText } from "@/api";
+import { EventButton } from "@/components/common/button";
 import { getDOMRangeRect } from "../../utils/getDOMRangeRect";
 import { getSelectedNode } from "../../utils/getSelectedNode";
 import { setFloatingElemPosition } from "../../utils/setFloatingElemPosition";
-import { Button } from "@/components/common/button";
-import { Colors } from "../../../../../../public/styles/colors/colors";
-import { summarizeText } from "@/api";
 import { parseStream } from "../SummarizeTextPlugin";
 
 function TextFormatFloatingToolbar({
@@ -289,13 +287,15 @@ function TextFormatFloatingToolbar({
           >
             <i className="format link" />
           </button>
-          <Button
-            backgroundColor={Colors.purple}
-            color={Colors.white}
-            label="AI"
-            size="middle"
-            purpose="event"
+          <EventButton
             onClick={() => summarizeDraggedText()}
+            disabled={false}
+            label={"AI"}
+            width={36}
+            height={36}
+            padding={"12px"}
+            fontSize={16}
+            fontWeight={400}
           />
         </>
       )}

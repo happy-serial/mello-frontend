@@ -60,7 +60,7 @@ h1 {
   text-align: left;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #eee;
+  background-color: #26272b;
 }
 
 .editor-inner {
@@ -348,7 +348,7 @@ pre::-webkit-scrollbar-thumb {
 .toolbar {
   display: flex;
   margin-bottom: 1px;
-  background: #323232;
+  background: #26272b;
   box-sizing: border-box;
   padding: 4px;
   border-top-left-radius: 10px;
@@ -358,6 +358,11 @@ pre::-webkit-scrollbar-thumb {
   min-width: 300px;
   overflow:auto;
   justify-content:center;
+  border-bottom: 2px solid #1C1C20;
+}
+
+.toolbar::-webkit-scrollbar {
+  display: none;
 }
 
 .toolbar button.toolbar-item {

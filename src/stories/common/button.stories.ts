@@ -1,40 +1,38 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Colors } from '../../../public/styles/colors/colors';
+import type { Meta, StoryObj } from "@storybook/react";
+import { NewColors } from "../../../public/styles/colors/colors";
 
-import { Button } from '../../components/common/button';
+import { EventButton } from "../../components/common/button";
 
 const meta = {
-  title: 'Common/Button',
-  component: Button,
+  title: "Common/Button",
+  component: EventButton,
   parameters: {
-    layout: 'centered',
-  },  
-  tags: ['autodocs'],  
-  argTypes: {
-    backgroundColor: { control: 'color' },
-    color: { control: 'color' },
-    borderColor: { control: 'color' },
+    layout: "centered",
   },
-} satisfies Meta<typeof Button>;
+  tags: ["autodocs"],
+  argTypes: {
+    backgroundColor: { control: "color" },
+    color: { control: "color" },
+    borderColor: { control: "color" },
+  },
+} satisfies Meta<typeof EventButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Login: Story = {
   args: {
-    label: '로그인',
-    backgroundColor: Colors.transparent,
-    color: Colors.pink,
-    borderColor: Colors.pink,
-    purpose: 'event',
-  },
-};
-
-export const Join: Story = {
-  args: {
-    label: '회원가입',
-    backgroundColor: Colors.transparent,
-    color: Colors.black,
-    purpose: 'event',
+    backgroundColor: NewColors.userCard,
+    color: NewColors.userCard,
+    label: "대마왕",
+    onClick: () => {
+      console.log("대마왕 로그");
+    },
+    disabled: false,
+    width: 120,
+    height: 40,
+    padding: "12px",
+    fontSize: 16,
+    fontWeight: 500,
   },
 };
