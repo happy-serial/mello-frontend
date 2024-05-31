@@ -7,8 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.editorWrap{
-  width : 100%;
+.editorWrap {
+  width: 100%;
 }
 
 .other h2 {
@@ -53,7 +53,7 @@ h1 {
   border-radius: 2px;
   max-width: 1500px;
   min-width: 300px;
-  color: #000;
+  color: #F8F9FE;
   position: relative;
   line-height: 20px;
   font-weight: 400;
@@ -170,6 +170,7 @@ h1 {
   text-align: right;
   min-width: 25px;
 }
+
 .editor-code:after {
   content: attr(data-highlight-language);
   top: 0;
@@ -350,14 +351,17 @@ pre::-webkit-scrollbar-thumb {
   margin-bottom: 1px;
   background: #26272b;
   box-sizing: border-box;
-  padding: 4px;
+  padding: 4px 4px 4px 12px;
+  color: #F8F9FE;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   vertical-align: middle;
   width: 100%;
+  height: 55px;
   min-width: 300px;
-  overflow:auto;
-  justify-content:center;
+  overflow: auto;
+  justify-content: start;
+  align-items: center;
   border-bottom: 2px solid #1C1C20;
 }
 
@@ -412,8 +416,8 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar .divider {
   width: 1px;
-  background-color: #eee;
-  margin: 0 4px;
+  background-color: rgba(128, 137, 156, 0.2);
+  height: 16px;
 }
 
 .toolbar select.toolbar-item {
@@ -448,6 +452,10 @@ pre::-webkit-scrollbar-thumb {
   overflow: hidden;
   height: 20px;
   text-align: left;
+}
+
+.block-controls .text {
+  width: 10px !important;
 }
 
 .toolbar .toolbar-item .icon {
@@ -535,18 +543,17 @@ i.chevron-down {
   z-index: 5;
   display: block;
   position: absolute;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   min-width: 100px;
   min-height: 40px;
-  background-color: #fff;
+  background-color: #26272B;
 }
 
 .dropdown .item {
   margin: 0 8px 0 8px;
   padding: 8px;
-  color: #050505;
+  color: #9DA5B6;
   cursor: pointer;
   line-height: 16px;
   font-size: 15px;
@@ -555,7 +562,7 @@ i.chevron-down {
   flex-direction: row;
   flex-shrink: 0;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: #26272B;
   border-radius: 8px;
   border: 0;
   min-width: 268px;
@@ -577,7 +584,8 @@ i.chevron-down {
 }
 
 .dropdown .item:hover {
-  background-color: #eee;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #F8F9FE;
 }
 
 .dropdown .item .text {
@@ -859,7 +867,7 @@ i.markdown {
 i.outdent {
   background-image: url(images/icons/outdent.svg);
 }
- 
+
 .icon.h3 {
   background-image: url(images/icons/type-h3.svg);
 }
@@ -883,6 +891,7 @@ i.mic {
 
 
 .actions {
+  display: none;
   position: absolute;
   text-align: right;
   margin: 10px;

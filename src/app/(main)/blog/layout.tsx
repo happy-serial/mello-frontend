@@ -12,10 +12,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     >
       <div
         style={{
-          width: "70%",
-          maxWidth: "1800px",
-          minWidth: "300px",
-          padding: "16px 24px 16px 24px",
+          width: "1062px",
+          paddingTop: "60px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

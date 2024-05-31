@@ -90,7 +90,7 @@ export default function BlogWrite() {
     <>
       <Title titleText={titleText} setTitleText={setTitleText} />
       {/* <Category categoryList={categoryList} setCategoryList={setCategoryList} /> */}
-      <Spacer shape="height" size="16px" />
+      <Spacer shape="height" size="9px" />
       <div
         style={{
           width: "100%",
@@ -101,6 +101,7 @@ export default function BlogWrite() {
       >
         <Editor ref={childRef} parentFunction={getParsedData} />
       </div>
+      <Spacer shape="height" size="32px" />
       <div
         style={{
           width: "100%",
@@ -109,7 +110,7 @@ export default function BlogWrite() {
         }}
       >
         <EventButton
-          onClick={() => console.log("test")}
+          onClick={() => console.log("임시저장 button clicked")}
           disabled={false}
           label={"임시저장"}
           width={326}
@@ -129,17 +130,16 @@ export default function BlogWrite() {
           purpose="event"
           onClick={TemporaryStorage}
         /> */}
-        <Spacer shape="width" size="30px" />
+        <Spacer shape="width" size="12px" />
         <EventButton
-          onClick={() => console.log("test")}
+          onClick={() => console.log("아티클 출간하기 button clicked")}
           disabled={false}
-          label={"임시저장"}
+          label={"아티클 출간하기"}
           width={326}
           height={60}
-          padding={"19px 120px"}
+          padding={"19px 97px"}
           fontSize={18}
           fontWeight={600}
-          borderWidth={1}
           borderRadius={16}
           backgroundColor={NewColors.primary}
           color={NewColors.backgroundBlack}
