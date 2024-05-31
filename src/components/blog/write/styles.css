@@ -351,7 +351,7 @@ pre::-webkit-scrollbar-thumb {
   margin-bottom: 1px;
   background: #26272b;
   box-sizing: border-box;
-  padding: 4px 4px 4px 12px;
+  padding: 4px 4px 4px 16px;
   color: #F8F9FE;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -369,6 +369,12 @@ pre::-webkit-scrollbar-thumb {
   display: none;
 }
 
+.toolbar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .toolbar button.toolbar-item {
   border: 0;
   display: flex;
@@ -377,6 +383,7 @@ pre::-webkit-scrollbar-thumb {
   padding: 8px;
   cursor: pointer;
   vertical-align: middle;
+  align-items: center !important;
 }
 
 .toolbar button.toolbar-item:disabled {
@@ -395,7 +402,8 @@ pre::-webkit-scrollbar-thumb {
   margin-top: 2px;
   vertical-align: -0.25em;
   display: flex;
-  opacity: 0.6;
+  align-items: center;
+  /* opacity: 0.6; 이미지를 반복하지 않음 */
 }
 
 .toolbar button.toolbar-item:disabled i.format {
@@ -418,6 +426,7 @@ pre::-webkit-scrollbar-thumb {
   width: 1px;
   background-color: rgba(128, 137, 156, 0.2);
   height: 16px;
+  margin: 0px 18px;
 }
 
 .toolbar select.toolbar-item {
@@ -440,6 +449,10 @@ pre::-webkit-scrollbar-thumb {
   width: 130px;
 }
 
+.icon-color:hover {
+  fill: #000;
+}
+
 .toolbar .toolbar-item .text {
   display: flex;
   line-height: 20px;
@@ -455,7 +468,7 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .block-controls .text {
-  width: 10px !important;
+  width: 24px !important;
 }
 
 .toolbar .toolbar-item .icon {
@@ -466,6 +479,8 @@ pre::-webkit-scrollbar-thumb {
   margin-right: 8px;
   line-height: 16px;
   background-size: contain;
+  background-repeat: no-repeat;
+  /* 이미지를 반복하지 않음 */
 }
 
 .toolbar i.chevron-down {
@@ -474,6 +489,8 @@ pre::-webkit-scrollbar-thumb {
   height: 16px;
   display: flex;
   user-select: none;
+  background-repeat: no-repeat;
+  /* 이미지를 반복하지 않음 */
 }
 
 .toolbar i.chevron-down.inside {
@@ -490,9 +507,8 @@ i.chevron-down {
   background-color: transparent;
   background-size: contain;
   display: inline-block;
-  height: 8px;
-  width: 8px;
-  background-image: url(images/icons/chevron-down.svg);
+  background-image: url(../../../../public/Image/toolbar_arrow.svg);
+  width: 16px !important;
 }
 
 #block-controls button:hover {
@@ -516,16 +532,23 @@ i.chevron-down {
 }
 
 #block-controls span.block-type.h1 {
-  background-image: url(images/icons/type-h1.svg);
+  background-image: url(../../../../public/Image/toolbar_H1.svg);
+  width: 19px !important;
+  height: 16px !important;
 }
 
 #block-controls span.block-type.h2 {
-  background-image: url(images/icons/type-h2.svg);
+  background-image: url(../../../../public/Image/toolbar_h2.svg);
+  width: 19px !important;
+  height: 16px !important;
 }
 
 #block-controls span.block-type.quote {
-  background-image: url(images/icons/chat-square-quote.svg);
+  background-image: url(../../../../public/Image/toolbar_quote.svg);
+  width: 14px !important;
+  height: 10px !important;
 }
+
 
 #block-controls span.block-type.ul {
   background-image: url(images/icons/list-ul.svg);
@@ -704,12 +727,16 @@ i.redo {
 
 .icon.large-heading,
 .icon.h1 {
-  background-image: url(images/icons/type-h1.svg);
+  background-image: url(../../../../public/Image/toolbar_H1.svg);
+  width: 19px !important;
+  height: 16px !important;
 }
 
 .icon.small-heading,
 .icon.h2 {
-  background-image: url(images/icons/type-h2.svg);
+  background-image: url(../../../../public/Image/toolbar_h2.svg);
+  width: 19px !important;
+  height: 16px !important;
 }
 
 .icon.bullet-list,
@@ -723,7 +750,9 @@ i.redo {
 }
 
 .icon.quote {
-  background-image: url(images/icons/chat-square-quote.svg);
+  background-image: url(../../../../public/Image/toolbar_quote.svg);
+  width: 14px !important;
+  height: 10px !important;
 }
 
 .icon.code {
@@ -731,15 +760,27 @@ i.redo {
 }
 
 i.bold {
-  background-image: url(images/icons/type-bold.svg);
+  background-image: url(../../../../public/Image/toolbar_bold.svg);
+  background-repeat: no-repeat;
+  width: 11px !important;
+  height: 14px !important;
+}
+
+.icon-color:hover {
+  fill: #1C1C20 !important;
 }
 
 i.italic {
-  background-image: url(images/icons/type-italic.svg);
+  background-image: url(../../../../public/Image/toolbar_italic.svg);
+  background-repeat: no-repeat;
+  width: 14px !important;
+  height: 16px !important;
 }
 
 i.underline {
-  background-image: url(images/icons/type-underline.svg);
+  background-image: url(../../../../public/Image/toolbar_underline.svg);
+  width: 14px !important;
+  height: 15px !important;
 }
 
 i.strikethrough {
@@ -751,7 +792,10 @@ i.code {
 }
 
 i.link {
-  background-image: url(images/icons/link.svg);
+  background-image: url(../../../../public/Image/toolbar_link.svg);
+  background-repeat: no-repeat;
+  width: 20px !important;
+  height: 10px !important;
 }
 
 i.left-align {
@@ -771,7 +815,9 @@ i.justify-align {
 }
 
 i.image {
-  background-image: url(images/icons/file-image.svg);
+  background-image: url(../../../../public/Image/toolbar_image.svg);
+  width: 18px !important;
+  height: 18px !important;
 }
 
 i.table {
@@ -800,7 +846,9 @@ i.youtube {
 
 
 i.horizontal-rule {
-  background-image: url(images/icons/horizontal-rule.svg);
+  background-image: url(../../../../public/Image/toolbar_horizontalLine.svg);
+  width: 20px !important;
+  height: 5px !important;
 }
 
 i.page-break,
@@ -849,7 +897,9 @@ i.diagram-2 {
 }
 
 .icon.font-color {
-  background-image: url(images/icons/font-color.svg);
+  background-image: url(../../../../public/Image/toolbar_colorChange.svg);
+  width: 16px !important;
+  height: 20px !important;
 }
 
 .icon.dropdown-more {
@@ -869,7 +919,9 @@ i.outdent {
 }
 
 .icon.h3 {
-  background-image: url(images/icons/type-h3.svg);
+  background-image: url(../../../../public/Image/toolbar_h3.svg);
+  width: 19px !important;
+  height: 16px !important;
 }
 
 .icon.check-list,
@@ -952,4 +1004,26 @@ button.action-button:disabled {
   100% {
     background-color: #ffdcdc;
   }
+}
+
+span.icon.plus {
+  width: 0px !important;
+  height: 0px !important;
+}
+
+span.text.dropdown-button-text {
+  font-size: 16px !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 500 !important;
+  font-family: Pretendard !important;
+  color: #f8f9fe !important;
+  text-align: center;
+}
+
+span.text.dropdown-button-text:hover {
+  color: #1C1C20 !important;
+}
+
+button.toolbar-item.spaced:hover {
+  color: #1C1C20 !important;
 }

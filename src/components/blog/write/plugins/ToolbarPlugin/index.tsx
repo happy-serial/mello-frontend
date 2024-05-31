@@ -735,8 +735,6 @@ export default function ToolbarPlugin({
     });
   }, [activeEditor]);
 
-  
-
   const onFontColorSelect = useCallback(
     (value: string, skipHistoryStack: boolean) => {
       applyStyleText({ color: value }, skipHistoryStack);
@@ -858,49 +856,67 @@ export default function ToolbarPlugin({
             disabled={!isEditable}
           />
           <Divider /> */}
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+          <div
+            style={{
+              display: "flex",
+              width: "192px",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
-            className={"toolbar-item spaced " + (isBold ? "active" : "")}
-            title={IS_APPLE ? "Bold (⌘B)" : "Bold (Ctrl+B)"}
-            type="button"
-            aria-label={`Format text as bold. Shortcut: ${
-              IS_APPLE ? "⌘B" : "Ctrl+B"
-            }`}
           >
-            <i className="format bold" />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
-            }}
-            className={"toolbar-item spaced " + (isItalic ? "active" : "")}
-            title={IS_APPLE ? "Italic (⌘I)" : "Italic (Ctrl+I)"}
-            type="button"
-            aria-label={`Format text as italics. Shortcut: ${
-              IS_APPLE ? "⌘I" : "Ctrl+I"
-            }`}
-          >
-            <i className="format italic" />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
-            }}
-            className={"toolbar-item spaced " + (isUnderline ? "active" : "")}
-            title={IS_APPLE ? "Underline (⌘U)" : "Underline (Ctrl+U)"}
-            type="button"
-            aria-label={`Format text to underlined. Shortcut: ${
-              IS_APPLE ? "⌘U" : "Ctrl+U"
-            }`}
-          >
-            <i className="format underline" />
-          </button>
-          <button
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+              }}
+              className={"toolbar-item spaced " + (isBold ? "active" : "")}
+              title={IS_APPLE ? "Bold (⌘B)" : "Bold (Ctrl+B)"}
+              type="button"
+              aria-label={`Format text as bold. Shortcut: ${
+                IS_APPLE ? "⌘B" : "Ctrl+B"
+              }`}
+            >
+              <i className="format bold" />
+            </button>
+
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
+              }}
+              className={"toolbar-item spaced " + (isUnderline ? "active" : "")}
+              title={IS_APPLE ? "Underline (⌘U)" : "Underline (Ctrl+U)"}
+              type="button"
+              aria-label={`Format text to underlined. Shortcut: ${
+                IS_APPLE ? "⌘U" : "Ctrl+U"
+              }`}
+            >
+              <i className="format underline" />
+            </button>
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+              }}
+              className={"toolbar-item spaced " + (isItalic ? "active" : "")}
+              title={IS_APPLE ? "Italic (⌘I)" : "Italic (Ctrl+I)"}
+              type="button"
+              aria-label={`Format text as italics. Shortcut: ${
+                IS_APPLE ? "⌘I" : "Ctrl+I"
+              }`}
+            >
+              <i className="format italic" />
+            </button>
+            <button
+              disabled={!isEditable}
+              onClick={toggleColor}
+              className={"toolbar-item spaced"}
+            >
+              <i className="icon font-color" />
+            </button>
+          </div>
+          <Divider />
+          {/* <button
             disabled={!isEditable}
             onClick={() => {
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
@@ -911,66 +927,69 @@ export default function ToolbarPlugin({
             aria-label="Insert code block"
           >
             <i className="format code" />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={insertLink}
-            className={"toolbar-item spaced " + (isLink ? "active" : "")}
-            aria-label="Insert link"
-            title="Insert link"
-            type="button"
-          >
-            <i className="format link" />
-          </button>
-          {/* TODO: 이미지인지 알아야함 */}
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              showModal("Insert Image", (onClose) => (
-                <InsertImageDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+          </button> */}
+          <div
+            style={{
+              display: "flex",
+              width: "192px",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
-            className={"toolbar-item spaced"}
           >
-            <i className="icon image" />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              if (blockType !== "quote") {
-                editor.update(() => {
-                  const selection = $getSelection();
-                  $setBlocksType(selection, () => $createQuoteNode());
-                });
-              }
-            }}
-            className={"toolbar-item spaced"}
-          >
-            <i className="icon quote" />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={() => {
-              activeEditor.dispatchCommand(
-                INSERT_HORIZONTAL_RULE_COMMAND,
-                undefined
-              );
-            }}
-            className={"toolbar-item spaced"}
-          >
-            <i className="icon horizontal-rule" />
-          </button>
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                if (blockType !== "quote") {
+                  editor.update(() => {
+                    const selection = $getSelection();
+                    $setBlocksType(selection, () => $createQuoteNode());
+                  });
+                }
+              }}
+              className={"toolbar-item spaced"}
+            >
+              <i className="icon quote" />
+            </button>
+            <button
+              disabled={!isEditable}
+              onClick={insertLink}
+              className={"toolbar-item spaced " + (isLink ? "active" : "")}
+              aria-label="Insert link"
+              title="Insert link"
+              type="button"
+            >
+              <i className="format link" />
+            </button>
+            {/* TODO: 이미지인지 알아야함 */}
 
-          <button
-            disabled={!isEditable}
-            onClick={toggleColor}
-            className={"toolbar-item spaced"}
-          >
-            <i className="icon horizontal-rule" />
-          </button>
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                activeEditor.dispatchCommand(
+                  INSERT_HORIZONTAL_RULE_COMMAND,
+                  undefined
+                );
+              }}
+              className={"toolbar-item spaced"}
+            >
+              <i className="icon horizontal-rule" />
+            </button>
+            <button
+              disabled={!isEditable}
+              onClick={() => {
+                showModal("Insert Image", (onClose) => (
+                  <InsertImageDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                  />
+                ));
+              }}
+              className={"toolbar-item spaced"}
+            >
+              <i className="icon image" />
+            </button>
+          </div>
+
           {/* <DropdownColorPicker
             disabled={!isEditable}
             buttonClassName="toolbar-item color-picker"
