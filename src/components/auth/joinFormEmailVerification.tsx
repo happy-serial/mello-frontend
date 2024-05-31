@@ -1,18 +1,18 @@
 "use client";
 
-import styles from "./css/joinFormEmailVerification.module.css";
-import { TextField } from "@/components/common/textField";
-import { Colors, NewColors } from "../../../public/styles/colors/colors";
-import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { LinkButton, EventButton } from "../common/button";
-import { SocialLogin } from "./socialLogin";
-import { Spacer } from "../common/spacer";
-import Link from "next/link";
-import { useState } from "react";
 import { sendVerificationEmail, verifyEmailCode } from "@/api";
+import { TextField } from "@/components/common/textField";
 import { VerificationResponse } from "@/model";
 import { SpringValue, animated } from "@react-spring/web";
+import Link from "next/link";
+import { useState } from "react";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
+import { aldrich, blackOpsOne } from "../../../public/styles/fonts/fonts";
+import { EventButton } from "../common/button";
 import { Loading } from "../common/loading";
+import { Spacer } from "../common/spacer";
+import styles from "./css/joinFormEmailVerification.module.css";
+import { SocialLogin } from "./socialLogin";
 
 interface JoinFormEmailVerificationProps {
   emailState: string;
@@ -125,7 +125,7 @@ export const JoinFormEmailVerification = ({
           // purpose="link"
           width={75}
           height={22}
-          padding="19px 97px"
+          padding="19px"
           fontSize={14}
           fontWeight={400}
         />

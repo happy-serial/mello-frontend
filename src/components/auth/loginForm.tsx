@@ -1,18 +1,15 @@
 "use client";
 
-import styles from "./css/loginForm.module.css";
-import { TextField } from "@/components/common/textField";
-import { Colors, NewColors } from "../../../public/styles/colors/colors";
-import { blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { LinkButton, EventButton } from "../common/button";
-import { SocialLogin } from "./socialLogin";
-import { Spacer } from "../common/spacer";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { login } from "@/api";
-import { useState } from "react";
+import { TextField } from "@/components/common/textField";
 import Cookies from "js-cookie";
-import { a } from "@react-spring/web";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
+import { EventButton, LinkButton } from "../common/button";
+import { Spacer } from "../common/spacer";
+import styles from "./css/loginForm.module.css";
+import { SocialLogin } from "./socialLogin";
 
 interface LoginFormProps {}
 
@@ -44,12 +41,12 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
         border: "1px solid rgba(255, 255, 255, 0.18)",
       }}
     >
-      <Link
+      {/* <Link
         className={[blackOpsOne.className, styles.logoText].join(" ")}
         href={"/"}
       >
         mello
-      </Link>
+      </Link> */}
       <Spacer shape="height" size="10px" />
       <TextField
         type="email"
@@ -101,17 +98,16 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
         /> */}
         <EventButton
           borderColor = {NewColors.primary}
-          borderWidth={75}
-          borderRadius={16}
+          borderRadius={6}
           backgroundColor={NewColors.primary}
-          color={NewColors.ghostWhite}
+          color={NewColors.userCard}
           label="로그인하기"
           disabled={false}
           onClick={handleLogin}
           // purpose="link"
-          width={75}
-          height={22}
-          padding="19px 97px"
+          width={340}
+          height={60}
+          padding="24px"
           fontSize={14}
           fontWeight={400}
         />
