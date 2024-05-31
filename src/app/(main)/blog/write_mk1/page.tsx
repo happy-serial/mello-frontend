@@ -95,8 +95,8 @@ export default function BlogWrite() {
         style={{
           width: "100%",
           justifyContent: "center",
-          backgroundColor: "#313233",
-          borderRadius: "24px",
+          backgroundColor: NewColors.userCard,
+          borderRadius: "12px",
         }}
       >
         <Editor ref={childRef} parentFunction={getParsedData} />
@@ -195,8 +195,8 @@ function Title({
         fontWeight: 600,
         width: "100%",
         height: "156px",
-        backgroundColor: "#313233",
-        borderRadius: "24px",
+        backgroundColor: NewColors.userCard,
+        borderRadius: "12px",
         fontSize: "36px",
         border: "0px",
         color: Colors.white,
