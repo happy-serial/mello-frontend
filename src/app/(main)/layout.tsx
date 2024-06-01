@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
-import { Header } from "../../components/layout/header";
-import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { Header } from "../../components/layout/header";
+
+import { checkAllTokenLife } from "@/utils/tokenHandler";
 import "./globals.css";
-import {
-  TokenProps,
-  checkAllTokenLife,
-  validateToken,
-} from "@/utils/tokenHandler";
 
 export const metadata: Metadata = {
   title: "mello",
@@ -41,6 +40,8 @@ export default function RootLayout({
           refreshToken={refreshToken}
         />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
