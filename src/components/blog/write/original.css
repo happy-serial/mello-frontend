@@ -419,6 +419,8 @@ i.horizontal-rule {
 
 .icon.plus {
   background-image: url(images/icons/plus.svg);
+  width: 0px !important;
+  height: 0px !important;
 }
 
 .icon.caret-right {

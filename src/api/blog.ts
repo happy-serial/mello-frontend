@@ -1,22 +1,9 @@
 import { ImageURLRequest } from "@/model";
 import { DefaultResponse, serverUrl } from ".";
-import { Dispatch, SetStateAction } from "react";
-import {
-  $createParagraphNode,
-  $createTextNode,
-  $getRoot,
-  LexicalEditor,
-  ParagraphNode,
-} from "lexical";
-import {
-  $convertFromMarkdownString,
-  $convertToMarkdownString,
-  TRANSFORMERS,
-} from "@lexical/markdown";
 
 // 임시토큰사용
 const token =
-  "eyJVc2VybmFtZSI6Iuq5gOq5gOyDgeyDgeyImOyImCIsImFsZyI6IkhTMjU2In0.eyJzdWIiOiIwNmQyYTJiZS1mYmEzLTQ0ZWEtOTM1YS1mOTcyMGMyYmEwYmYiLCJhdXRoIjoiTk9STUFMX01FTUJFUiIsImV4cCI6MTcxNDMxNTQzN30.GVWXtcy93NgNzP0_uP9Fz17rC1PMu86Er8rEedxD5S0";
+  "eyJVc2VybmFtZSI6IuuwqeyKueyerCIsImFsZyI6IkhTMjU2In0.eyJzdWIiOiIzN2IwOGZkZC1hOWZhLTQ1NDEtYWJmYy04M2Q3ZTY0ZTU4ZTgiLCJhdXRoIjoiTk9STUFMX01FTUJFUiIsImV4cCI6MTcxODI3NzgwNX0.v8GlbhgPF6FlH6SR1UI2lwU5VSxMbIMf22YJt5hIk1o";
 
 export const getImageURL = async (file: File) => {
   try {

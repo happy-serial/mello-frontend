@@ -86,7 +86,7 @@ const Editor = forwardRef<HTMLDivElement, EditorProps>((props, ref) => {
     },
   } = useSettings();
   // const isEditable = useLexicalEditable();
-  const text = "텍스트를 넣어주세요";
+  const text = "본문을 입력해주세요";
   const placeholder = <Placeholder>{text}</Placeholder>;
   const [floatingAnchorElem, setFloatingAnchorElem] =
     useState<HTMLDivElement | null>(null);
