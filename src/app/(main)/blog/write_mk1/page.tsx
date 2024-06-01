@@ -1,6 +1,7 @@
 "use client";
 
 import { createTemporaryBlog, saveTemporaryBlog } from "@/api";
+import { Category } from "@/components/blog/write/Category";
 import Editor from "@/components/blog/write/Editor";
 import "@/components/blog/write/styles.css";
 import { htmlToText } from "@/utils/stringModifier";
@@ -89,7 +90,6 @@ export default function BlogWrite() {
   return (
     <>
       <Title titleText={titleText} setTitleText={setTitleText} />
-      {/* <Category categoryList={categoryList} setCategoryList={setCategoryList} /> */}
       <Spacer shape="height" size="9px" />
       <div
         style={{
@@ -100,6 +100,10 @@ export default function BlogWrite() {
         }}
       >
         <Editor ref={childRef} parentFunction={getParsedData} />
+      </div>
+      <Spacer shape="height" size="26px" />
+      <div>
+        <Category />
       </div>
       <Spacer shape="height" size="32px" />
       <div
@@ -122,14 +126,6 @@ export default function BlogWrite() {
           backgroundColor={NewColors.gray10}
           color={NewColors.fontWhite}
         />
-        {/* <Button
-          backgroundColor={Colors.white}
-          color={Colors.purple}
-          label="임시저장"
-          size="middle"
-          purpose="event"
-          onClick={TemporaryStorage}
-        /> */}
         <Spacer shape="width" size="12px" />
         <EventButton
           onClick={() => console.log("아티클 출간하기 button clicked")}
@@ -145,29 +141,6 @@ export default function BlogWrite() {
           color={NewColors.backgroundBlack}
         />
       </div>
-      {/* {viewModal && <WriteModal blogID={blogID} setViewModal={setViewModal} />} */}
-      {/* <Button
-        backgroundColor={Colors.purple}
-        color={Colors.white}
-        label="지피티야 도와줘~"
-        size="middle"
-        purpose="event"
-        onClick={() => {
-          GetTextData();
-          console.log(textData);
-          console.log(htmlToText(textData));
-        }}
-      />
-      <Button
-        backgroundColor={Colors.purple}
-        color={Colors.white}
-        label="텍스트 더하기"
-        size="middle"
-        purpose="event"
-        onClick={() => {
-          childRef.current!.innerHTML = childRef.current!.innerHTML += "<p>텍스트</p>";
-        }}
-      /> */}
     </>
   );
 }

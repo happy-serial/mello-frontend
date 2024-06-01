@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
         }}
       >
         {children}
