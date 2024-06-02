@@ -1,44 +1,58 @@
+/* css/loginForm.module.css */
+
 .loginFormContainer {
-    width: 440px;
-    height: 600px;
-    padding: 24px;
-    border-radius: 10px;
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
+  /* background-color: #111111; */
+  padding: 40px;
+  /* border-radius: 12px; */
+  max-width: 410px;
+  margin: 84 auto auto auto;
+  text-align: center;
+  color: #ffffff;
 }
 
-.logoText {
-    font-size: 60px;
-    font-weight: 400;
-    background: var(--temp, linear-gradient(180deg, #000 0%, #5C57A1 48.58%, #938DD2 99.99%));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px black;
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logoImage {
+  width: 111px;
+  height: 31;
+  margin-bottom: 16px;
+}
+
+.title {
+    position: relative;
+    font-size: 24px;
+    letter-spacing: -0.6px;
+    font-weight: 600;
+    font-family: Pretendard;
+    color: #e4e5e7;
+    text-align: center;
+}
+
+.inputLabel {
+    margin: 0 8px 0 8px;
+  /* margin-bottom: 8px; */
+  text-align: left;
+  font-size: 14px;
+  color: #9ea3b2;
 }
 
 .findPasswordContainer {
-    width: 108%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .loginButtonContainer {
-    width: 108%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+  margin-top: 20px;
 }
 
 .joinContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
