@@ -17,7 +17,7 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
 
   return (
     <div className={styles.socialLoginContainer}>
-      <div className={styles.assistTextContainer}>
+      {/* <div className={styles.assistTextContainer}>
         <Line color={Colors.gray} length="60px" thickness={1.5} />
         <div
           className={[styles.assistText, aldrich.className].join(" ")}
@@ -26,8 +26,20 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
           {assistText}
         </div>
         <Line color={Colors.gray} length="60px" thickness={1.5} />
-      </div>
+      </div> */}
       <div className={styles.socialLoginButtonList}>
+        <button
+          className={styles.socialLoginButton}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          style={{ backgroundColor: Colors.white }}
+        >
+          <Image
+            src={"/Image/google.svg"}
+            alt={"구글 아이콘"}
+            width={30}
+            height={30}
+          />
+        </button>
         <button
           className={styles.socialLoginButton}
           onClick={() => signIn("naver", { callbackUrl: "/" })}
@@ -41,18 +53,6 @@ export const SocialLogin = ({ ...props }: SocialLoginProps) => {
           style={{ backgroundColor: Colors.kakaoYellow }}
         >
           <RiKakaoTalkFill size={34} color={Colors.kakaoBlack} />
-        </button>
-        <button
-          className={styles.socialLoginButton}
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          style={{ backgroundColor: Colors.white }}
-        >
-          <Image
-            src={"/Image/google.svg"}
-            alt={"구글 아이콘"}
-            width={30}
-            height={30}
-          />
         </button>
       </div>
     </div>

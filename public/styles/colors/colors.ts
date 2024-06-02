@@ -21,6 +21,10 @@ export enum Colors {
   naverGreen = "#2DB400",
   kakaoYellow = "#FEE500",
   kakaoBlack = "#000000E6",
+
+  userCard = "#26272B",
+  userCardBorder = "#303238",
+  buttonGray = "#9DA5B6",
 }
 
 export enum NewColors {

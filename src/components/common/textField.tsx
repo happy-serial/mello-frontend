@@ -28,7 +28,7 @@ export const TextField = ({
   backgroundColor,
   boxShadowColor = Colors.transparent,
   placeholder,
-  borderRadius = "6px",
+  borderRadius = "10px",
   onChange,
   type,
   ...props
@@ -65,15 +65,15 @@ export const TextField = ({
       ) : null}
       <input
         type={type === "password" ? inputType : type}
-        className={[styles.textField, aldrich.className].join(" ")}
+        className={[styles.textField].join(" ")}
         placeholder={placeholder}
         onChange={(e) => onChange(e)}
         style={{
-          paddingLeft: type === "search" ? "50px" : "0px",
+          paddingLeft: type === "search" ? "50px" : "10px",
           borderRadius,
           backgroundColor,
           border: `1.5px solid ${borderColor}`,
-          color: Colors.black,
+          color: Colors.buttonGray,
           boxShadow: `0px 3px 3px 0px ${boxShadowColor}`,
         }}
       />
