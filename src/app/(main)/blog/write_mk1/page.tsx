@@ -1,6 +1,6 @@
 "use client";
 
-import { createTemporaryBlog, saveTemporaryBlog } from "@/api";
+import { createTemporaryBlog, saveImage, saveTemporaryBlog } from "@/api";
 import { Category } from "@/components/blog/write/Category";
 import Editor from "@/components/blog/write/Editor";
 import { InputTag } from "@/components/blog/write/inputTag";
@@ -15,6 +15,7 @@ import {
   Dispatch,
   RefObject,
   SetStateAction,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -230,6 +231,44 @@ function PublicationSection({
 }) {
   const [shortIntroduction, setShortIntroduction] = useState("");
   const [accessState, setAccessState] = useState("전체공개");
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleButtonClick = async () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setBackgroundImage(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+
+      setImage(file);
+    }
+  };
+
+  useEffect(() => {
+    const saveImageIfAvailable = async () => {
+      if (image) {
+        console.log("save Image api called");
+        const result = await saveImage(image);
+        console.log(result);
+      }
+    };
+
+    saveImageIfAvailable();
+  }, [image]);
 
   const accessStateList = [
     { label: "전체공개", img: "/Image/openLock.svg" },
@@ -269,7 +308,14 @@ function PublicationSection({
           </div>
           <div
             style={{
-              backgroundColor: NewColors.userCard,
+              backgroundImage: backgroundImage
+                ? `url(${backgroundImage})`
+                : "none",
+              backgroundColor: backgroundImage
+                ? "transparent"
+                : NewColors.userCard,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               padding: "28px 110px",
               display: "flex",
               flexDirection: "column",
@@ -286,6 +332,9 @@ function PublicationSection({
               alt="썸네일 입력"
               width={100}
               height={76}
+              style={{
+                opacity: backgroundImage ? 0 : 1,
+              }}
             />
             <div
               style={{
@@ -305,7 +354,7 @@ function PublicationSection({
                 color: "#7afb57",
                 cursor: "pointer",
               }}
-              onClick={() => console.log("시방방")}
+              onClick={handleButtonClick}
             >
               <div
                 style={{
@@ -315,6 +364,13 @@ function PublicationSection({
               >
                 썸네일 업로드
               </div>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleFileChange}
+              />
             </div>
           </div>
           <textarea
