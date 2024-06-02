@@ -1,14 +1,42 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { ClassificationList } from "@/app/(main)/blog/write_mk1/page";
+import {
+  CSSProperties,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { NewColors } from "../../../../public/styles/colors/colors";
 
-interface CategoryProps {}
+interface CategoryProps {
+  setClassification: Dispatch<SetStateAction<ClassificationList>>;
+}
 
-export const Category = ({}: CategoryProps) => {
+export const Category = ({ setClassification }: CategoryProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("디자인");
 
-  const categories = ["디자인", "기술", "스타트업", "자유주제"];
+  const categories = ["디자인", "기술", "커리어", "자유주제"];
+
+  useEffect(() => {
+    switch (selectedCategory) {
+      case "디자인":
+        setClassification("DESIGN");
+        break;
+      case "기술":
+        setClassification("TECH");
+        break;
+      case "스타트업":
+        setClassification("CAREER");
+        break;
+      case "자율주제":
+        setClassification("ETC");
+        break;
+      default:
+        break;
+    }
+  }, [selectedCategory, setClassification]);
 
   return (
     <>
@@ -67,7 +95,7 @@ const SingleCategoryItem = ({
     textAlign: "left",
     fontSize: "14px",
     color: isSelected ? "#7afb57" : NewColors.fontWhite,
-    cursor: "pointer"
+    cursor: "pointer",
   };
 
   return (

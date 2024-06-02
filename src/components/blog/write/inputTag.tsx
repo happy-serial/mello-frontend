@@ -2,16 +2,19 @@
 
 import { Spacer } from "@/components/common/spacer";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { NewColors } from "../../../../public/styles/colors/colors";
 
-interface InputTagProps {}
+interface InputTagProps {
+  tagList: string[];
+  setTagList: Dispatch<SetStateAction<string[]>>;
+}
 
-export const InputTag = ({}: InputTagProps) => {
+export const InputTag = ({ tagList, setTagList }: InputTagProps) => {
   const [tagText, setTagText] = useState("");
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
-  const [tagList, setTagList] = useState<string[]>([]);
+  // const [tagList, setTagList] = useState<string[]>([]);
 
   const handleAddTag = () => {
     if (tagText.trim() !== "") {

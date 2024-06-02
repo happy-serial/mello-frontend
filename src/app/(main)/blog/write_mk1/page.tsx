@@ -1,15 +1,16 @@
 "use client";
 
-import { createTemporaryBlog, saveImage, saveTemporaryBlog } from "@/api";
+import { createTempBlog, saveBlog, saveImage, saveTempBlog } from "@/api";
 import { Category } from "@/components/blog/write/Category";
 import Editor from "@/components/blog/write/Editor";
 import { InputTag } from "@/components/blog/write/inputTag";
 import "@/components/blog/write/styles.css";
 import { EventButton } from "@/components/common/button";
 import { Spacer } from "@/components/common/spacer";
+import { saveBlogRequest, tempBlogRequest } from "@/model";
 import { htmlToText } from "@/utils/stringModifier";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   CSSProperties,
   Dispatch,
@@ -23,15 +24,26 @@ import { ReactSVG } from "react-svg";
 import { Colors, NewColors } from "../../../../../public/styles/colors/colors";
 import { pretendard } from "../../../../../public/styles/fonts/fonts";
 
+export type ClassificationList = "DESIGN" | "TECH" | "CAREER" | "ETC";
+
 export default function BlogWrite() {
-  const [blogID, setBlogID] = useState<string | undefined>("");
-  const [titleText, setTitleText] = useState<string>("");
-  const [categoryList, setCategoryList] = useState<string[]>([]);
   const [isPublicationProcess, setIsPublicationProcess] = useState(false);
-  const blogTextId = useSearchParams();
+
+  const [blogId, setBlogId] = useState("");
+  const [titleText, setTitleText] = useState("");
+  const [categoryList, setCategoryList] = useState<string[]>([]);
+  let textData = "";
+  const [classification, setClassification] =
+    useState<ClassificationList>("DESIGN");
+
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [accessStatus, setAccessStatus] = useState<"PUBLIC" | "PRIVATE">(
+    "PUBLIC"
+  );
+  const [about, setAbout] = useState("");
 
   const childRef = useRef<HTMLDivElement>(null);
-  let textData = "";
+  const router = useRouter();
 
   function getTextData() {
     console.log("Getdata");
@@ -63,35 +75,38 @@ export default function BlogWrite() {
     return htmlToText(textData);
   }
 
-  const TemporaryStorage = async () => {
-    console.log("TemporaryStorage");
-    if (blogID === "") {
-      const tempBlogId = await createTemporaryBlog();
-      setBlogID(tempBlogId?.tempBlogId);
-      getTextData();
-      const success = await saveTemporaryBlog(
-        tempBlogId?.tempBlogId,
-        titleText,
-        categoryList,
-        textData
-      );
-      console.log("임시저장성공", success);
-    } else {
-      getTextData();
-      const success = await saveTemporaryBlog(
-        blogID,
-        titleText,
-        categoryList,
-        textData
-      );
-      console.log("임시저장성공", success);
-    }
+  const createTempBlogFromApi = async () => {
+    const tempBlogId = await createTempBlog();
+    setBlogId(tempBlogId!);
   };
 
-  const SendData = async () => {
-    console.log("SendData");
-    await TemporaryStorage();
-    setIsPublicationProcess(true);
+  const saveTempBlogFromApi = async () => {
+    const tempBlogProps: tempBlogRequest = {
+      tempBlogId: blogId,
+      title: titleText,
+      category: categoryList,
+      contents: textData,
+      classification: classification,
+    };
+
+    await saveTempBlog(tempBlogProps);
+  };
+
+  const saveBlogFromApi = async () => {
+    const saveBlogProps: saveBlogRequest = {
+      tempBlogId: blogId,
+      thumbnailUrl: thumbnailUrl,
+      accessStatus: accessStatus,
+      about: about,
+      classification: classification,
+    };
+    await createTempBlogFromApi();
+    await saveTempBlogFromApi();
+
+    const result = await saveBlog(saveBlogProps);
+    if (result === "success") {
+      router.push("/");
+    }
   };
 
   return (
@@ -103,9 +118,19 @@ export default function BlogWrite() {
           childRef={childRef}
           getParsedData={getParsedData}
           setIsPublicationProcess={setIsPublicationProcess}
+          categoryList={categoryList}
+          setCategoryList={setCategoryList}
+          setClassification={setClassification}
         />
       ) : (
-        <PublicationSection setIsPublicationProcess={setIsPublicationProcess} />
+        <PublicationSection
+          setIsPublicationProcess={setIsPublicationProcess}
+          shortIntroduction={about}
+          setShortIntroduction={setAbout}
+          setThumbnailUrl={setThumbnailUrl}
+          setAccessStatus={setAccessStatus}
+          saveBlog={saveBlogFromApi}
+        />
       )}
     </>
   );
@@ -156,12 +181,18 @@ function WriteSection({
   childRef,
   getParsedData,
   setIsPublicationProcess,
+  categoryList,
+  setCategoryList,
+  setClassification,
 }: {
   titleText: string;
   setTitleText: Dispatch<SetStateAction<string>>;
   childRef: RefObject<HTMLDivElement>;
   getParsedData: () => string;
   setIsPublicationProcess: Dispatch<SetStateAction<boolean>>;
+  categoryList: string[];
+  setCategoryList: Dispatch<SetStateAction<string[]>>;
+  setClassification: Dispatch<SetStateAction<ClassificationList>>;
 }) {
   return (
     <>
@@ -179,10 +210,10 @@ function WriteSection({
       </div>
       <Spacer shape="height" size="26px" />
       <div>
-        <Category />
+        <Category setClassification={setClassification} />
       </div>
       <Spacer shape="height" size="28px" />
-      <InputTag />
+      <InputTag tagList={categoryList} setTagList={setCategoryList} />
       <Spacer shape="height" size="32px" />
       <div
         style={{
@@ -226,10 +257,19 @@ function WriteSection({
 
 function PublicationSection({
   setIsPublicationProcess,
+  shortIntroduction,
+  setShortIntroduction,
+  setThumbnailUrl,
+  setAccessStatus,
+  saveBlog,
 }: {
   setIsPublicationProcess: Dispatch<SetStateAction<boolean>>;
+  shortIntroduction: string;
+  setShortIntroduction: Dispatch<SetStateAction<string>>;
+  setThumbnailUrl: Dispatch<SetStateAction<string>>;
+  setAccessStatus: Dispatch<SetStateAction<"PUBLIC" | "PRIVATE">>;
+  saveBlog:  () => void;
 }) {
-  const [shortIntroduction, setShortIntroduction] = useState("");
   const [accessState, setAccessState] = useState("전체공개");
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
@@ -263,12 +303,26 @@ function PublicationSection({
       if (image) {
         console.log("save Image api called");
         const result = await saveImage(image);
+        setThumbnailUrl(result!);
         console.log(result);
       }
     };
 
     saveImageIfAvailable();
-  }, [image]);
+  }, [image, setThumbnailUrl]);
+
+  useEffect(() => {
+    switch (accessState) {
+      case "전체공개":
+        setAccessStatus("PUBLIC");
+        break;
+      case "비공개":
+        setAccessStatus("PRIVATE");
+        break;
+      default:
+        break;
+    }
+  }, [accessState, setAccessStatus]);
 
   const accessStateList = [
     { label: "전체공개", img: "/Image/openLock.svg" },
@@ -458,7 +512,7 @@ function PublicationSection({
         />
         <Spacer shape="width" size="12px" />
         <EventButton
-          onClick={() => console.log("출간하기 button clicked")}
+          onClick={saveBlog}
           disabled={false}
           label={"출간하기"}
           width={326}

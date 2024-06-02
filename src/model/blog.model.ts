@@ -38,9 +38,9 @@ export type tempBlogRequest = {
 };
 
 export type saveBlogRequest = {
-  tempBlodId: "8dba3e2a-dbe5-4498-8700-a872e11ed794";
-  thumbnailUrl: "https://mello-s3-dev.s3.ap-northeast-1.amazonaws.com/image/1c9ac78d-1dfd-4870-81e4-11ae76921cf1";
-  accessStatus: "PUBLIC";
-  about: "string";
-  classification: "ETC"; // 대분류이다.
+  tempBlogId: string;
+  thumbnailUrl: string;
+  accessStatus: "PUBLIC" | "PRIVATE";
+  about: string;
+  classification: "DESIGN" | "TECH" | "CAREER" | "ETC";
 };

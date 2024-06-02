@@ -94,7 +94,7 @@ export const saveImage = async (imageFile: File) => {
 };
 
 // TODO: 응답 201
-const createTempBlog = async () => {
+export const createTempBlog = async () => {
   const accessToken = Cookies.get("access-token");
   try {
     const response = await fetch(`${serverUrl}/blog/temp`, {
@@ -123,7 +123,7 @@ const createTempBlog = async () => {
 };
 
 // TODO: 응답 200
-const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
+export const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
   const accessToken = Cookies.get("access-token");
   try {
     const response = await fetch(`${serverUrl}/blog/temp`, {
@@ -153,7 +153,7 @@ const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
 };
 
 // TODO: 응답 201
-const saveBlog = async (blogInfo: saveBlogRequest) => {
+export const saveBlog = async (blogInfo: saveBlogRequest) => {
   const accessToken = Cookies.get("access-token");
   try {
     const response = await fetch(`${serverUrl}/blog`, {
