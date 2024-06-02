@@ -44,3 +44,27 @@ export type saveBlogRequest = {
   about: string;
   classification: "DESIGN" | "TECH" | "CAREER" | "ETC";
 };
+
+export type blogThumbnailInfo = {
+  blogId: string;
+  title: string;
+  about: string;
+  membershipId: string;
+  authorName: string;
+  viewCount: number;
+  like: number;
+  thumbnailUrl: string;
+  accessStatus: string;
+  commentCount: number;
+  categoryName: string[];
+  authorPhotoUrl: string;
+  classification: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type getPopularArticleResponse = {
+  values: blogThumbnailInfo[];
+  hasNext: boolean;
+  lastIndex: string;
+};

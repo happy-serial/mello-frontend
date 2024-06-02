@@ -1,4 +1,11 @@
-import { ImageURLRequest, saveBlogRequest, tempBlogIdResponse, tempBlogRequest } from "@/model";
+import {
+  ImageURLRequest,
+  blogThumbnailInfo,
+  getPopularArticleResponse,
+  saveBlogRequest,
+  tempBlogIdResponse,
+  tempBlogRequest,
+} from "@/model";
 import Cookies from "js-cookie";
 import { DefaultResponse, serverUrl } from ".";
 
@@ -101,6 +108,7 @@ export const createTempBlog = async () => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
     });
     if (!response.ok && response.body !== null) {
@@ -130,15 +138,15 @@ export const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(tempBlogInfo)
+      body: JSON.stringify(tempBlogInfo),
     });
     if (!response.ok && response.body !== null) {
       throw new Error("Network response was not ok");
     }
 
-    const responseData: DefaultResponse<Object> =
-      await response.json();
+    const responseData: DefaultResponse<Object> = await response.json();
 
     if (responseData.statusCode === 200) {
       return "success";
@@ -160,24 +168,49 @@ export const saveBlog = async (blogInfo: saveBlogRequest) => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(blogInfo)
+      body: JSON.stringify(blogInfo),
     });
     if (!response.ok && response.body !== null) {
       throw new Error("Network response was not ok");
     }
 
-    const responseData: DefaultResponse<Object> =
-      await response.json();
+    const responseData: DefaultResponse<Object> = await response.json();
 
     if (responseData.statusCode === 201) {
       return "success";
     } else {
-      throw new Error(
-        `Failed to save blog: ${JSON.stringify(responseData)}`
-      );
+      throw new Error(`Failed to save blog: ${JSON.stringify(responseData)}`);
     }
   } catch (error) {
     console.error("Failed to save blog:", error);
+  }
+};
+
+export const getPopularArticleList = async (): Promise<
+  blogThumbnailInfo[] | string
+> => {
+  try {
+    const response = await fetch(`${serverUrl}/blog/trend`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData: DefaultResponse<getPopularArticleResponse> =
+      await response.json();
+
+    if (responseData.statusCode === 200) {
+      return responseData.data!.values;
+    } else {
+      throw new Error(
+        `Failed to load popular article list: ${JSON.stringify(responseData)}`
+      );
+    }
+  } catch (error) {
+    console.error("Failed to load popular article list: ", error);
+    return "failed";
   }
 };
