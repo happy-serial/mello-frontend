@@ -28,6 +28,7 @@ import { createPortal } from "react-dom";
 
 import { summarizeText } from "@/api";
 import { EventButton } from "@/components/common/button";
+import { NewColors } from "../../../../../../public/styles/colors/colors";
 import { getDOMRangeRect } from "../../utils/getDOMRangeRect";
 import { getSelectedNode } from "../../utils/getSelectedNode";
 import { setFloatingElemPosition } from "../../utils/setFloatingElemPosition";
@@ -293,9 +294,12 @@ function TextFormatFloatingToolbar({
             label={"AI"}
             width={36}
             height={36}
-            padding={"12px"}
+            padding={"6px"}
             fontSize={16}
             fontWeight={400}
+            borderRadius={5}
+            color={NewColors.userCard}
+            backgroundColor={NewColors.primary}
           />
         </>
       )}

@@ -745,8 +745,6 @@ export default function ToolbarPlugin({
   const toggleColor = useCallback(() => {
     const newColor = fontColor === "#F8F9FE" ? "#7AFB57" : "#F8F9FE";
     setFontColor(newColor);
-    console.log(newColor);
-    console.log(fontColor);
     onFontColorSelect(newColor, false);
   }, [setFontColor, onFontColorSelect, fontColor]);
 

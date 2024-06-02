@@ -13,12 +13,12 @@ body {
 
 .other h2 {
   font-size: 18px;
-  color: #444;
+  color: #fff;
   margin-bottom: 7px;
 }
 
 .other a {
-  color: #777;
+  color: #fff;
   text-decoration: underline;
   font-size: 14px;
 }
@@ -35,8 +35,26 @@ body {
 }
 
 h1 {
-  font-size: 24px;
-  color: #333;
+  font-size: 38px !important;
+  line-height: 48px !important;
+  color: #BDC1C6 !important;
+}
+
+h2 {
+  font-size: 28px !important;
+  line-height: 40px !important;
+  color: #BDC1C6 !important;
+}
+
+h3 {
+  font-size: 20px !important;
+  line-height: 30px !important;
+  color: #BDC1C6 !important;
+}
+
+.PlaygroundEditorTheme__paragraph {
+  font-size: 18px !important;
+  color: #BDC1C6 !important;
 }
 
 .ltr {
@@ -226,7 +244,7 @@ h1 {
 
 .editor-heading-h1 {
   font-size: 24px;
-  color: rgb(5, 5, 5);
+  color: #fff;
   font-weight: 400;
   margin: 0;
   margin-bottom: 12px;

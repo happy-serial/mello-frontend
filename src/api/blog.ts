@@ -1,4 +1,5 @@
 import { ImageURLRequest } from "@/model";
+import Cookies from "js-cookie";
 import { DefaultResponse, serverUrl } from ".";
 
 // 임시토큰사용
@@ -38,16 +39,17 @@ export const getImageURL = async (file: File) => {
 export const summarizeText = async (
   text: string,
 ) => {
+  const accessToken = Cookies.get("access-token")
   console.log("summarizeText called");
   try {
     const response = await fetch(`${serverUrl}/gpt/convert-to-markdown`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
-        detail: "CONVERT_WITH_SUPPLEMENT",
+        detail: "CONVERT_WITH_SUMMARY",
         content: text,
       }),
     });

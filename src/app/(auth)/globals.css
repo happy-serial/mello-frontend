@@ -11,3 +11,7 @@ body {
 a:-webkit-any-link {
     text-decoration: none !important;
 }
+
+body::-webkit-scrollbar {
+    display: none;
+}
