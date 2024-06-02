@@ -5,14 +5,15 @@
 import { login } from "@/api";
 import { TextField } from "@/components/common/textField";
 import Cookies from "js-cookie";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Colors, NewColors } from "../../../public/styles/colors/colors";
-import { EventButton, LinkButton } from "../common/button";
+import { EventButton } from "../common/button";
 import { Spacer } from "../common/spacer";
 import styles from "./css/loginForm.module.css";
 import { SocialLogin } from "./socialLogin";
-import Link from "next/link";
 
 interface LoginFormProps {}
 
@@ -40,7 +41,7 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
 
       <div className={styles.logoContainer}>
         <Link href="/">
-            <img src="/image.png" alt="Serial Logo" className={styles.logoImage} />
+            <Image src={"/Image/serial.png"} alt="Serial logo" width={111} height={31}/>
             <p className={styles.title}>모두를 위한 커리어 플랫폼, 시리얼</p>
         </Link>
       </div>
