@@ -1,4 +1,11 @@
-import { ImageURLRequest } from "@/model";
+import {
+  ImageURLRequest,
+  blogThumbnailInfo,
+  getPopularArticleResponse,
+  saveBlogRequest,
+  tempBlogIdResponse,
+  tempBlogRequest,
+} from "@/model";
 import Cookies from "js-cookie";
 import { DefaultResponse, serverUrl } from ".";
 
@@ -36,10 +43,8 @@ export const getImageURL = async (file: File) => {
   }
 };
 
-export const summarizeText = async (
-  text: string,
-) => {
-  const accessToken = Cookies.get("access-token")
+export const summarizeText = async (text: string) => {
+  const accessToken = Cookies.get("access-token");
   console.log("summarizeText called");
   try {
     const response = await fetch(`${serverUrl}/gpt/convert-to-markdown`, {
@@ -61,5 +66,151 @@ export const summarizeText = async (
     return response.body!.getReader();
   } catch (error) {
     console.error("Failed to fetch data:", error);
+  }
+};
+
+export const saveImage = async (imageFile: File) => {
+  const accessToken = Cookies.get("access-token");
+  const formdata = new FormData();
+
+  formdata.append("file", imageFile);
+
+  try {
+    const response = await fetch(`${serverUrl}/image`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: formdata,
+    });
+    if (!response.ok && response.body !== null) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData: DefaultResponse<{ imageUrl: string }> =
+      await response.json();
+
+    if (responseData.statusCode === 201) {
+      return responseData.data?.imageUrl;
+    } else {
+      throw new Error(`Failed to save image: ${JSON.stringify(responseData)}`);
+    }
+  } catch (error) {
+    console.error("Failed to save image:", error);
+  }
+};
+
+// TODO: 응답 201
+export const createTempBlog = async () => {
+  const accessToken = Cookies.get("access-token");
+  try {
+    const response = await fetch(`${serverUrl}/blog/temp`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok && response.body !== null) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData: DefaultResponse<tempBlogIdResponse> =
+      await response.json();
+
+    if (responseData.statusCode === 201) {
+      return responseData.data?.tempBlogId;
+    } else {
+      throw new Error(
+        `Failed to create temp blog: ${JSON.stringify(responseData)}`
+      );
+    }
+  } catch (error) {
+    console.error("Failed to create temp blog:", error);
+  }
+};
+
+// TODO: 응답 200
+export const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
+  const accessToken = Cookies.get("access-token");
+  try {
+    const response = await fetch(`${serverUrl}/blog/temp`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tempBlogInfo),
+    });
+    if (!response.ok && response.body !== null) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData: DefaultResponse<Object> = await response.json();
+
+    if (responseData.statusCode === 200) {
+      return "success";
+    } else {
+      throw new Error(
+        `Failed to save temp blog: ${JSON.stringify(responseData)}`
+      );
+    }
+  } catch (error) {
+    console.error("Failed to save temp blog:", error);
+  }
+};
+
+// TODO: 응답 201
+export const saveBlog = async (blogInfo: saveBlogRequest) => {
+  const accessToken = Cookies.get("access-token");
+  try {
+    const response = await fetch(`${serverUrl}/blog`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blogInfo),
+    });
+    if (!response.ok && response.body !== null) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData: DefaultResponse<Object> = await response.json();
+
+    if (responseData.statusCode === 201) {
+      return "success";
+    } else {
+      throw new Error(`Failed to save blog: ${JSON.stringify(responseData)}`);
+    }
+  } catch (error) {
+    console.error("Failed to save blog:", error);
+  }
+};
+
+export const getPopularArticleList = async (): Promise<
+  blogThumbnailInfo[] | string
+> => {
+  try {
+    const response = await fetch(`${serverUrl}/blog/trend`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData: DefaultResponse<getPopularArticleResponse> =
+      await response.json();
+
+    if (responseData.statusCode === 200) {
+      return responseData.data!.values;
+    } else {
+      throw new Error(
+        `Failed to load popular article list: ${JSON.stringify(responseData)}`
+      );
+    }
+  } catch (error) {
+    console.error("Failed to load popular article list: ", error);
+    return "failed";
   }
 };

@@ -3,6 +3,7 @@
 import { Line } from "@/components/common/line";
 import { Spacer } from "@/components/common/spacer";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NewColors } from "../../../../public/styles/colors/colors";
 import { pretendard } from "../../../../public/styles/fonts/fonts";
@@ -16,10 +17,15 @@ export const PopularArticlePreview = ({
 }: PopularArticlePreviewProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const router = useRouter();
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => {
+        router.push(`/blog/read?id=someId`);
+      }}
       className={pretendard.className}
       style={{
         width: `302px`,

@@ -42,6 +42,8 @@ export enum NewColors {
   gray8 = "#E4E5E7",
   gray9 = "#c9cedc",
   gray10 = "#3C3D41",
+  gray11 = "#D9D9D9",
+  gray12 = "#AFAFAF",
 
   mainRed = "#F7085A",
   mainOrange = "#FF9500",
