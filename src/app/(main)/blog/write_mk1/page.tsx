@@ -100,6 +100,7 @@ export default function BlogWrite() {
       about: about,
       classification: classification,
     };
+    getTextData();
     await createTempBlogFromApi();
     await saveTempBlogFromApi();
 
@@ -140,8 +141,8 @@ function Title({
   titleText,
   setTitleText,
 }: {
-  titleText: string;
-  setTitleText: Dispatch<SetStateAction<string>>;
+  readonly titleText: string;
+  readonly setTitleText: Dispatch<SetStateAction<string>>;
 }) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
@@ -184,7 +185,7 @@ function WriteSection({
   categoryList,
   setCategoryList,
   setClassification,
-}: {
+}: Readonly<{
   titleText: string;
   setTitleText: Dispatch<SetStateAction<string>>;
   childRef: RefObject<HTMLDivElement>;
@@ -193,7 +194,7 @@ function WriteSection({
   categoryList: string[];
   setCategoryList: Dispatch<SetStateAction<string[]>>;
   setClassification: Dispatch<SetStateAction<ClassificationList>>;
-}) {
+}>) {
   return (
     <>
       <Title titleText={titleText} setTitleText={setTitleText} />
@@ -262,14 +263,14 @@ function PublicationSection({
   setThumbnailUrl,
   setAccessStatus,
   saveBlog,
-}: {
+}: Readonly<{
   setIsPublicationProcess: Dispatch<SetStateAction<boolean>>;
   shortIntroduction: string;
   setShortIntroduction: Dispatch<SetStateAction<string>>;
   setThumbnailUrl: Dispatch<SetStateAction<string>>;
   setAccessStatus: Dispatch<SetStateAction<"PUBLIC" | "PRIVATE">>;
-  saveBlog:  () => void;
-}) {
+  saveBlog: () => void;
+}>) {
   const [accessState, setAccessState] = useState("전체공개");
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
