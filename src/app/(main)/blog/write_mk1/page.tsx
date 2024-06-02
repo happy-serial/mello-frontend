@@ -44,7 +44,7 @@ export default function BlogWrite() {
 
   const childRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-    
+
   function getTextData() {
     console.log("Getdata");
     if (childRef && childRef.current) {
@@ -108,7 +108,6 @@ export default function BlogWrite() {
     if (result === "success") {
       router.push("/");
     }
-
   };
 
   return (
@@ -196,6 +195,7 @@ function WriteSection({
   setCategoryList: Dispatch<SetStateAction<string[]>>;
   setClassification: Dispatch<SetStateAction<ClassificationList>>;
 }>) {
+  return (
     <>
       <Title titleText={titleText} setTitleText={setTitleText} />
       <Spacer shape="height" size="9px" />
@@ -324,7 +324,6 @@ function PublicationSection({
         break;
     }
   }, [accessState, setAccessStatus]);
-
 
   const accessStateList = [
     { label: "전체공개", img: "/Image/openLock.svg" },
