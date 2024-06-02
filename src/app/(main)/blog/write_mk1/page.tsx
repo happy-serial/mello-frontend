@@ -3,6 +3,7 @@
 import { createTemporaryBlog, saveTemporaryBlog } from "@/api";
 import { Category } from "@/components/blog/write/Category";
 import Editor from "@/components/blog/write/Editor";
+import { InputTag } from "@/components/blog/write/inputTag";
 import "@/components/blog/write/styles.css";
 import { htmlToText } from "@/utils/stringModifier";
 import { useSearchParams } from "next/navigation";
@@ -105,6 +106,8 @@ export default function BlogWrite() {
       <div>
         <Category />
       </div>
+      <Spacer shape="height" size="28px" />
+      <InputTag />
       <Spacer shape="height" size="32px" />
       <div
         style={{
@@ -141,6 +144,7 @@ export default function BlogWrite() {
           color={NewColors.backgroundBlack}
         />
       </div>
+      <Spacer shape="height" size="56px" />
     </>
   );
 }
