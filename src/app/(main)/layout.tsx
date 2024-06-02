@@ -9,10 +9,10 @@ import { checkAllTokenLife } from "@/utils/tokenHandler";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "mello",
-  description: "mello company",
+  title: "Serial",
+  description: "serial company",
   icons: {
-    icon: "/Image/logo.png",
+    icon: "/Image/favicon.svg",
   },
 };
 
