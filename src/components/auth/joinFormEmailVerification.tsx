@@ -13,6 +13,7 @@ import { Loading } from "../common/loading";
 import { Spacer } from "../common/spacer";
 import styles from "./css/joinFormEmailVerification.module.css";
 import { SocialLogin } from "./socialLogin";
+import { min } from "lodash-es";
 
 interface JoinFormEmailVerificationProps {
   emailState: string;
@@ -40,6 +41,7 @@ export const JoinFormEmailVerification = ({
     setLoadingState(false);
     if (response === "success") {
       setEmailSentState(true);
+      alert("메일이 발송되었습니다.");
     }
   };
 
@@ -56,6 +58,14 @@ export const JoinFormEmailVerification = ({
     } else {
       if (response.emailIsValid) {
         setVerifiedState(true);
+        const emailVerifyElement = document.getElementById('emailVerify');
+        if (emailVerifyElement) {
+          emailVerifyElement.style.display = 'none';
+        }
+        const joinInfoElement = document.getElementById('joinInfo');
+        if (joinInfoElement) {
+          joinInfoElement.style.display = '';
+        }
       } else {
         alert("외앉됌?.");
       }
@@ -63,114 +73,141 @@ export const JoinFormEmailVerification = ({
   };
 
   return (
-    <animated.div
-      style={{
-        width: width,
-        height: "600px",
-        padding: padding,
-        borderRadius: "10px",
-        display: "flex",
-        position: "fixed",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.whiteTransparent40,
-        backdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.18)",
-        overflow: "hidden",
-      }}
-    >
-      <Loading
-        color={Colors.purple}
-        size={15}
-        isLoading={loadingState}
-      ></Loading>
-      <Link
-        className={[blackOpsOne.className, styles.logoText].join(" ")}
-        href={"/"}
-      >
-        mello
-      </Link>
-      <Spacer shape="height" size="10px" />
-      <TextField
-        type="email"
-        borderColor={Colors.gray}
-        boxShadowColor={Colors.grayTransparent}
-        placeholder="Email Address"
-        onChange={(e) => {
-          setEmailState(e.target.value);
-        }}
-      />
-      <div className={styles.sendVerificationContainer}>
-        <div className={aldrich.className} style={{ color: Colors.gray }}>
-          Send Code&nbsp;&nbsp;
+      <div id= 'emailVerify' style={{minWidth: '410px', display: ''}}>
+        <div>
+          <p style={{
+            position: 'relative',
+            fontSize: '40px',
+            letterSpacing: '-0.02em',
+            lineHeight: '140%',
+            fontFamily: 'Pretendard',
+            color: '#e4e5e7',
+            textAlign: 'center'}}>
+              이메일을 입력하시면,<br/>
+              코드를 발송할게요
+          </p>
         </div>
-        {/* <EventButton
-          background={Colors.mainGradient}
-          label="send"
-          size="middle"
-          purpose="event"
-          color={Colors.white}
-          onClick={handleSendButton}
-        /> */}
-        <EventButton
-          borderColor = {NewColors.primary}
-          borderWidth={75}
-          borderRadius={16}
-          backgroundColor={NewColors.primary}
-          color={NewColors.ghostWhite}
-          label="보내기"
-          disabled={false}
-          onClick={handleSendButton}
-          // purpose="link"
-          width={75}
-          height={22}
-          padding="19px"
-          fontSize={14}
-          fontWeight={400}
-        />
+
+        <div>
+          <p className={styles.inputLabel}>이메일 주소&nbsp;</p>
+          <Spacer shape="height" size="8px" />
+          <div style={{display: 'flex', gap: '8px'}}>
+          <TextField
+            type="email"
+            borderColor={Colors.userCardBorder}
+            // boxShadowColor={Colors.grayTransparent}
+            backgroundColor={Colors.userCard}
+            placeholder="코드를 전송받을 이메일을 입력해주세요."
+            onChange={(e) => {
+              setEmailState(e.target.value);
+            }}
+          />
+          <EventButton
+              borderColor = {NewColors.primary}
+              borderWidth={1}
+              borderRadius={12}
+              backgroundColor={NewColors.primary}
+              color={NewColors.backgroundBlack}
+              label="코드 전송"
+              disabled={false}
+              onClick={handleSendButton}
+              // purpose="link"
+              width={91}
+              height={58}
+              padding="10px"
+              fontSize={13}
+              fontWeight={400}
+            />
+          </div>
+        </div>
+
+        <Spacer shape="height" size="24px" />
+
+        <div style={{minWidth: '410px'}}>
+          <p className={styles.inputLabel}>코드 인증하기&nbsp;</p>
+          <Spacer shape="height" size="8px" />
+          <div style={{display: 'flex', gap: '8px'}}>
+          <TextField
+            type="email"
+            borderColor={Colors.userCardBorder}
+            // boxShadowColor={Colors.grayTransparent}
+            backgroundColor={Colors.userCard}
+            placeholder="메일로 전송받은 코드를 입력해주세요."
+            onChange={(e) => {
+              setVerificationCodeState(e.target.value);
+            }}
+          />
+          </div>
+        </div>
+
+        <div className={styles.sendVerificationContainer}></div>
+
+        <Spacer shape="height" size="30px" />
+
+        <div style={{
+          width: '410px',
+          position: 'relative',
+          borderRadius: '16px',
+          backgroundColor: '#7afb57',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <EventButton
+            borderColor = {NewColors.primary}
+            borderWidth={1}
+            borderRadius={16}
+            backgroundColor={NewColors.primary}
+            color={NewColors.backgroundBlack}
+            label="다음으로"
+            disabled={!emailSentState}
+            onClick={handleContinueButton}
+            // purpose="link"
+            width={410}
+            height={60}
+            padding="19px"
+            fontSize={18}
+            fontWeight={600}
+          />
+        </div>
+
+        <Spacer shape="height" size="20px" />
+  
+        <div style={{
+          display: 'flex',
+          gap: '12px',
+          justifyContent: 'center',
+        }}>
+          <div style={{ width: '37px', height: '8px', backgroundColor: '#95fc79', borderRadius: '1000px'}}/>
+          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
+          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
+          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
+
+        </div>
+    
+     
+
+        {/* <div className={styles.verificationButtonContainer}>
+          <EventButton
+            borderColor = {NewColors.primary}
+            borderWidth={75}
+            borderRadius={16}
+            backgroundColor={NewColors.primary}
+            color={NewColors.ghostWhite}
+            label="계속하기"
+            disabled={!emailSentState}
+            onClick={handleContinueButton}
+            // purpose="link"
+            width={75}
+            height={22}
+            padding="19px 97px"
+            fontSize={14}
+            fontWeight={400}
+          />
+          
+        </div> */}
       </div>
-      <Spacer shape="height" size="16px" />
-      <TextField
-        type="text"
-        borderColor={Colors.gray}
-        boxShadowColor={Colors.grayTransparent}
-        placeholder="Verification Code"
-        onChange={(e) => {
-          setVerificationCodeState(e.target.value);
-        }}
-      />
-      <Spacer shape="height" size="16px" />
-      <div className={styles.verificationButtonContainer}>
-        {/* <EventButton
-          size="wide"
-          backgroundColor={Colors.purple}
-          color={Colors.white}
-          label="Continue"
-          purpose="event"
-          onClick={handleContinueButton}
-          disabled={!emailSentState}  
-        /> */}
-        <EventButton
-          borderColor = {NewColors.primary}
-          borderWidth={75}
-          borderRadius={16}
-          backgroundColor={NewColors.primary}
-          color={NewColors.ghostWhite}
-          label="계속하기"
-          disabled={!emailSentState}
-          onClick={handleContinueButton}
-          // purpose="link"
-          width={75}
-          height={22}
-          padding="19px 97px"
-          fontSize={14}
-          fontWeight={400}
-        />
-        
-      </div>
-      <Spacer shape="height" size="16px" />
-      <SocialLogin />
-    </animated.div>
+    
   );
 };
