@@ -19,6 +19,23 @@
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px black;
 }
+.inputLabel {
+    margin: 0 8px 0 8px;
+  /* margin-bottom: 8px; */
+  text-align: left;
+  font-size: 14px;
+  color: #9ea3b2;
+}
+
+.title {
+    position: relative;
+    font-size: 24px;
+    letter-spacing: -0.6px;
+    font-weight: 600;
+    font-family: Pretendard;
+    color: #e4e5e7;
+    text-align: center;
+}
 
 .sendVerificationContainer {
     width: 108%;

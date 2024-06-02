@@ -50,22 +50,13 @@ export default function Home() {
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        // height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        marginTop: '84px'
       }}
     >
-      <Background
-        purpose="login" 
-        backgroundColor="white"
-        particleCount={2000} 
-        size={0.1} 
-        segment={3} 
-        lightColor={Colors.white}
-        animateDirection="closer" 
-        animateSpeed={0.1}
-      />
       <JoinFormEmailVerification
         emailState={emailState}
         setEmailState={setEmailState}
