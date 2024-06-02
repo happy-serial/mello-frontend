@@ -42,7 +42,7 @@ export const InputTag = ({}: InputTagProps) => {
         <div>
           <div style={{ display: "flex", gap: "12px" }}>
             {tagList.map((tag, index) => (
-              <div key={index} style={{ color: NewColors.fontWhite }}>
+              <div key={tag} style={{ color: NewColors.fontWhite }}>
                 <TagItem label={tag} onXClick={() => handleRemoveTag(index)} />
               </div>
             ))}
@@ -135,7 +135,7 @@ const TagItem = ({
         {label}
       </div>
       <Image
-        src="Image/xMark.svg"
+        src="/Image/xMark.svg"
         alt="what"
         width="16"
         height="16"
