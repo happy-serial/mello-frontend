@@ -1,69 +1,80 @@
 "use client";
 
-import { useState } from "react";
-import styles from "../css/category.module.css";
+import { CSSProperties, useState } from "react";
+import { NewColors } from "../../../../public/styles/colors/colors";
 
-interface CategoryProps{
-  categoryList : string[];
-  setCategoryList : React.Dispatch<React.SetStateAction<string[]>>;
-}
+interface CategoryProps {}
 
-export const Category: React.FC<CategoryProps> = ({categoryList , setCategoryList}) => {
-  const [categoryText , setCategoryText] = useState<string>('');
+export const Category = ({}: CategoryProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("디자인");
 
-  const placeholderText = "엔터를눌러 카테고리를 입력해주세요"
-
-  const onKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) =>{
-    if (categoryText !== undefined){
-      if (categoryText.length !== 0 && e.key === 'Enter'){
-        submitTagItem()
-      }
-      if (categoryText.length === 0 && e.key === 'Backspace'){
-        deleteCategory()
-      }
-    }
-  }
-
-  const submitTagItem = () =>{
-    let updatedCategoryList = [...categoryList]
-    updatedCategoryList.push(categoryText)
-    setCategoryList(updatedCategoryList)
-    setCategoryText("")
-  }
-
-  const deleteCategory = () =>{
-    if (categoryText.trim() === "") {
-      let deleteCategoryList = categoryList.slice(0, categoryList.length - 1);
-      setCategoryList(deleteCategoryList);
-    }
-  }
-
-  const deleteSelectCategory = (e:React.MouseEvent<HTMLDivElement>) => {
-    const deleteCategoryItem = (e.target as HTMLDivElement).innerText
-    const filteredCategoryList = categoryList.filter(categoryText => categoryText !== deleteCategoryItem)
-    setCategoryList(filteredCategoryList)
-  }
+  const categories = ["디자인", "기술", "스타트업", "자유주제"];
 
   return (
     <>
-      <div className = {[styles.categoryWrapper].join(" ")}>
-        {
-          categoryList.map((categoryText, index)=>{
-            return(
-              <div key={index} className= {[styles.tagWrapper].join(" ")} >
-                <div className = {[styles.tagText].join(" ")} onClick = { (e) => deleteSelectCategory(e)} >{categoryText}</div>
-              </div>
-            )
-          })
-        }
-        <input
-          className= {[styles.categoryInput].join(" ")}
-          placeholder = {placeholderText}
-          value = {categoryText}
-          onChange = {(e) => setCategoryText(e.target.value)}
-          onKeyDown = {onKeyPress}
-        />
+      <div
+        style={{
+          fontSize: "18px",
+          letterSpacing: "-0.02em",
+          lineHeight: "24px",
+          color: NewColors.gray8,
+          paddingBottom: "16px",
+        }}
+      >
+        카테고리 분류
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+        }}
+      >
+        {categories.map((category) => (
+          <SingleCategoryItem
+            key={category}
+            label={category}
+            isSelected={selectedCategory === category}
+            onClick={() => setSelectedCategory(category)}
+          />
+        ))}
       </div>
     </>
+  );
+};
+
+const SingleCategoryItem = ({
+  label,
+  isSelected,
+  onClick,
+}: {
+  label: string;
+  isSelected: boolean;
+  onClick: () => void;
+}) => {
+  const parentStyle: CSSProperties = {
+    borderRadius: "1000px",
+    background: isSelected
+      ? "linear-gradient(rgba(149, 252, 121, 0.1), rgba(149, 252, 121, 0.1)), #26272b"
+      : NewColors.userCard,
+    border: isSelected
+      ? "1px solid #7afb57"
+      : `1px solid ${NewColors.fontWhite}`,
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "8px 18px",
+    textAlign: "left",
+    fontSize: "14px",
+    color: isSelected ? "#7afb57" : NewColors.fontWhite,
+    cursor: "pointer"
+  };
+
+  return (
+    <div style={parentStyle} onClick={onClick}>
+      <div style={{ letterSpacing: "-0.02px", lineHeight: "20px" }}>
+        {label}
+      </div>
+    </div>
   );
 };
