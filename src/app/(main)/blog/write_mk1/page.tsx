@@ -77,7 +77,7 @@ export default function BlogWrite() {
 
   const createTempBlogFromApi = async () => {
     const tempBlogId = await createTempBlog();
-    setBlogId(tempBlogId!);
+    await setBlogId(tempBlogId!);
   };
 
   const saveTempBlogFromApi = async () => {
@@ -423,7 +423,6 @@ function PublicationSection({
                 type="file"
                 ref={fileInputRef}
                 style={{ display: "none" }}
-                accept="image/*"
                 onChange={handleFileChange}
               />
             </div>

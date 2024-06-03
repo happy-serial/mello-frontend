@@ -66,5 +66,5 @@ export type blogThumbnailInfo = {
 export type getPopularArticleResponse = {
   values: blogThumbnailInfo[];
   hasNext: boolean;
-  lastIndex: string;
-};
+  lastIndex: string
+}

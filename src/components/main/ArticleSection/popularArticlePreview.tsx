@@ -2,6 +2,7 @@
 
 import { Line } from "@/components/common/line";
 import { Spacer } from "@/components/common/spacer";
+import { dateParser } from "@/utils/stringModifier";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,10 +11,24 @@ import { pretendard } from "../../../../public/styles/fonts/fonts";
 
 interface PopularArticlePreviewProps {
   width: number;
+  imageUrl: string;
+  author: string;
+  createdAt: string;
+  title: string;
+  about: string;
+  tag: string;
+  blogId: string;
 }
 
 export const PopularArticlePreview = ({
   width,
+  imageUrl,
+  author,
+  createdAt,
+  title,
+  about,
+  tag,
+  blogId,
 }: PopularArticlePreviewProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -24,7 +39,7 @@ export const PopularArticlePreview = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
-        router.push(`/blog/read?id=someId`);
+        router.push(`/blog/read?id=${blogId}`);
       }}
       className={pretendard.className}
       style={{
@@ -39,7 +54,7 @@ export const PopularArticlePreview = ({
         style={{
           width: "100%",
           height: "200px",
-          backgroundColor: NewColors.gray2,
+          background: imageUrl ? `url(${imageUrl})` : NewColors.gray2,
           borderRadius: "20px",
           marginTop: isHovered ? "-4px" : "0px",
           marginBottom: isHovered ? "4px" : "0px",
@@ -55,7 +70,7 @@ export const PopularArticlePreview = ({
           color: NewColors.white,
         }}
       >
-        <div style={{ fontWeight: 400, color: NewColors.gray9 }}>이호준이</div>
+        <div style={{ fontWeight: 400, color: NewColors.gray9 }}>{author}</div>
         <Spacer shape={"width"} size={"4px"} />
         <Line
           direction={"vertical"}
@@ -65,7 +80,7 @@ export const PopularArticlePreview = ({
         />
         <Spacer shape={"width"} size={"4px"} />
         <div style={{ fontWeight: 400, color: NewColors.gray9 }}>
-          2024.03.09
+          {dateParser(createdAt)}
         </div>
       </div>
       <Spacer shape={"height"} size={"3px"} />
@@ -78,7 +93,7 @@ export const PopularArticlePreview = ({
           lineHeight: "26px",
         }}
       >
-        카카오프렌즈 vs 라인프렌즈, 승자는?
+        {title}
       </div>
       <Spacer shape={"height"} size={"1px"} />
       <div
@@ -91,7 +106,7 @@ export const PopularArticlePreview = ({
           whiteSpace: "pre-wrap",
         }}
       >
-        한국인이 이모티콘을 많이 쓰는 이유?
+        {about}
       </div>
       <Spacer shape={"height"} size={"6px"} />
       <div
@@ -109,7 +124,7 @@ export const PopularArticlePreview = ({
             lineHeight: "25px",
           }}
         >
-          #오현이형미안해...
+          {tag}
         </div>
         <div
           style={{

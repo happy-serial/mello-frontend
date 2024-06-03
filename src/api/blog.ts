@@ -189,7 +189,7 @@ export const saveBlog = async (blogInfo: saveBlogRequest) => {
 };
 
 export const getPopularArticleList = async (): Promise<
-  blogThumbnailInfo[] | string
+  blogThumbnailInfo[] | "failed"
 > => {
   try {
     const response = await fetch(`${serverUrl}/blog/trend`, {
@@ -203,7 +203,13 @@ export const getPopularArticleList = async (): Promise<
       await response.json();
 
     if (responseData.statusCode === 200) {
-      return responseData.data!.values;
+      console.log(JSON.stringify(responseData.data!));
+
+      const blogArray: blogThumbnailInfo[] = JSON.parse(
+        JSON.stringify(responseData.data!)
+      );
+
+      return blogArray;
     } else {
       throw new Error(
         `Failed to load popular article list: ${JSON.stringify(responseData)}`
