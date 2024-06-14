@@ -3,6 +3,7 @@ import {
   blogThumbnailInfo,
   getPopularArticleResponse,
   saveBlogRequest,
+  singleBlogItemResponse,
   tempBlogIdResponse,
   tempBlogRequest,
 } from "@/model";
@@ -189,7 +190,7 @@ export const saveBlog = async (blogInfo: saveBlogRequest) => {
 };
 
 export const getPopularArticleList = async (): Promise<
-  blogThumbnailInfo[] | string
+  blogThumbnailInfo[] | "failed"
 > => {
   try {
     const response = await fetch(`${serverUrl}/blog/trend`, {
@@ -203,7 +204,13 @@ export const getPopularArticleList = async (): Promise<
       await response.json();
 
     if (responseData.statusCode === 200) {
-      return responseData.data!.values;
+      console.log(JSON.stringify(responseData.data!));
+
+      const blogArray: blogThumbnailInfo[] = JSON.parse(
+        JSON.stringify(responseData.data!)
+      );
+
+      return blogArray;
     } else {
       throw new Error(
         `Failed to load popular article list: ${JSON.stringify(responseData)}`
@@ -211,6 +218,32 @@ export const getPopularArticleList = async (): Promise<
     }
   } catch (error) {
     console.error("Failed to load popular article list: ", error);
+    return "failed";
+  }
+};
+
+export const getBlog = async (
+  blogId: string
+): Promise<singleBlogItemResponse | "failed"> => {
+  try {
+    const response = await fetch(`${serverUrl}/blog/${blogId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData: DefaultResponse<singleBlogItemResponse> =
+      await response.json();
+
+    if (responseData.statusCode === 200) {
+      console.log("good!")
+      return responseData.data!;
+    } else {
+      throw new Error(`Failed to get article: ${JSON.stringify(responseData)}`);
+    }
+  } catch (error) {
+    console.error("Failed to get article: ", error);
     return "failed";
   }
 };

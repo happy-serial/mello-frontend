@@ -1,7 +1,9 @@
 "use client";
 
+import { getPopularArticleList } from "@/api";
 import useWindowDimensions from "@/hook/useWindowWidth";
-import { useState } from "react";
+import { blogThumbnailInfo } from "@/model";
+import { useEffect, useState } from "react";
 import { NewColors } from "../../../public/styles/colors/colors";
 import { pretendard } from "../../../public/styles/fonts/fonts";
 import { EventButton } from "../common/button";
@@ -43,17 +45,42 @@ export const ArticleSection = ({}: ArticleSectionProps) => {
 };
 
 function PopularArticleList({}) {
+  const [popularArticleListContent, setPopularArticleListContent] = useState<
+    blogThumbnailInfo[]
+  >([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getPopularArticleList();
+      console.log(typeof data);
+      if (data !== "failed" && Array.isArray(data)) {
+        setPopularArticleListContent(data);
+      } else {
+        console.error("데이터 형식이 올바르지 않습니다:", data);
+      }
+    };
+
+    getData();
+  }, []);
+
   const itemWidth = (useWindowDimensions().width / 1920) * 302;
+
   console.log(useWindowDimensions().width);
 
   const renderArticles = () => {
-    const elements = [];
-    for (let i = 0; i < 8; i++) {
-      elements.push(
-        <PopularArticlePreview key={`article-${i}`} width={itemWidth} />
-      );
-    }
-    return elements;
+    return popularArticleListContent.map((article) => (
+      <PopularArticlePreview
+        key={article.title}
+        width={itemWidth}
+        imageUrl={article.thumbnailUrl}
+        author={article.authorName}
+        createdAt={article.createdAt}
+        title={article.title}
+        about={article.about}
+        tag={article.categoryName[0]}
+        blogId={article.blogId}
+      />
+    ));
   };
 
   return (
@@ -121,7 +148,21 @@ function AllArticleList({}) {
   const renderArticles = () => {
     const elements = [];
     for (let i = 0; i < 8; i++) {
-      elements.push(<PopularArticlePreview key={`article-${i}`} width={302} />);
+      elements.push(
+        <PopularArticlePreview
+          key={`article-${i}`}
+          width={302}
+          imageUrl={
+            "https://mello-s3-dev.s3.ap-northeast-1.amazonaws.com/image/38295345-2853-42cd-8924-2cac9085387c"
+          }
+          author={"김상수"}
+          createdAt={"2024-06-03 08:14:46"}
+          title={"오늘의 아침메뉴"}
+          about={"밤새서 그런건 없다."}
+          tag={"카레 먹고 싶다.."}
+          blogId={""}
+        />
+      );
     }
     return elements;
   };
@@ -208,7 +249,6 @@ function AllArticleList({}) {
               borderRadius: "8px",
               backgroundColor: NewColors.transparent,
               color: NewColors.fontWhite,
-              
             }}
           >
             <option value={"최신순"}>최신순</option>

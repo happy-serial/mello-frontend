@@ -1,12 +1,30 @@
 "use client";
 
+import { getBlog } from "@/api";
+import { singleBlogItemResponse } from "@/model";
+import { dateParser } from "@/utils/stringModifier";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { NewColors } from "../../../../../public/styles/colors/colors";
-// import "../../../../components/blog/write/style.css";
 
 export default function BlogRead() {
   const id = useSearchParams().get("id");
+  const [articleInfo, setArticleInfo] = useState<singleBlogItemResponse>();
+
+  useEffect(() => {
+    const getData = async () => {
+      if (id) {
+        const data = await getBlog(id);
+        if (data !== "failed") {
+          console.log(data.content);
+          setArticleInfo(data);
+        }
+      }
+    };
+
+    getData();
+  }, [id]);
 
   return (
     <div
@@ -31,7 +49,7 @@ export default function BlogRead() {
             color: NewColors.white,
           }}
         >
-          타이틀입니다.타이틀입니다.타이틀입니다.타이틀입니다.타이틀입니다
+          {articleInfo?.title}
         </b>
         <div
           style={{
@@ -65,7 +83,9 @@ export default function BlogRead() {
                 fontWeight: 500,
               }}
             >
-              <div style={{ color: NewColors.white }}>사용자 이름</div>
+              <div style={{ color: NewColors.white }}>
+                {articleInfo?.authorName}
+              </div>
               <div
                 style={{
                   width: "1px",
@@ -84,7 +104,7 @@ export default function BlogRead() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Feb 14, 2024
+              {articleInfo ? dateParser(articleInfo.createdAt) : "dd"}
             </div>
           </div>
         </div>
@@ -190,8 +210,7 @@ export default function BlogRead() {
         <div
           style={{ color: NewColors.white, marginTop: "32px" }}
           dangerouslySetInnerHTML={{
-            __html:
-              "<h1>테스트입니다.</h1><h2>테스트입니다.</h2><p>테스트입니다.</p>",
+            __html: articleInfo ? articleInfo.content : "<div>준비중...</div>",
           }}
         ></div>
         <div style={{ color: NewColors.white }}>{id}</div>

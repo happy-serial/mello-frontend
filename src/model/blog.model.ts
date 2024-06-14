@@ -68,3 +68,26 @@ export type getPopularArticleResponse = {
   hasNext: boolean;
   lastIndex: string;
 };
+
+export type singleBlogItemResponse = {
+  blogId: string;
+  title: string;
+  content: string;
+  like: number;
+  viewCount: number;
+  authorName: string;
+  backgroundImageUrl: null;
+  comments: string[];
+  blogAccessStatus: string;
+  about: string;
+  thumbnailUrl: string;
+  commentCount: number;
+  categoryName: string[];
+  isAuthorFollow: boolean;
+  authorPhotoUrl: string;
+  isLike: boolean;
+  classification: string;
+  authorIsMe: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
