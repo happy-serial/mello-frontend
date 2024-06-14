@@ -3,6 +3,7 @@ import {
   blogThumbnailInfo,
   getPopularArticleResponse,
   saveBlogRequest,
+  singleBlogItemResponse,
   tempBlogIdResponse,
   tempBlogRequest,
 } from "@/model";
@@ -217,6 +218,32 @@ export const getPopularArticleList = async (): Promise<
     }
   } catch (error) {
     console.error("Failed to load popular article list: ", error);
+    return "failed";
+  }
+};
+
+export const getBlog = async (
+  blogId: string
+): Promise<singleBlogItemResponse | "failed"> => {
+  try {
+    const response = await fetch(`${serverUrl}/blog/${blogId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData: DefaultResponse<singleBlogItemResponse> =
+      await response.json();
+
+    if (responseData.statusCode === 200) {
+      console.log("good!")
+      return responseData.data!;
+    } else {
+      throw new Error(`Failed to get article: ${JSON.stringify(responseData)}`);
+    }
+  } catch (error) {
+    console.error("Failed to get article: ", error);
     return "failed";
   }
 };

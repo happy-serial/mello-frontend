@@ -50,17 +50,20 @@ export const PopularArticlePreview = ({
       }}
     >
       {/* TODO: div -> image 로 바꾸기 */}
-      <div
+      <Image
+        src={imageUrl}
+        alt={""}
+        width={302}
+        height={200}
         style={{
-          width: "100%",
-          height: "200px",
-          background: imageUrl ? `url(${imageUrl})` : NewColors.gray2,
           borderRadius: "20px",
           marginTop: isHovered ? "-4px" : "0px",
           marginBottom: isHovered ? "4px" : "0px",
           transition: "margin 0.3s ease ",
+          objectFit: "cover",
+          objectPosition: "top"
         }}
-      ></div>
+      />
       <Spacer shape={"height"} size={"10px"} />
       <div
         style={{
@@ -124,7 +127,7 @@ export const PopularArticlePreview = ({
             lineHeight: "25px",
           }}
         >
-          {tag}
+          # {tag}
         </div>
         <div
           style={{

@@ -66,5 +66,28 @@ export type blogThumbnailInfo = {
 export type getPopularArticleResponse = {
   values: blogThumbnailInfo[];
   hasNext: boolean;
-  lastIndex: string
-}
+  lastIndex: string;
+};
+
+export type singleBlogItemResponse = {
+  blogId: string;
+  title: string;
+  content: string;
+  like: number;
+  viewCount: number;
+  authorName: string;
+  backgroundImageUrl: null;
+  comments: string[];
+  blogAccessStatus: string;
+  about: string;
+  thumbnailUrl: string;
+  commentCount: number;
+  categoryName: string[];
+  isAuthorFollow: boolean;
+  authorPhotoUrl: string;
+  isLike: boolean;
+  classification: string;
+  authorIsMe: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
