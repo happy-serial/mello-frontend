@@ -1,3 +1,5 @@
+const serverUrl = process.env.NEXT_PUBLIC_DEV_SERVER;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -29,6 +31,14 @@ const nextConfig = {
     ],
   },
   output: "standalone",
+  async rewrites() {
+    return [
+      {
+        source: "/api/v1/:path*",
+        destination: `${serverUrl}/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

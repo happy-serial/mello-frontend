@@ -48,11 +48,10 @@ export const summarizeText = async (text: string) => {
   const accessToken = Cookies.get("access-token");
   console.log("summarizeText called");
   try {
-    const response = await fetch(`${serverUrl}/gpt/convert-to-markdown`, {
+    const response = await fetch(`/api/v1/gpt/convert-to-markdown`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         detail: "CONVERT_WITH_SUMMARY",
