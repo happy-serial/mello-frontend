@@ -28,21 +28,30 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       email: emailState,
       password: passwordState,
     });
+
+    if (typeof response === "string") {
+      alert(response);
+      return;
+    }
+
     if (response.accessToken) {
       Cookies.set("access-token", response.accessToken, { secure: true });
       Cookies.set("refresh-token", response.refreshToken, { secure: true });
-
       router.push("/");
     }
   };
 
   return (
     <div className={styles.loginFormContainer}>
-
       <div className={styles.logoContainer}>
         <Link href="/">
-            <Image src={"/Image/serial.png"} alt="Serial logo" width={111} height={31}/>
-            <p className={styles.title}>모두를 위한 커리어 플랫폼, 시리얼</p>
+          <Image
+            src={"/Image/serial.png"}
+            alt="Serial logo"
+            width={111}
+            height={31}
+          />
+          <p className={styles.title}>모두를 위한 커리어 플랫폼, 시리얼</p>
         </Link>
       </div>
 
@@ -84,18 +93,43 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       </div>
 
       <Spacer shape="height" size="20px" />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <label style={{ marginRight: 'auto' }}>
-          <input type="checkbox" style={{ marginRight: '8px' }} />
-          <span style={{fontSize: '14px', letterSpacing: '-0.02em', lineHeight: '22px', fontFamily: 'Pretendard', color: '#F8F8F9', textAlign: 'left'}}>로그인 정보 저장하기</span>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <label style={{ marginRight: "auto" }}>
+          <input type="checkbox" style={{ marginRight: "8px" }} />
+          <span
+            style={{
+              fontSize: "14px",
+              letterSpacing: "-0.02em",
+              lineHeight: "22px",
+              fontFamily: "Pretendard",
+              color: "#F8F8F9",
+              textAlign: "left",
+            }}
+          >
+            로그인 정보 저장하기
+          </span>
         </label>
-        <a href="/" style={{ fontSize: '14px', letterSpacing: '-0.02em', lineHeight: '22px', fontFamily: 'Pretendard', color: '#F8F8F9', textAlign: 'right' }}>
+        <a
+          href="/"
+          style={{
+            fontSize: "14px",
+            letterSpacing: "-0.02em",
+            lineHeight: "22px",
+            fontFamily: "Pretendard",
+            color: "#F8F8F9",
+            textAlign: "right",
+          }}
+        >
           비밀번호 찾기
         </a>
       </div>
 
-      
-    
       {/* <div className={styles.findPasswordContainer}>
         <LinkButton
           borderColor={NewColors.transparent}
@@ -133,8 +167,26 @@ export const LoginForm = ({ ...props }: LoginFormProps) => {
       </div>
       {/* <Spacer shape="height" size="12px" /> */}
       <div className={styles.joinContainer}>
-        <p style={{ color: '#f8f9fe', fontWeight: 300 }}>{joinText}&nbsp;</p>
-        <a href="/join" style={{ width: '48px', position: 'relative', fontSize: '14px', textDecoration: 'underline', letterSpacing: '-0.02em', lineHeight: '22px', fontWeight: 600, fontFamily: 'Pretendard', color: '#7afb57', textAlign: 'center', display: 'inline-block' }}>회원가입</a>
+        <p style={{ color: "#f8f9fe", fontWeight: 300 }}>{joinText}&nbsp;</p>
+        <a
+          href="/join"
+          style={{
+            width: "48px",
+            position: "relative",
+            fontSize: "14px",
+            textDecoration: "underline",
+            letterSpacing: "-0.02em",
+            lineHeight: "22px",
+            fontWeight: 600,
+            fontFamily: "Pretendard",
+            color: "#7afb57",
+            textAlign: "center",
+            display: "inline-block",
+            cursor: "pointer",
+          }}
+        >
+          회원가입
+        </a>
         {/* <LinkButton
           borderColor={NewColors.transparent}
           borderWidth={48}

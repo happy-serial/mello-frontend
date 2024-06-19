@@ -1,7 +1,7 @@
-import { serverUrl, verifyToken } from "@/api";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
+import { verifyToken } from "@/api";
 import { tokenHeader } from "@/model";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export type TokenProps = {
   accessToken?: string;
@@ -10,10 +10,9 @@ export type TokenProps = {
 
 export const validateToken = (token: string): boolean => {
   const exp = jwtDecode(token).exp!;
-  const iat = jwtDecode(token).iat!;
   const now = Math.floor(Date.now() / 1000);
 
-  if (iat > now || exp < now) {
+  if (exp < now) {
     return false;
   }
 

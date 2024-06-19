@@ -84,6 +84,7 @@ export const EventButton = ({
     fontWeight: props.fontWeight,
     letterSpacing: "-0.0375em",
     boxSizing: "border-box",
+    cursor: "pointer",
   };
 
   return (

@@ -1,8 +1,5 @@
 import { summarizeText } from "@/api";
-import {
-  $convertFromMarkdownString,
-  TRANSFORMERS
-} from "@lexical/markdown";
+import { $convertFromMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $createParagraphNode,
@@ -11,7 +8,7 @@ import {
   $getRoot,
   $getSelection,
   LexicalEditor,
-  ParagraphNode
+  ParagraphNode,
 } from "lexical";
 
 export const parseStream = async (
@@ -126,9 +123,5 @@ export default function SummarizeTextPlugin({
     });
   };
 
-  return (
-    <>
-      
-    </>
-  );
+  return <></>;
 }
