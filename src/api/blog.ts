@@ -8,23 +8,18 @@ import {
   tempBlogRequest,
 } from "@/model";
 import Cookies from "js-cookie";
-import { DefaultResponse, serverUrl } from ".";
+import { DefaultResponse } from ".";
 
 // 임시토큰사용
-const token =
-  "eyJVc2VybmFtZSI6IuuwqeyKueyerCIsImFsZyI6IkhTMjU2In0.eyJzdWIiOiIzN2IwOGZkZC1hOWZhLTQ1NDEtYWJmYy04M2Q3ZTY0ZTU4ZTgiLCJhdXRoIjoiTk9STUFMX01FTUJFUiIsImV4cCI6MTcxODI3NzgwNX0.v8GlbhgPF6FlH6SR1UI2lwU5VSxMbIMf22YJt5hIk1o";
 
 export const getImageURL = async (file: File) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`${serverUrl}/image`, {
+    const response = await fetch(`/api/v1/image`, {
       method: "POST",
       cache: "no-store",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       body: formData,
     });
     const responseData: DefaultResponse<ImageURLRequest> =
@@ -45,7 +40,6 @@ export const getImageURL = async (file: File) => {
 };
 
 export const summarizeText = async (text: string) => {
-  const accessToken = Cookies.get("access-token");
   console.log("summarizeText called");
   try {
     const response = await fetch(`/api/v1/gpt/convert-to-markdown`, {
@@ -71,17 +65,17 @@ export const summarizeText = async (text: string) => {
 
 export const saveImage = async (imageFile: File) => {
   const accessToken = Cookies.get("access-token");
-  const formdata = new FormData();
+  const formData = new FormData();
 
-  formdata.append("file", imageFile);
+  formData.append("file", imageFile);
 
   try {
-    const response = await fetch(`${serverUrl}/image`, {
+    const response = await fetch(`/api/v1/image`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      body: formdata,
+      body: formData,
     });
     if (!response.ok && response.body !== null) {
       throw new Error("Network response was not ok");
@@ -104,7 +98,7 @@ export const saveImage = async (imageFile: File) => {
 export const createTempBlog = async () => {
   const accessToken = Cookies.get("access-token");
   try {
-    const response = await fetch(`${serverUrl}/blog/temp`, {
+    const response = await fetch(`/api/v1/blog/temp`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -134,7 +128,7 @@ export const createTempBlog = async () => {
 export const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
   const accessToken = Cookies.get("access-token");
   try {
-    const response = await fetch(`${serverUrl}/blog/temp`, {
+    const response = await fetch(`/api/v1/blog/temp`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -164,7 +158,7 @@ export const saveTempBlog = async (tempBlogInfo: tempBlogRequest) => {
 export const saveBlog = async (blogInfo: saveBlogRequest) => {
   const accessToken = Cookies.get("access-token");
   try {
-    const response = await fetch(`${serverUrl}/blog`, {
+    const response = await fetch(`/api/v1/blog`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -192,7 +186,7 @@ export const getPopularArticleList = async (): Promise<
   blogThumbnailInfo[] | "failed"
 > => {
   try {
-    const response = await fetch(`${serverUrl}/blog/trend`, {
+    const response = await fetch(`/api/v1/blog/trend`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -225,7 +219,7 @@ export const getBlog = async (
   blogId: string
 ): Promise<singleBlogItemResponse | "failed"> => {
   try {
-    const response = await fetch(`${serverUrl}/blog/${blogId}`, {
+    const response = await fetch(`/api/v1/blog/${blogId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -236,7 +230,7 @@ export const getBlog = async (
       await response.json();
 
     if (responseData.statusCode === 200) {
-      console.log("good!")
+      console.log("good!");
       return responseData.data!;
     } else {
       throw new Error(`Failed to get article: ${JSON.stringify(responseData)}`);
