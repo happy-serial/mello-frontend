@@ -27,7 +27,7 @@ export const sendVerificationEmail = async (email: string) => {
   } catch (error) {
     console.error(error);
   }
-};    
+};
 
 export const verifyEmailCode = async (
   data: verificationRequest
@@ -76,20 +76,26 @@ export const join = async (data: JoinRequest): Promise<string | string[]> => {
   }
 };
 
-export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await fetch(`${serverUrl}/membership/login`, {
-    method: "POST",
-    cache: "no-store",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+export const login = async (
+  data: LoginRequest
+): Promise<LoginResponse | string> => {
+  try {
+    const response = await fetch(`${serverUrl}/membership/login`, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-  const responseData: DefaultResponse<LoginResponse> = await response.json();
+    const responseData: DefaultResponse<LoginResponse> = await response.json();
 
-  if (responseData.statusCode === 200) {
-    return responseData.data!;
-  } else {
-    throw new Error(`Failed to login: ${JSON.stringify(responseData)}`);
+    if (responseData.statusCode === 200) {
+      return responseData.data!;
+    } else {
+      return responseData.messages[0];
+    }
+  } catch (error) {
+    throw new Error(`Failed to login: ${error}`);
   }
 };
 
