@@ -1,18 +1,15 @@
 "use client";
 
-import styles from "./css/joinFormInfoAdd.module.css";
-import { TextField } from "@/components/common/textField";
-import { Colors, NewColors } from "../../../public/styles/colors/colors";
-import { blackOpsOne } from "../../../public/styles/fonts/fonts";
-import { LinkButton, EventButton } from "../common/button";
-import { Spacer } from "../common/spacer";
-import Link from "next/link";
-import { useState } from "react";
-import { SpringValue, animated } from "@react-spring/web";
 import { join, login } from "@/api";
-import { useRouter } from "next/navigation";
+import { TextField } from "@/components/common/textField";
+import { SpringValue } from "@react-spring/web";
 import Cookies from "js-cookie";
-import { Loading } from "../common/loading";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Colors, NewColors } from "../../../public/styles/colors/colors";
+import { EventButton } from "../common/button";
+import { Spacer } from "../common/spacer";
+import styles from "./css/joinFormInfoAdd.module.css";
 
 interface JoinFormInfoAddProps {
   emailState: string;
@@ -58,6 +55,10 @@ export const JoinFormInfoAdd = ({
       password: passwordState,
     });
     setLoadingState(false);
+    if (typeof response === "string") {
+      alert(response);
+      return;
+    }
     if (response.accessToken) {
       Cookies.set("access-token", response.accessToken, { secure: true });
       Cookies.set("refresh-token", response.refreshToken, { secure: true });
@@ -67,21 +68,21 @@ export const JoinFormInfoAdd = ({
   };
 
   return (
-    <div id='joinInfo' style={{minWidth: '410px', display:'none'}}>
+    <div id="joinInfo" style={{ minWidth: "410px", display: "none" }}>
       <div>
         <p className={styles.inputLabel}>닉네임</p>
         <Spacer shape="height" size="8px" />
-        <div style={{display: 'flex', gap: '8px'}}>
-        <TextField
-          type="text"
-          borderColor={Colors.userCardBorder}
-          // boxShadowColor={Colors.grayTransparent}
-          backgroundColor={Colors.userCard}
-          placeholder="나를 표현하는 닉네임을 입력해 주세요"
-          onChange={(e) => {
-            setUsernameState(e.target.value);
-          }}
-        />
+        <div style={{ display: "flex", gap: "8px" }}>
+          <TextField
+            type="text"
+            borderColor={Colors.userCardBorder}
+            // boxShadowColor={Colors.grayTransparent}
+            backgroundColor={Colors.userCard}
+            placeholder="나를 표현하는 닉네임을 입력해 주세요"
+            onChange={(e) => {
+              setUsernameState(e.target.value);
+            }}
+          />
         </div>
       </div>
 
@@ -90,17 +91,17 @@ export const JoinFormInfoAdd = ({
       <div>
         <p className={styles.inputLabel}>비밀번호</p>
         <Spacer shape="height" size="8px" />
-        <div style={{display: 'flex', gap: '8px'}}>
-        <TextField
-          type="password"
-          borderColor={Colors.userCardBorder}
-          // boxShadowColor={Colors.grayTransparent}
-          backgroundColor={Colors.userCard}
-          placeholder="대소문자/숫자/특수문자를 포함한 8글자 이상"
-          onChange={(e) => {
-            setPasswordState(e.target.value);
-          }}
-        />
+        <div style={{ display: "flex", gap: "8px" }}>
+          <TextField
+            type="password"
+            borderColor={Colors.userCardBorder}
+            // boxShadowColor={Colors.grayTransparent}
+            backgroundColor={Colors.userCard}
+            placeholder="대소문자/숫자/특수문자를 포함한 8글자 이상"
+            onChange={(e) => {
+              setPasswordState(e.target.value);
+            }}
+          />
         </div>
       </div>
 
@@ -109,17 +110,17 @@ export const JoinFormInfoAdd = ({
       <div>
         <p className={styles.inputLabel}>비밀번호 확인</p>
         <Spacer shape="height" size="8px" />
-        <div style={{display: 'flex', gap: '8px'}}>
-        <TextField
-          type="password"
-          borderColor={Colors.userCardBorder}
-          // boxShadowColor={Colors.grayTransparent}
-          backgroundColor={Colors.userCard}
-          placeholder="비밀번호를 한번 더 입력해주세요"
-          onChange={(e) => {
-            setConfirmPasswordState(e.target.value);
-          }}
-        />
+        <div style={{ display: "flex", gap: "8px" }}>
+          <TextField
+            type="password"
+            borderColor={Colors.userCardBorder}
+            // boxShadowColor={Colors.grayTransparent}
+            backgroundColor={Colors.userCard}
+            placeholder="비밀번호를 한번 더 입력해주세요"
+            onChange={(e) => {
+              setConfirmPasswordState(e.target.value);
+            }}
+          />
         </div>
       </div>
 
@@ -134,23 +135,25 @@ export const JoinFormInfoAdd = ({
             setEmailAllowState(e.target.checked);
           }}
         />
-        <span style={{
-          position: 'relative',
-          fontSize: '14px',
-          letterSpacing: '-0.02em',
-          lineHeight: '22px',
-          fontFamily: 'Pretendard',
-          color: '#f8f8f9',
-          textAlign: 'left'
-         }}>
+        <span
+          style={{
+            position: "relative",
+            fontSize: "14px",
+            letterSpacing: "-0.02em",
+            lineHeight: "22px",
+            fontFamily: "Pretendard",
+            color: "#f8f8f9",
+            textAlign: "left",
+          }}
+        >
           이메일 수신 동의
         </span>
       </div>
 
       <Spacer shape="height" size="32px" />
-      
+
       {/* <div className={styles.JoinButtonContainer}> */}
-        {/* <Button
+      {/* <Button
           size="wide"
           backgroundColor={Colors.purple}
           color={Colors.white}
@@ -165,8 +168,7 @@ export const JoinFormInfoAdd = ({
           }
         /> */}
 
-        
-        {/* <EventButton
+      {/* <EventButton
           borderColor = {NewColors.primary}
           borderWidth={75}
           borderRadius={16}
@@ -183,47 +185,78 @@ export const JoinFormInfoAdd = ({
           fontWeight={400}
         /> */}
 
-        <div style={{
-          width: '410px',
-          position: 'relative',
-          borderRadius: '16px',
-          backgroundColor: '#7afb57',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <EventButton
-            borderColor = {NewColors.primary}
-            borderWidth={1}
-            borderRadius={16}
-            backgroundColor={NewColors.primary}
-            color={NewColors.backgroundBlack}
-            label="다음으로"
-            disabled={false}
-            onClick={handleJoin}
-            // purpose="link"
-            width={410}
-            height={60}
-            padding="19px"
-            fontSize={18}
-            fontWeight={600}
-          />
-        </div>
+      <div
+        style={{
+          width: "410px",
+          position: "relative",
+          borderRadius: "16px",
+          backgroundColor: "#7afb57",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <EventButton
+          borderColor={NewColors.primary}
+          borderWidth={1}
+          borderRadius={16}
+          backgroundColor={NewColors.primary}
+          color={NewColors.backgroundBlack}
+          label="다음으로"
+          disabled={false}
+          onClick={handleJoin}
+          // purpose="link"
+          width={410}
+          height={60}
+          padding="19px"
+          fontSize={18}
+          fontWeight={600}
+        />
+      </div>
 
-        <Spacer shape="height" size="20px" />
-  
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          justifyContent: 'center',
-        }}>
-          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
-          <div style={{ width: '37px', height: '8px', backgroundColor: '#95fc79', borderRadius: '1000px'}}/>
-          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
-          <div style={{ width: '37px', height: '8px', backgroundColor: '#3e424d', borderRadius: '1000px'}}/>
+      <Spacer shape="height" size="20px" />
 
-        </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "37px",
+            height: "8px",
+            backgroundColor: "#3e424d",
+            borderRadius: "1000px",
+          }}
+        />
+        <div
+          style={{
+            width: "37px",
+            height: "8px",
+            backgroundColor: "#95fc79",
+            borderRadius: "1000px",
+          }}
+        />
+        <div
+          style={{
+            width: "37px",
+            height: "8px",
+            backgroundColor: "#3e424d",
+            borderRadius: "1000px",
+          }}
+        />
+        <div
+          style={{
+            width: "37px",
+            height: "8px",
+            backgroundColor: "#3e424d",
+            borderRadius: "1000px",
+          }}
+        />
+      </div>
     </div>
   );
 };
